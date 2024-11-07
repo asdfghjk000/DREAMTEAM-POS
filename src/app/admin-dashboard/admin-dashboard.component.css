@@ -1,0 +1,335 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #d2a689;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo img {
+    width: 120px;
+    height: auto;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.main-content {
+    flex-grow: 1;
+    background-color: #f3d1bf;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 220px;
+    padding: 20px;
+}
+    
+
+.container {
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    margin: 10px;
+    margin-bottom: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: #e5c4a3;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sidebar .logo {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.sidebar ul li {
+    padding: 20px;
+    font-size: 1.75em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li:hover {
+    background-color: #dec1ad; 
+}
+
+.new-order {
+    align-self: flex-end;
+    padding: 20px 35px;
+    background-color: #333;
+    color: white;
+    border: none;
+    margin-right: 5px;
+    font-size: 1.5em;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+.product-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-info {
+    margin-top: 20px;
+}
+
+--------------------
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #d8a66d;
+    color: #fff;
+    position: fixed;
+    height: 100%;
+    padding: 20px;
+}
+
+.logo img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+
+.new-order {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 20px;
+}
+
+/*CATEGORY STYLE*/
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.category-table th,
+.category-table td {
+    border: 1px solid #d8a66d;
+    padding: 10px;
+    text-align: center;
+}
+
+.category-table th {
+    background-color: #f0dabd;
+    font-weight: bold;
+}
+
+.category-table td {
+    background-color: #fff;
+}
+
+
+/*PRODUCT STYLE*/
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.product-table th,
+.product-table td {
+    border: 1px solid #d8a66d;
+    padding: 10px;
+    text-align: center;
+}
+
+.product-table th {
+    background-color: #f0dabd;
+    font-weight: bold;
+}
+
+.product-table td {
+    background-color: #fff;
+}
+
+.product-image {
+    width: 50px;
+    height: auto;
+    border-radius: 4px;
+}
+
+/* Button styling */
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+---------------------
+
+/* Modal Background */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Fixed to cover the entire viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
+    z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #ffffff; /* White background for the modal */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+    width: 400px; /* Width of the modal */
+    max-width: 90%; /* Responsive max width */
+    position: relative; /* For positioning close button */
+}
+
+/* Close Button */
+.close {
+    color: #888; /* Color for close button */
+    float: right; /* Align to the right */
+    font-size: 24px; /* Font size for the close button */
+    font-weight: bold;
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.close:hover,
+.close:focus {
+    color: #000; /* Darken color on hover */
+    text-decoration: none; /* Remove underline */
+}
+
+/* Form Elements */
+form {
+    display: flex;
+    flex-direction: column; /* Stack form elements vertically */
+    gap: 15px; /* Space between form elements */
+}
+
+/* Labels */
+label {
+    font-weight: 600; /* Bold labels */
+    margin-bottom: 5px; /* Space below labels */
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"],
+select {
+    padding: 10px; /* Padding inside input fields */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size for inputs */
+    transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove outline */
+}
+
+/* Submit Button */
+button[type="submit"] {
+    padding: 10px 15px; /* Padding for button */
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Optional: Add additional styling for responsiveness */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%; /* Make modal take more width on small screens */
+    }
+
+    /* Adjust font sizes for better readability */
+    .close {
+        font-size: 20px; /* Smaller close button on small screens */
+    }
+
+    button[type="submit"],
+    input[type="text"],
+    input[type="number"],
+    select {
+        font-size: 14px; /* Adjust font sizes for smaller devices */
+    }
+}

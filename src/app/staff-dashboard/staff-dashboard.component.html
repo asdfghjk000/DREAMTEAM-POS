@@ -1,1 +1,91 @@
-<p>staff-dashboard works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="staff-dashboard.component.css">
+    <title>Staff Dashboard</title>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="assets/EsherLogo.png" alt="Esher Cafe Logo">
+        </div>
+        <ul>
+            <li (click)="changeContent('sales')">ALL ITEMS</li>
+            <li (click)="changeContent('products')">FOODS</li>
+            <li (click)="changeContent('orders')">DRINKS</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <button class="new-order" (click)="createNewOrder()">New Product</button>
+
+        <div class="container">
+            <!-- All Items Container -->
+            <div *ngIf="currentCategory === 'sales'" class="allitems-container">
+                <div class="product-menu">
+                    <h2>All Items</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-details">
+                                <img src="assets/OreoFrappe.jpg" alt="Oreo Frappe" class="menu-img">
+                                <h3>Oreo Frappe</h3>
+                                <p>₱100.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foods Container -->
+            <div *ngIf="currentCategory === 'products'" class="food-container">
+                <div class="product-menu">
+                    <h2>Foods</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-details">
+                                <img src="assets/OreoFrappe.jpg" alt="Oreo Frappe" class="menu-img">
+                                <h3>Oreo Frappe</h3>
+                                <p>₱100.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drinks Container -->
+            <div *ngIf="currentCategory === 'orders'" class="drinks-container">
+                <div class="product-menu">
+                    <h2>Drinks</h2>
+                    <div class="menu-grid">
+                        <div class="menu-item">
+                            <div class="menu-details">
+                                <img src="assets/OreoFrappe.jpg" alt="Oreo Frappe" class="menu-img">
+                                <h3>Oreo Frappe</h3>
+                                <p>₱100.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Order Modal -->
+        <div *ngIf="newOrderModalVisible" class="new-order-form">
+            <h2>Create New Order</h2>
+            <form (submit)="submitNewOrder()">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" [(ngModel)]="newOrderData.productName" name="productName" required />
+
+                <label for="productPrice">Product Price:</label>
+                <input type="number" id="productPrice" [(ngModel)]="newOrderData.productPrice" name="productPrice" required />
+
+                <button type="submit">Submit Order</button>
+                <button type="button" (click)="closeModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+

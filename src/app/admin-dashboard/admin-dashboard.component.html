@@ -1,1 +1,87 @@
-<p>admin-dashboard works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="admin-dashboard.component.css">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="assets/EsherLogo.png" alt="Esher Cafe Logo">
+    </div>
+    <ul>
+      <li (click)="changeContent('sales')">SALES</li>
+      <li (click)="changeContent('products')">PRODUCT</li>
+      <li (click)="changeContent('orders')">ORDER</li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <button class="new-order" (click)="openNewProductDialog()">New Product</button>
+
+    <!-- Dialog for New Product -->
+    <app-admin-dashboard></app-admin-dashboard> <!-- Ensure this matches the component's selector -->
+
+
+    <div class="container">
+      <div class="category-container">
+        <h2>Category Management</h2>
+        <table class="category-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Code</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hot Drink</td>
+              <td>EC001</td>
+              <td>
+                <button class="edit-btn">✏️</button>
+                <button class="delete-btn">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="product-container">
+        <h2>Product Management</h2>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Code</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img src="assets/product-image.png" alt="Product Image" class="product-image"></td>
+              <td>EC001</td>
+              <td>Oreo Frappe</td>
+              <td>Hot Drink</td>
+              <td>100.00</td>
+              <td>
+                <button class="edit-btn">✏️</button>
+                <button class="delete-btn">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // You can keep JavaScript logic for other page content here.
+  </script>
+</body>
+</html>
