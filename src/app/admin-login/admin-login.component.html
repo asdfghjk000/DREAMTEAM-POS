@@ -1,1 +1,31 @@
-<p>admin-login works!</p>
+<!-- admin-login.component.html -->
+<div>
+  <h2>Admin Login</h2>
+  <form (ngSubmit)="login()" #adminLoginForm="ngForm">
+    <div>
+      <label for="username">Username:</label>
+      <input 
+        type="text" 
+        id="username" 
+        name="username"
+        [(ngModel)]="username" 
+        required>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input 
+        [type]="showPassword ? 'text' : 'password'" 
+        id="password" 
+        name="password"
+        [(ngModel)]="password" 
+        required>
+    </div>
+
+    <button type="button" (click)="togglePasswordVisibility()">
+      {{ showPassword ? 'Hide Password' : 'Show Password' }}
+    </button>
+
+    <button type="submit">Login</button>
+  </form>
+</div>

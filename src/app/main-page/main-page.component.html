@@ -1,1 +1,19 @@
-<p>main-page works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esher Cafe</title>
+  <link rel="stylesheet" href="main-page.component.css">
+</head>
+<body>
+  <div class="container">
+    <h1>ESHER CAFE</h1>
+    <div class="buttons">
+      <!-- Use routerLink to navigate -->
+      <button class="btn" [routerLink]="['/admin-login']">ADMIN</button>
+      <button class="btn" [routerLink]="['/staff-login']">STAFF</button>
+    </div>
+  </div>
+</body>
+</html>

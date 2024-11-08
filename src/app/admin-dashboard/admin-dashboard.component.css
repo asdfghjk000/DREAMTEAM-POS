@@ -1,0 +1,47 @@
+.category-container {
+    padding: 20px;
+  }
+  
+  .error-message {
+    color: red;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #ffe6e6;
+    border: 1px solid #ff9999;
+    border-radius: 4px;
+  }
+  
+  .loading {
+    color: #666;
+    margin: 10px 0;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin: 10px 0;
+    display: flex;
+    gap: 10px;
+  }
+  
+  input {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .add-category-form {
+    margin-top: 20px;
+  }

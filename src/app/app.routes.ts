@@ -1,3 +1,4 @@
+// app.routes.ts
 import { Routes } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -13,6 +14,7 @@ import { PaymentProcessComponent } from './payment-process/payment-process.compo
 import { SalesComponent } from './sales/sales.component';
 import { ProductsComponent } from './products/products.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
+import { CategoryComponent } from './category/category.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -29,5 +31,7 @@ export const routes: Routes = [
   { path: 'payment-process', component: PaymentProcessComponent },
   { path: 'sales', component: SalesComponent },
   { path: 'products', component: ProductsComponent },
-  { path: 'order-history', component: OrderHistoryComponent }
+  { path: 'order-history', component: OrderHistoryComponent },
+  { path: 'category', component: CategoryComponent },
+  { path: '**', redirectTo: '/main' } // Wildcard route should be last
 ];

@@ -1,1 +1,31 @@
-<p>staff-login works!</p>
+<!-- staff-login.component.html -->
+<div>
+  <h2>Staff Login</h2>
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <div>
+      <label for="username">Username:</label>
+      <input 
+        type="text" 
+        id="username" 
+        name="username"
+        [(ngModel)]="username" 
+        required>
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input 
+        [type]="showPassword ? 'text' : 'password'" 
+        id="password" 
+        name="password"
+        [(ngModel)]="password" 
+        required>
+    </div>
+
+    <button type="button" (click)="togglePasswordVisibility()">
+      {{ showPassword ? 'Hide Password' : 'Show Password' }}
+    </button>
+
+    <button type="submit">Login</button>
+  </form>
+</div>

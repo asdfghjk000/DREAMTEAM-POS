@@ -1,1 +1,9 @@
-<p>admin-dashboard works!</p>
+<!-- admin-dashboard.component.html -->
+<div class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+  <nav>
+    <button [routerLink]="['/category']" routerLinkActive="active">Manage Categories</button>
+    <button [routerLink]="['/products']" routerLinkActive="active">Manage Products</button>
+  </nav>
+  <p>admin-dashboard works!</p>
+</div>

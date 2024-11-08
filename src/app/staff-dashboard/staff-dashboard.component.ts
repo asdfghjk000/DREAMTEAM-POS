@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-staff-dashboard',
   standalone: true,
   imports: [],
-  templateUrl: './staff-dashboard.component.html',
-  styleUrl: './staff-dashboard.component.css'
+  templateUrl:'./staff-dashboard.component.html',
+  styleUrl:'./staff-dashboard.component.css'
 })
-export class StaffDashboardComponent {
-
-}
+export class StaffDashboardComponent {}

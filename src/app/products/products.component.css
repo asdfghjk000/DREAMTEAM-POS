@@ -1,0 +1,8 @@
+/* Ensure images are displayed fully without cropping */
+img {
+    max-width: 50%;
+    max-height: 50%;
+    object-fit: contain;
+    display: block;
+  }
+  

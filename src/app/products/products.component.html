@@ -1,1 +1,53 @@
-<p>products works!</p>
+<div class="product-container">
+  <h2>Product List</h2>
+
+  <!-- Error Message Display -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading">
+    Loading...
+  </div>
+
+  <!-- Products List -->
+  <ul>
+    <li *ngFor="let product of products">
+      <!-- Product Image Display -->
+      <div class="product-image">
+        <img *ngIf="product.image" [src]="'data:image/jpeg;base64,' + product.image" alt="{{product.productName}}">
+        <ng-template #noImage>
+          <p>No image available</p>
+        </ng-template>
+      </div>
+
+      <!-- Display or Edit Mode -->
+      <div *ngIf="product.isEditing">
+        <input [(ngModel)]="product.productName" placeholder="Product Name" />
+        <input [(ngModel)]="product.categoryName" placeholder="Category" />
+        <input [(ngModel)]="product.price" type="number" placeholder="Price" />
+        <input type="file" (change)="onFileSelected($event, product)" />
+        <button (click)="updateProduct(product)">Save</button>
+        <button (click)="cancelEdit(product)">Cancel</button>
+      </div>
+      <div *ngIf="!product.isEditing">
+        <p><strong>Product Name:</strong> {{ product.productName }}</p>
+        <p><strong>Category:</strong> {{ product.categoryName }}</p>
+        <p><strong>Price:</strong> {{ product.price }}</p>
+        <button (click)="enableEdit(product)">Edit</button>
+        <button (click)="deleteProduct(product.productID)">Delete</button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Add New Product -->
+  <h2>Add New Product</h2>
+  <div class="add-product-form">
+    <input [(ngModel)]="newProduct.productName" placeholder="Enter product name" />
+    <input [(ngModel)]="newProduct.categoryName" placeholder="Enter category" />
+    <input [(ngModel)]="newProduct.price" type="number" placeholder="Enter price" />
+    <input type="file" (change)="onFileSelected($event)" />
+    <button (click)="createProduct()">Create Product</button>
+  </div>
+</div>
