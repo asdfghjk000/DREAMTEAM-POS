@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -31,3 +32,5 @@ export const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'order-history', component: OrderHistoryComponent }
 ];
+
+export class AppRoutingModule {}

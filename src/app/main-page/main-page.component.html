@@ -7,16 +7,19 @@
     <title>Main Page</title>
 </head>
 <body>
-    <div class="container"> 
-        <p class="welcome-text">WELCOME TO</p>
-        <div class="logo">
-            <img src="assets/EsherLogo.png" alt="Esher Cafe Logo">
-        </div>
-        <p class="login-text">LOGIN AS</p>
-        <div class="button-container">
-            <button class="login-button" routerLink="/admin-login">ADMIN</button>
-            <button class="login-button" routerLink="/staff-login">STAFF</button>
-        </div>
+   <!-- main-page.component.html -->
+   <div class="container">
+    <p class="welcome-text">WELCOME TO</p>
+    <div class="logo">
+      <img src="assets\EsherLogo.png" alt="Esher Cafe Logo">
+
     </div>
+    <p class="login-text">LOGIN AS</p>
+    <div class="button-container">
+      <button class="login-button" (click)="navigateToLogin('admin')">ADMIN</button>
+      <button class="login-button" (click)="navigateToLogin('staff')">STAFF</button>
+    </div>
+  </div>  
+  
 </body>
 </html>
