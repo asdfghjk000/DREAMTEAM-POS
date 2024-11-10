@@ -101,51 +101,40 @@ export class ProductsComponent implements OnInit {
   createProduct(): void {
     if (this.newProduct.productName && this.newProduct.categoryName && this.newProduct.price !== undefined) {
       this.isLoading = true;
-  
+
       const formData = new FormData();
       formData.append('productName', this.newProduct.productName!);
       formData.append('categoryName', this.newProduct.categoryName!);
       formData.append('price', this.newProduct.price!.toString());
-  
+
       if (this.selectedImage) {
         formData.append('image', this.selectedImage);
       }
-  
+
       this.http.post<ApiResponse>(`${this.apiUrl}create_product.php`, formData).subscribe({
         next: (response) => {
-          if (response.success && response.data && !Array.isArray(response.data)) {
-            const newProduct = response.data as Product;
-  
-            if (newProduct.image) {
-              newProduct.image = `data:image/jpeg;base64,${newProduct.image}`; // Format base64 image string
+          if (response.success) {
+            this.readProducts(); // Refresh product list after creating
+            this.newProduct = {};
+            this.selectedImage = null;
+
+            // Clear the file input element
+            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+            if (fileInput) {
+              fileInput.value = '';
             }
-            console.log ('This is the new Product ', newProduct)
-            this.products.push(newProduct);  // Add the product to the array
-            console.log ('This is the a Product ', this.products)
-            this.resetForm();  // Clear the form
           } else {
             this.errorMessage = response.message || 'Failed to create product';
           }
           this.isLoading = false;
         },
-        error: () => {
+        error: (error: HttpErrorResponse) => {
           this.errorMessage = 'Failed to create product';
           this.isLoading = false;
         }
       });
     }
-  }
-  
-  
-  resetForm(): void {
-    this.newProduct = {};
-    this.selectedImage = null;  // Clear selected image
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    if (fileInput) {
-      fileInput.value = '';  // Reset file input
-    }
-  }
-  
+  } 
 
 
   // Enable edit mode for a product
