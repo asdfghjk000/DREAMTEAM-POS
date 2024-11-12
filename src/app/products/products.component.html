@@ -24,17 +24,34 @@
 
       <!-- Display or Edit Mode -->
       <div *ngIf="product.isEditing">
-        <input [(ngModel)]="product.productName" placeholder="Product Name" />
-        <input [(ngModel)]="product.categoryName" placeholder="Category" />
-        <input [(ngModel)]="product.price" type="number" placeholder="Price" />
-        <input type="file" (change)="onFileSelected($event, product)" />
-        <button (click)="updateProduct(product)">Save</button>
-        <button (click)="cancelEdit(product)">Cancel</button>
+        <label>Product Name:</label><br />
+        <input [(ngModel)]="product.productName" placeholder="Product Name" /><br /><br />
+        
+        <label>Category:</label><br />
+        <select [(ngModel)]="product.categoryName">
+          <option value="" disabled selected>Select a Category</option>
+          <option *ngFor="let category of categories" [value]="category.categoryName">
+            {{ category.categoryName }}
+          </option>
+        </select><br /><br />
+        
+        <label>Price:</label><br />
+        <div class="price-input">
+          ₱<input [(ngModel)]="product.price" type="number" placeholder="Price" />
+        </div><br /><br />
+        
+        <label>Upload Image:</label><br />
+        <input type="file" (change)="onFileSelected($event, product)" /><br /><br />
+        
+        <div class="button-group">
+          <button (click)="updateProduct(product)">Save</button>
+          <button (click)="cancelEdit(product)">Cancel</button>
+        </div>
       </div>
       <div *ngIf="!product.isEditing">
         <p><strong>Product Name:</strong> {{ product.productName }}</p>
         <p><strong>Category:</strong> {{ product.categoryName }}</p>
-        <p><strong>Price:</strong> {{ product.price }}</p>
+        <p><strong>Price:</strong> ₱{{ product.price }}</p>
         <button (click)="enableEdit(product)">Edit</button>
         <button (click)="deleteProduct(product.productID)">Delete</button>
       </div>
@@ -44,10 +61,25 @@
   <!-- Add New Product -->
   <h2>Add New Product</h2>
   <div class="add-product-form">
-    <input [(ngModel)]="newProduct.productName" placeholder="Enter product name" />
-    <input [(ngModel)]="newProduct.categoryName" placeholder="Enter category" />
-    <input [(ngModel)]="newProduct.price" type="number" placeholder="Enter price" />
-    <input type="file" (change)="onFileSelected($event)" />
+    <label>Product Name:</label><br />
+    <input [(ngModel)]="newProduct.productName" placeholder="Enter product name" /><br /><br />
+
+    <label>Category:</label><br />
+    <select [(ngModel)]="newProduct.categoryName">
+      <option value="" disabled selected>Select a Category</option>
+      <option *ngFor="let category of categories" [value]="category.categoryName">
+        {{ category.categoryName }}
+      </option>
+    </select><br /><br />
+
+    <label>Price:</label><br />
+    <div class="price-input">
+      ₱<input [(ngModel)]="newProduct.price" type="number" placeholder="Enter price" />
+    </div><br /><br />
+
+    <label>Upload Image:</label><br />
+    <input type="file" (change)="onFileSelected($event)" /><br /><br />
+
     <button (click)="createProduct()">Create Product</button>
   </div>
 </div>

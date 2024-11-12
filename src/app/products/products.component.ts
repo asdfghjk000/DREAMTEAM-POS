@@ -13,6 +13,11 @@ interface Product {
   selectedImage?: Blob | undefined; // Add selectedImage to the Product interface
 }
 
+interface Category {
+  categoryID: number;
+  categoryName: string;
+}
+
 interface ApiResponse {
   success: boolean;
   message?: string;
@@ -31,6 +36,7 @@ interface ApiResponse {
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];
+  categories: Category[] = []; // Added to hold category data
   newProduct: Partial<Product> = {};
   selectedImage: Blob | null = null;
   apiUrl: string = 'http://localhost/backend-db/';
@@ -41,44 +47,9 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.readProducts();
+    this.readCategories(); // Fetch categories on initialization
   }
 
-  // File selection handler for updating image
-  onFileSelected(event: Event, product?: Product): void {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-
-      // Check if the file is an image (PNG, JPEG, etc.)
-      if (file.type.startsWith('image/')) {
-        // Optional: Check file size (2MB max for example)
-        if (file.size > 2 * 1024 * 1024) { // 2MB size limit
-          this.errorMessage = 'The image file is too large. Please select an image under 2MB.';
-          return;
-        }
-
-        const reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = () => {
-          if (reader.result) {
-            // Create a Blob from the file and assign the object URL to the image
-            const imageBlob = new Blob([reader.result], { type: file.type });
-
-            if (product) {
-              product.image = URL.createObjectURL(imageBlob); // Image preview
-              product.selectedImage = imageBlob; // Assign selected image to the product
-            } else {
-              this.selectedImage = imageBlob;
-            }
-          }
-        };
-      } else {
-        this.errorMessage = 'Please select a valid image file (PNG, JPEG, etc.)';
-      }
-    }
-  }
-
-  // Fetch all products
   readProducts(): void {
     this.isLoading = true;
     this.http.get<ApiResponse>(`${this.apiUrl}read_products.php`).subscribe({
@@ -96,6 +67,51 @@ export class ProductsComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  readCategories(): void {
+    this.isLoading = true;
+    this.http.get<Category[]>(`${this.apiUrl}read_categories.php`).subscribe({
+      next: (data) => {
+        this.categories = data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.errorMessage = 'Failed to load categories';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  onFileSelected(event: Event, product?: Product): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+
+      if (file.type.startsWith('image/')) {
+        if (file.size > 2 * 1024 * 1024) { // 2MB size limit
+          this.errorMessage = 'The image file is too large. Please select an image under 2MB.';
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = () => {
+          if (reader.result) {
+            const imageBlob = new Blob([reader.result], { type: file.type });
+
+            if (product) {
+              product.image = URL.createObjectURL(imageBlob); // Image preview
+              product.selectedImage = imageBlob; // Assign selected image to the product
+            } else {
+              this.selectedImage = imageBlob;
+            }
+          }
+        };
+      } else {
+        this.errorMessage = 'Please select a valid image file (PNG, JPEG, etc.)';
+      }
+    }
   }
 
   createProduct(): void {
@@ -118,7 +134,6 @@ export class ProductsComponent implements OnInit {
             this.newProduct = {};
             this.selectedImage = null;
 
-            // Clear the file input element
             const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
             if (fileInput) {
               fileInput.value = '';
@@ -134,21 +149,17 @@ export class ProductsComponent implements OnInit {
         }
       });
     }
-  } 
+  }
 
-
-  // Enable edit mode for a product
   enableEdit(product: Product): void {
     product.isEditing = true;
   }
 
-  // Cancel edit mode for a product
   cancelEdit(product: Product): void {
     product.isEditing = false;
     this.readProducts(); // Reload to revert any unsaved changes
   }
 
-  // Update a product
   updateProduct(product: Product): void {
     if (!product.productName || !product.categoryName || product.price === undefined) {
       this.errorMessage = 'All fields are required for updating a product';
@@ -182,7 +193,6 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  // Delete a product
   deleteProduct(productID: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.isLoading = true;

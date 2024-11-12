@@ -1,37 +1,38 @@
 <div class="category-container">
-    <h2>Category List</h2>
-    
-    <!-- Error Message Display -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
+  <h2>Category List</h2>
   
-    <!-- Loading Indicator -->
-    <div *ngIf="isLoading" class="loading">
-      Loading...
-    </div>
-  
-    <!-- Categories List -->
-    <ul>
-      <li *ngFor="let category of categories">
-        <input [(ngModel)]="category.categoryName" 
-               [disabled]="isLoading" />
-        <button (click)="updateCategory(category)" 
-                [disabled]="isLoading">Update</button>
-        <button (click)="deleteCategory(category.categoryID)" 
-                [disabled]="isLoading">Delete</button>
-      </li>
-    </ul>
-  
-    <!-- Add New Category -->
-    <h2>Add New Category</h2>
-    <div class="add-category-form">
-      <input [(ngModel)]="categoryName" 
-             placeholder="Enter category name" 
-             [disabled]="isLoading" />
-      <button (click)="createCategory()" 
-              [disabled]="!categoryName.trim() || isLoading">
-        Create Category
-      </button>
-    </div>
+  <!-- Error Message Display -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
   </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading">
+    Loading...
+  </div>
+
+  <!-- Categories List -->
+  <ul>
+    <li *ngFor="let category of categories">
+      <div *ngIf="!category.isEditing">
+        {{ category.categoryName }}
+        <button (click)="enableEditMode(category)" [disabled]="isLoading">Edit</button>
+        <button (click)="deleteCategory(category.categoryID)" [disabled]="isLoading">Delete</button>
+      </div>
+      <div *ngIf="category.isEditing">
+        <input [(ngModel)]="category.categoryName" [disabled]="isLoading" />
+        <button (click)="updateCategory(category)" [disabled]="isLoading">Save</button>
+        <button (click)="cancelEditMode(category)" [disabled]="isLoading">Cancel</button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Add New Category -->
+  <h2>Add New Category</h2>
+  <div class="add-category-form">
+    <input [(ngModel)]="categoryName" placeholder="Enter category name" [disabled]="isLoading" />
+    <button (click)="createCategory()" [disabled]="!categoryName.trim() || isLoading">
+      Create Category
+    </button>    
+  </div>
+</div>
