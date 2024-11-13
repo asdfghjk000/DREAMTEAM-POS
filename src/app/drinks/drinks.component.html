@@ -1,1 +1,22 @@
-<p>drinks works!</p>
+<!-- Direct display of categories for selection -->
+<div class="category-menu">
+    <span (click)="changeContent('hot-drinks')" [class.active]="currentCategory === 'hot-drinks'">Hot Drinks</span>
+    <span (click)="changeContent('cold-drinks')" [class.active]="currentCategory === 'cold-drinks'">Cold Drinks</span>
+    <span (click)="changeContent('smoothies')" [class.active]="currentCategory === 'smoothies'">Smoothies</span>
+    <span (click)="changeContent('specialty-drinks')" [class.active]="currentCategory === 'specialty-drinks'">Specialty Drinks</span>
+  </div>
+  
+  <!-- Display content based on the selected category -->
+  <div *ngIf="currentCategory === 'hot-drinks'">
+    <p>Showing Hot Drinks</p>
+  </div>
+  <div *ngIf="currentCategory === 'cold-drinks'">
+    <p>Showing Cold Drinks</p>
+  </div>
+  <div *ngIf="currentCategory === 'smoothies'">
+    <p>Showing Smoothies</p>
+  </div>
+  <div *ngIf="currentCategory === 'specialty-drinks'">
+    <p>Showing Specialty Drinks</p>
+  </div>
+  

@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './staff-login.component.html',
   styleUrls: ['./staff-login.component.css']
 })
+
 export class StaffLoginComponent {
   username: string = '';
   password: string = '';

@@ -1,0 +1,17 @@
+.category-menu {
+    display: flex;
+    gap: 15px; /* Space between categories */
+    margin-bottom: 20px;
+  }
+  
+  .category-menu span {
+    cursor: pointer;
+    padding: 8px;
+    font-weight: bold;
+  }
+  
+  .category-menu span.active {
+    color: #1976d2; /* Active color for the selected category */
+    border-bottom: 2px solid #1976d2; /* Underline the active category */
+  }
+    

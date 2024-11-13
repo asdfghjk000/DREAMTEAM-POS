@@ -1,1 +1,84 @@
-<p>staff-dashboard works!</p>
+<!-- Main content area -->
+<div class="main-content">
+  
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="assets/EsherLogo.png" alt="Esher Cafe Logo">
+    </div>
+    <ul>
+      <li (click)="changeContent('allitems')" [class.active]="currentCategory === 'allitems'">All Items</li>
+      <li (click)="changeContent('foods')" [class.active]="currentCategory === 'foods'">Foods</li>
+      <li (click)="changeContent('drinks')" [class.active]="currentCategory === 'drinks'">Drinks</li>
+    </ul>
+  </div>
+
+  <!-- Main container for content -->
+  <div class="container">
+
+    <!-- All Items Category Content -->
+    <div *ngIf="currentCategory === 'allitems'">
+      <div class="category-menu">
+        <span (click)="changeSubCategory('allitems')" [class.active]="currentSubCategory === 'allitems'">All Items</span>
+      </div>
+      <div *ngIf="currentSubCategory === 'specialty-drinks'">
+        <p>Showing Specialty Drinks</p>
+      </div>
+    </div>
+
+    <!-- Drinks Category Content -->
+    <div *ngIf="currentCategory === 'drinks'">
+      <div class="category-menu">
+        <span (click)="changeSubCategory('hot-drinks')" [class.active]="currentSubCategory === 'hot-drinks'">Hot Drinks</span>
+        <span (click)="changeSubCategory('cold-drinks')" [class.active]="currentSubCategory === 'cold-drinks'">Cold Drinks</span>
+        <span (click)="changeSubCategory('smoothies')" [class.active]="currentSubCategory === 'smoothies'">Smoothies</span>
+        <span (click)="changeSubCategory('specialty-drinks')" [class.active]="currentSubCategory === 'specialty-drinks'">Specialty Drinks</span>
+      </div>
+
+      <!-- Display content based on the selected subcategory -->
+      <div *ngIf="currentSubCategory === 'hot-drinks'">
+        <p>Showing Hot Drinks</p>
+      </div>
+      <div *ngIf="currentSubCategory === 'cold-drinks'">
+        <p>Showing Cold Drinks</p>
+      </div>
+      <div *ngIf="currentSubCategory === 'smoothies'">
+        <p>Showing Smoothies</p>
+      </div>
+      <div *ngIf="currentSubCategory === 'specialty-drinks'">
+        <p>Showing Specialty Drinks</p>
+      </div>
+    </div>
+
+    <!-- Foods Category Content -->
+    <div *ngIf="currentCategory === 'foods'">
+      <div class="category-menu">
+        <span (click)="changeSubCategory('appetizers')" [class.active]="currentSubCategory === 'appetizers'">Appetizers</span>
+        <span (click)="changeSubCategory('mains')" [class.active]="currentSubCategory === 'mains'">Mains</span>
+        <span (click)="changeSubCategory('desserts')" [class.active]="currentSubCategory === 'desserts'">Desserts</span>
+        <span (click)="changeSubCategory('salads')" [class.active]="currentSubCategory === 'salads'">Salads</span>
+      </div>
+
+      <!-- Display content based on the selected subcategory -->
+      <div *ngIf="currentSubCategory === 'appetizers'">
+        <p>Showing Appetizers</p>
+      </div>
+      <div *ngIf="currentSubCategory === 'mains'">
+        <p>Showing Mains</p>
+      </div>
+      <div *ngIf="currentSubCategory === 'desserts'">
+        <p>Showing Desserts</p>
+      </div>
+      <div *ngIf="currentSubCategory === 'salads'">
+        <p>Showing Salads</p>
+      </div>
+    </div>
+
+    <!-- Item Grid (can dynamically populate based on the selected subcategory) -->
+    <div class="item-grid">
+      <!-- Grid content goes here, dynamically generated based on the selected category/subcategory -->
+    </div>
+
+  </div> <!-- End of container -->
+
+</div> <!-- End of main-content -->

@@ -1,1 +1,10 @@
-<p>all-items works!</p>
+<!-- Direct display of categories for selection -->
+<div class="category-menu">
+    <span (click)="changeContent('allitems')" [class.active]="currentCategory === 'allitems'">All Items</span>
+  </div>
+  
+  <!-- Display content based on the selected category -->
+  <div *ngIf="currentCategory === 'allitems'">
+    <p>Showing All Items</p>
+  </div>
+  

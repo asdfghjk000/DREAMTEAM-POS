@@ -19,21 +19,11 @@ export class AdminLoginComponent {
   constructor(private router: Router) {}
 
   login(): void {
-    console.log('Admin login attempt');
-    console.log('Username:', this.username);
-    console.log('Password:', this.password);
-
-    if (this.username === 'esheradmin2024' && this.password === 'eshercafepos') {
-      console.log('Admin login successful, attempting navigation...');
+    if (this.username === 'esheradmin2024' && this.password === 'eshercafe') {
       this.router.navigate(['/admin-dashboard'])
-        .then(() => {
-          console.log('Navigation successful');
-        })
-        .catch(error => {
-          console.error('Navigation failed:', error);
-        });
+        .then(() => console.log('Navigation successful'))
+        .catch(error => console.error('Navigation failed:', error));
     } else {
-      console.log('Invalid admin credentials');
       window.alert('Invalid username or password');
     }
   }

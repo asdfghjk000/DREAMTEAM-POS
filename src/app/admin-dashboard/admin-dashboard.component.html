@@ -1,9 +1,154 @@
-<!-- admin-dashboard.component.html -->
-<div class="admin-dashboard">
-  <h1>Admin Dashboard</h1>
-  <nav>
-    <button [routerLink]="['/category']" routerLinkActive="active">Manage Categories</button>
-    <button [routerLink]="['/products']" routerLinkActive="active">Manage Products</button>
-  </nav>
-  <p>admin-dashboard works!</p>
-</div>
+<!-- Main content area -->
+<div class="main-content">
+  
+  <!-- Sidebar with Logo and Navigation Links -->
+  <div class="sidebar">
+    <div class="logo">  
+      <img src="assets/EsherLogo.png" alt="Esher Cafe Logo">
+    </div>
+    <ul>
+      <li (click)="changeContent('sales')" [class.active]="currentCategory === 'sales'">Sales</li>
+      <li (click)="changeContent('products')" [class.active]="currentCategory === 'products'">Products</li>
+      <li (click)="changeContent('orders')" [class.active]="currentCategory === 'orders'">Orders</li>
+    </ul>
+  </div>
+
+  <!-- Main Container for Displaying Content Based on Selection -->
+  <div class="container">
+
+    <!-- Sales Category Content -->
+    <div *ngIf="currentCategory === 'sales'" class="category-content">
+      <p>Displaying order history for all completed sales.</p>
+      <div class="item-grid">
+        <!-- Grid for displaying sales-related items, such as summaries, charts, etc. -->
+      </div>
+    </div>
+
+    <!-- Products Category Content -->
+    <div *ngIf="currentCategory === 'products'" class="category-content">
+      <p>Manage Products</p>
+      <!-- Product Navigation Buttons -->
+      <div class="product-container">
+        <div class="category-menu">
+          <span (click)="changeSubCategory('category')" [class.active]="currentSubCategory === 'category'">Category</span>
+          <span (click)="changeSubCategory('product')" [class.active]="currentSubCategory === 'product'">Product</span>
+            </div>
+  
+        <!-- Display content based on the selected subcategory -->
+        <div *ngIf="currentSubCategory === 'category'">
+          <table class="category-table">
+              <thead>
+                  <tr>
+                      <th>Category</th>
+                      <th>Code</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>Hot Drink</td>
+                      <td>HD001</td>
+                      <td>
+                          <button class="edit-btn">✏️</button>
+                          <button class="delete-btn">🗑️</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>Cold Drink</td>
+                      <td>CD001</td>
+                      <td>
+                          <button class="edit-btn">✏️</button>
+                          <button class="delete-btn">🗑️</button>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td>Snacks</td>
+                      <td>SN001</td>
+                      <td>
+                          <button class="edit-btn">✏️</button>
+                          <button class="delete-btn">🗑️</button>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+          <nav>
+            <button [routerLink]="['/category']" routerLinkActive="active">Manage Category</button>
+          </nav>
+      
+        </div>
+
+        <div *ngIf="currentSubCategory === 'product'">
+          <div class="product-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="assets/product-image.png" alt="Product Image" class="product-image"></td>
+                        <td>EC001</td>
+                        <td>Oreo Frappe</td>
+                        <td>Hot Drink</td>
+                        <td>100.00</td>
+                        <td>
+                            <button class="edit-btn">✏️</button>
+                            <button class="delete-btn">🗑️</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="assets/product-image.png" alt="Product Image" class="product-image"></td>
+                        <td>EC002</td>
+                        <td>Oreo Frappe</td>
+                        <td>Hot Drink</td>
+                        <td>100.00</td>
+                        <td>
+                            <button class="edit-btn">✏️</button>
+                            <button class="delete-btn">🗑️</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="assets/product-image.png" alt="Product Image" class="product-image"></td>
+                        <td>EC003</td>
+                        <td>Oreo Frappe</td>
+                        <td>Hot Drink</td>
+                        <td>100.00</td>
+                        <td>
+                            <button class="edit-btn">✏️</button>
+                            <button class="delete-btn">🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+          <nav>
+            <button [routerLink]="['/products']" routerLinkActive="active">Manage Products</button>
+          </nav>
+        </div>
+        
+
+      </div>
+
+      <div class="item-grid">
+        <!-- Grid for displaying products, add/edit/delete options, etc. -->
+      </div>
+    </div>
+
+    <!-- Orders Category Content -->
+    <div *ngIf="currentCategory === 'orders'" class="category-content">
+      <p>View and manage current and pending orders.</p>
+      <div class="item-grid">
+        <!-- Grid for displaying orders, statuses, and related actions -->
+      </div>
+    </div>
+
+  </div> <!-- End of container -->
+
+</div> <!-- End of main-content -->
