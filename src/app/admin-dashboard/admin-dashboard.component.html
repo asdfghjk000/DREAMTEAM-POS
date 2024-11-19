@@ -33,106 +33,18 @@
           <span (click)="changeSubCategory('category')" [class.active]="currentSubCategory === 'category'">Category</span>
           <span (click)="changeSubCategory('product')" [class.active]="currentSubCategory === 'product'">Product</span>
             </div>
-  
-        <!-- Display content based on the selected subcategory -->
-        <div *ngIf="currentSubCategory === 'category'">
-          <table class="category-table">
-              <thead>
-                  <tr>
-                      <th>Category</th>
-                      <th>Code</th>
-                      <th>Action</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>Hot Drink</td>
-                      <td>HD001</td>
-                      <td>
-                          <button class="edit-btn">✏️</button>
-                          <button class="delete-btn">🗑️</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>Cold Drink</td>
-                      <td>CD001</td>
-                      <td>
-                          <button class="edit-btn">✏️</button>
-                          <button class="delete-btn">🗑️</button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>Snacks</td>
-                      <td>SN001</td>
-                      <td>
-                          <button class="edit-btn">✏️</button>
-                          <button class="delete-btn">🗑️</button>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-          <nav>
-            <button [routerLink]="['/category']" routerLinkActive="active">Manage Category</button>
-          </nav>
-      
-        </div>
 
-        <div *ngIf="currentSubCategory === 'product'">
-          <div class="product-container">
-            <table class="product-table">
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><img src="assets/product-image.png" alt="Product Image" class="product-image"></td>
-                        <td>EC001</td>
-                        <td>Oreo Frappe</td>
-                        <td>Hot Drink</td>
-                        <td>100.00</td>
-                        <td>
-                            <button class="edit-btn">✏️</button>
-                            <button class="delete-btn">🗑️</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="assets/product-image.png" alt="Product Image" class="product-image"></td>
-                        <td>EC002</td>
-                        <td>Oreo Frappe</td>
-                        <td>Hot Drink</td>
-                        <td>100.00</td>
-                        <td>
-                            <button class="edit-btn">✏️</button>
-                            <button class="delete-btn">🗑️</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><img src="assets/product-image.png" alt="Product Image" class="product-image"></td>
-                        <td>EC003</td>
-                        <td>Oreo Frappe</td>
-                        <td>Hot Drink</td>
-                        <td>100.00</td>
-                        <td>
-                            <button class="edit-btn">✏️</button>
-                            <button class="delete-btn">🗑️</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-          <nav>
-            <button [routerLink]="['/products']" routerLinkActive="active">Manage Products</button>
-          </nav>
-        </div>
-        
+  <!--CATEGORYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY-->
+      <div *ngIf="currentSubCategory === 'category'">
+          <app-category></app-category>
+          </div>    
+          
+          
+<!-- PRODUCTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
+<div *ngIf="currentSubCategory === 'product'">
+  <app-products></app-products>
+</div>
+
 
       </div>
 
@@ -151,4 +63,3 @@
 
   </div> <!-- End of container -->
 
-</div> <!-- End of main-content -->

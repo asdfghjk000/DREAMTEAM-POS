@@ -1,5 +1,4 @@
 <div class="product-container">
-  <h2>Product List</h2>
 
   <!-- Error Message Display -->
   <div *ngIf="errorMessage" class="error-message">
@@ -11,75 +10,112 @@
     Loading...
   </div>
 
-  <!-- Products List -->
-  <ul>
-    <li *ngFor="let product of products">
-      <!-- Product Image Display -->
-      <div class="product-image">
-        <img *ngIf="product.image" [src]="'data:image/jpeg;base64,' + product.image" alt="{{product.productName}}">
-        <ng-template #noImage>
-          <p>No image available</p>
-        </ng-template>
-      </div>
+  <!-- Add New Product -->
+  <div class="new-product-section">
+    <button (click)="toggleAddProductForm()" class="new-product-button">
+      {{ showAddForm ? 'New Product' : 'New Product' }}
+    </button>
 
-      <!-- Display or Edit Mode -->
-      <div *ngIf="product.isEditing">
-        <label>Product Name:</label><br />
-        <input [(ngModel)]="product.productName" placeholder="Product Name" /><br /><br />
-        
-        <label>Category:</label><br />
-        <select [(ngModel)]="product.categoryName">
+    <!-- Floating Form -->
+    <div *ngIf="showAddForm" class="floating-form">
+      <form (ngSubmit)="createProduct()" #productForm="ngForm" class="add-product-form">
+        <input
+          type="text"
+          name="productName"
+          [(ngModel)]="newProduct.productName"
+          placeholder="Enter product name"
+          required
+          [disabled]="isLoading"
+        />
+        <select [(ngModel)]="newProduct.categoryName" name="category" required [disabled]="isLoading">
           <option value="" disabled selected>Select a Category</option>
           <option *ngFor="let category of categories" [value]="category.categoryName">
             {{ category.categoryName }}
           </option>
-        </select><br /><br />
-        
-        <label>Price:</label><br />
+        </select>
         <div class="price-input">
-          ₱<input [(ngModel)]="product.price" type="number" placeholder="Price" />
-        </div><br /><br />
-        
-        <label>Upload Image:</label><br />
-        <input type="file" (change)="onFileSelected($event, product)" /><br /><br />
-        
-        <div class="button-group">
-          <button (click)="updateProduct(product)">Save</button>
-          <button (click)="cancelEdit(product)">Cancel</button>
+          <input [(ngModel)]="newProduct.price" name="price" type="number" placeholder="Enter price" required [disabled]="isLoading" />
         </div>
-      </div>
-      <div *ngIf="!product.isEditing">
-        <p><strong>Product Name:</strong> {{ product.productName }}</p>
-        <p><strong>Category:</strong> {{ product.categoryName }}</p>
-        <p><strong>Price:</strong> ₱{{ product.price }}</p>
-        <button (click)="enableEdit(product)">Edit</button>
-        <button (click)="deleteProduct(product.productID)">Delete</button>
-      </div>
-    </li>
-  </ul>
+        
+        <!-- File Input for Image -->
+        <input type="file" (change)="onFileSelected($event)" [disabled]="isLoading" /><br />
 
-  <!-- Add New Product -->
-  <h2>Add New Product</h2>
-  <div class="add-product-form">
-    <label>Product Name:</label><br />
-    <input [(ngModel)]="newProduct.productName" placeholder="Enter product name" /><br /><br />
-
-    <label>Category:</label><br />
-    <select [(ngModel)]="newProduct.categoryName">
-      <option value="" disabled selected>Select a Category</option>
-      <option *ngFor="let category of categories" [value]="category.categoryName">
-        {{ category.categoryName }}
-      </option>
-    </select><br /><br />
-
-    <label>Price:</label><br />
-    <div class="price-input">
-      ₱<input [(ngModel)]="newProduct.price" type="number" placeholder="Enter price" />
-    </div><br /><br />
-
-    <label>Upload Image:</label><br />
-    <input type="file" (change)="onFileSelected($event)" /><br /><br />
-
-    <button (click)="createProduct()">Create Product</button>
+        <button type="submit" [disabled]="!newProduct.productName || !newProduct.categoryName || !newProduct.price || isLoading">
+          Create Product
+        </button>
+      </form>
+    </div>
   </div>
+
+  <!-- Products Table -->
+  <table class="product-table" *ngIf="products.length > 0; else noProducts">
+    <thead>
+      <tr>
+        <th>Product Code</th>
+        <th>Picture</th> <!-- Picture Column -->
+        <th>Product Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index">
+        <td>{{ i + 1 }}</td>
+        <!-- Product Image Preview -->
+<td>
+  <div *ngIf="!product.isEditing">
+    <!-- Display the product's image if it exists -->
+    <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Product Image" class="product-image-icon" />
+    <!-- Display a default image if no image uploaded yet -->
+    <img *ngIf="!product.imageUrl" src="assets/default-image.jpg" alt="Default Image" class="product-image-icon" />
+  </div>
+
+  <div *ngIf="product.isEditing">
+    <!-- Display file input when editing the product -->
+    <input type="file" (change)="onFileSelected($event, product)" [disabled]="isLoading" />
+  </div>
+</td>
+
+        <td>
+          <div *ngIf="!product.isEditing">{{ product.productName }}</div>
+          <div *ngIf="product.isEditing">
+            <input [(ngModel)]="product.productName" [disabled]="isLoading" placeholder="Edit product name" />
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!product.isEditing">{{ product.categoryName }}</div>
+          <div *ngIf="product.isEditing">
+            <select [(ngModel)]="product.categoryName" [disabled]="isLoading">
+              <option value="" disabled selected>Select a Category</option>
+              <option *ngFor="let category of categories" [value]="category.categoryName">
+                {{ category.categoryName }}
+              </option>
+            </select>
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!product.isEditing">₱{{ product.price }}</div>
+          <div *ngIf="product.isEditing">
+            <input [(ngModel)]="product.price" type="number" [disabled]="isLoading" placeholder="Edit price" />
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!product.isEditing" class="action-buttons">
+            <button (click)="enableEdit(product)" [disabled]="isLoading">Edit</button>
+            <button (click)="deleteProduct(product.productID)" [disabled]="isLoading">Delete</button>
+          </div>
+          <div *ngIf="product.isEditing" class="action-buttons">
+            <button (click)="updateProduct(product)" [disabled]="isLoading">Save</button>
+            <button (click)="cancelEdit(product)" [disabled]="isLoading">Cancel</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Message if No Products -->
+  <ng-template #noProducts>
+    <p class="no-categories">No products available.</p>
+  </ng-template>
 </div>

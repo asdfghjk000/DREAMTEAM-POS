@@ -1,6 +1,29 @@
 <div class="category-container">
-  <h2>Category List</h2>
-  
+  <!-- Add New Category -->
+  <div class="new-category-section">
+    <button (click)="toggleAddCategoryForm()" class="new-category-button">
+      {{ showAddForm ? 'New Category' : 'New Category' }}
+    </button>
+    <form
+      *ngIf="showAddForm"
+      (ngSubmit)="createCategory()"
+      #categoryForm="ngForm"
+      class="add-category-form"
+    >
+      <input
+        type="text"
+        name="categoryName"
+        [(ngModel)]="categoryName"
+        placeholder="Enter category name"
+        required
+        [disabled]="isLoading"
+      />
+      <button type="submit" [disabled]="!categoryName.trim() || isLoading">
+        Create Category
+      </button>
+    </form>
+  </div>
+
   <!-- Error Message Display -->
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
@@ -11,28 +34,48 @@
     Loading...
   </div>
 
-  <!-- Categories List -->
-  <ul>
-    <li *ngFor="let category of categories">
-      <div *ngIf="!category.isEditing">
-        {{ category.categoryName }}
-        <button (click)="enableEditMode(category)" [disabled]="isLoading">Edit</button>
-        <button (click)="deleteCategory(category.categoryID)" [disabled]="isLoading">Delete</button>
-      </div>
-      <div *ngIf="category.isEditing">
-        <input [(ngModel)]="category.categoryName" [disabled]="isLoading" />
-        <button (click)="updateCategory(category)" [disabled]="isLoading">Save</button>
-        <button (click)="cancelEditMode(category)" [disabled]="isLoading">Cancel</button>
-      </div>
-    </li>
-  </ul>
+  <!-- Categories Table -->
+  <table class="category-table" *ngIf="categories.length > 0; else noCategories">
+    <thead>
+      <tr>
+        <th>Category Code</th>
+        <th>Category Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <div *ngIf="!category.isEditing">
+            {{ category.categoryName }}
+          </div>
+          <div *ngIf="category.isEditing">
+            <input
+              [(ngModel)]="category.categoryName"
+              [disabled]="isLoading"
+              placeholder="Edit category name"
+            />
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!category.isEditing" class="action-buttons">
+            <button (click)="enableEditMode(category)" [disabled]="isLoading">Edit</button>
+            <button (click)="deleteCategory(category.categoryID)" [disabled]="isLoading">
+              Delete
+            </button>
+          </div>
+          <div *ngIf="category.isEditing" class="action-buttons">
+            <button (click)="updateCategory(category)" [disabled]="isLoading">Save</button>
+            <button (click)="cancelEditMode(category)" [disabled]="isLoading">Cancel</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-  <!-- Add New Category -->
-  <h2>Add New Category</h2>
-  <div class="add-category-form">
-    <input [(ngModel)]="categoryName" placeholder="Enter category name" [disabled]="isLoading" />
-    <button (click)="createCategory()" [disabled]="!categoryName.trim() || isLoading">
-      Create Category
-    </button>    
-  </div>
+  <!-- Message if No Categories -->
+  <ng-template #noCategories>
+    <p class="no-categories">No categories available.</p>
+  </ng-template>
 </div>

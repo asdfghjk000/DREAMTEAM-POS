@@ -12,6 +12,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(withFetch()), // Enable fetch API for HttpClient
-    importProvidersFrom(FormsModule), provideAnimationsAsync()
+    importProvidersFrom(FormsModule), provideAnimationsAsync(), provideAnimationsAsync()
   ]
 }).catch(err => console.error(err));

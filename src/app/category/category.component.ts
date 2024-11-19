@@ -21,6 +21,7 @@ interface ApiResponse {
     CommonModule,
     FormsModule
   ],
+  
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
@@ -30,11 +31,16 @@ export class CategoryComponent implements OnInit {
   apiUrl: string = 'http://localhost/backend-db/';
   errorMessage: string = '';
   isLoading: boolean = false;
+  showAddForm: boolean = false;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.readCategories();
+  }
+
+  toggleAddCategoryForm() {
+    this.showAddForm = !this.showAddForm;
   }
 
   readCategories(): void {

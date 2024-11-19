@@ -1,95 +1,64 @@
-/* Category Menu Style */
-.category-menu {
-    display: flex;
-    justify-content: center;
-    padding: 15px 0;
-    background-color: #f9f9f9;
-    margin-bottom: 20px;
-  }
-  
-  .category-menu span {
-    cursor: pointer;
-    padding: 10px 20px;
-    font-weight: bold;
-    color: #333;
-    transition: color 0.3s, border-bottom 0.3s;
-  }
-  
-  .category-menu span.active {
-    color: #1976d2;
-    border-bottom: 3px solid #1976d2;
-  }
-  
-  /* Container Style */
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  /* Product Menu Style */
-  .product-menu {
-    text-align: center;
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .product-menu h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  /* Grid Layout for Menu Items */
-  .menu-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;  /* Allow horizontal scrolling if necessary */
-    gap: 20px;
-    justify-content: flex-start;  /* Align to the left */
-    padding: 20px;  /* Space for any scrolling */
-  }
-  
-  /* Individual Menu Item Style */
-  .menu-item {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s;
-    width: 250px;  /* Set a fixed width for each item */
-    flex-shrink: 0;  /* Prevent shrinking */
-  }
-  
-  .menu-item:hover {
-    transform: translateY(-5px);
-  }
-  
-  .menu-details {
-    text-align: center;
-    padding: 15px;
-  }
-  
-  .menu-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 10px;
-  }
-  
-  .menu-details h3 {
-    font-size: 18px;
-    color: #333;
-    margin: 10px 0 5px;
-  }
-  
-  .menu-details p {
-    font-size: 16px;
-    color: #1976d2;
-    margin: 0;
-  }
-  
+.container {
+  padding: 20px;
+}
+
+.loader {
+  text-align: center;
+  margin: 20px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin: 20px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  padding: 15px;
+}
+
+.product-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  overflow: hidden;
+}
+
+.product-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.product-details {
+  margin-top: 10px;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.price {
+  font-size: 14px;
+  color: #444;
+}
+
+.no-products {
+  text-align: center;
+  color: gray;
+  margin-top: 50px;
+}
