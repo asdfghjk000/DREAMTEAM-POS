@@ -13,8 +13,12 @@ import { AllItemsComponent } from '../all-items/all-items.component';
   styleUrls: ['./staff-dashboard.component.css']
 })
 export class StaffDashboardComponent {
+  
   currentCategory: string = 'allItems';  // Default to 'allItems'
   currentSubCategory: string | null = null;  // No subcategory by default
+
+
+  
 
   // Method to change the main category
   changeContent(category: string): void {

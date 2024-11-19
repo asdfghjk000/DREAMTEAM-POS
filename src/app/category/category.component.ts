@@ -74,6 +74,7 @@ export class CategoryComponent implements OnInit {
             this.readCategories(); // Refresh the categories
             this.categoryName = '';
             this.errorMessage = '';
+            this.showAddForm = false; // Close the form after creating category
           } else {
             console.error('Error response from server:', response);
             this.errorMessage = response.message || 'Failed to create category';
@@ -94,7 +95,6 @@ export class CategoryComponent implements OnInit {
       this.errorMessage = 'Category name cannot be empty'; // Provide user feedback
     }
   }
-  
 
   enableEditMode(category: Category): void {
     category.isEditing = true;
@@ -132,26 +132,25 @@ export class CategoryComponent implements OnInit {
     category.isEditing = false; // Disable edit mode after update
   }
 
+  // Immediately delete category without confirmation
   deleteCategory(categoryID: number): void {
-    if (confirm('Are you sure you want to delete this category?')) {
-      this.isLoading = true;
-      this.http.get<ApiResponse>(`${this.apiUrl}delete_category.php?id=${categoryID}`).subscribe({
-        next: (response) => {
-          console.log('Category deleted:', response);
-          if (response.success) {
-            this.readCategories();
-            this.errorMessage = '';
-          } else {
-            this.errorMessage = response.message || 'Failed to delete category';
-          }
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error deleting category:', error);
-          this.errorMessage = 'Failed to delete category';
-          this.isLoading = false;
+    this.isLoading = true;
+    this.http.get<ApiResponse>(`${this.apiUrl}delete_category.php?id=${categoryID}`).subscribe({
+      next: (response) => {
+        console.log('Category deleted:', response);
+        if (response.success) {
+          this.readCategories();
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = response.message || 'Failed to delete category';
         }
-      });
-    }
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error deleting category:', error);
+        this.errorMessage = 'Failed to delete category';
+        this.isLoading = false;
+      }
+    });
   }
 }

@@ -1,13 +1,30 @@
-/* Background color */
+/* Set custom background color and center content */
 body {
-    background-color: #d2a689; /* Light brown background */
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-  }
+  background-color: #d2a689; /* Light brown background */
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+  font-weight: 700; /* Use the bold weight across the whole app */
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Ensure full height for html and body */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Styling specific elements */
+.sidebar,
+.container,
+.item-card {
+  font-family: 'Poppins', sans-serif; /* Apply Poppins font */
+  font-weight: 500; /* Apply bold weight */
+}
+
+.sidebar ul li a {
+  font-family: 'Poppins', sans-serif; /* Poppins for links */
+  font-weight: 700; /* Make the links bold */
+}

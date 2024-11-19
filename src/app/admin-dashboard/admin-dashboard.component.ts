@@ -55,6 +55,8 @@ export class AdminDashboardComponent implements AfterViewInit {
     }
   }
 
+  
+
   // Create or update category
   createCategory(): void {
     if (this.categoryName.trim() && this.mainCategory.trim()) {

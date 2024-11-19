@@ -127,22 +127,22 @@ export class ProductsComponent implements OnInit {
       this.errorMessage = 'All fields are required.';
       return;
     }
-
+  
     if (this.newProduct.price <= 0) {
       this.errorMessage = 'Price must be a positive number.';
       return;
     }
-
+  
     this.isLoading = true;
     const formData = new FormData();
     formData.append('productName', this.newProduct.productName!);
     formData.append('categoryName', this.newProduct.categoryName!);
     formData.append('price', this.newProduct.price.toString());
-
+  
     if (this.selectedImage) {
       formData.append('image', this.selectedImage);
     }
-
+  
     this.http.post<ApiResponse>(`${this.apiUrl}create_product.php`, formData).subscribe({
       next: (response) => {
         if (response.success) {
@@ -150,7 +150,8 @@ export class ProductsComponent implements OnInit {
           this.newProduct = {};  
           this.selectedImage = null;  
           this.errorMessage = '';  
-
+          this.showAddForm = false;  // Close the form after success
+  
           const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
           if (fileInput) {
             fileInput.value = '';
@@ -166,6 +167,7 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+  
 
   enableEdit(product: Product): void {
     product.isEditing = true;
@@ -216,22 +218,21 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(productID: number): void {
-    if (confirm('Are you sure you want to delete this product?')) {
-      this.isLoading = true;
-      this.http.delete<ApiResponse>(`${this.apiUrl}delete_product.php?productID=${productID}`).subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.readProducts(); 
-          } else {
-            this.errorMessage = response.message || 'Failed to delete product';
-          }
-          this.isLoading = false;
-        },
-        error: (error: HttpErrorResponse) => {
-          this.errorMessage = 'Failed to delete product';
-          this.isLoading = false;
+    this.isLoading = true;
+    this.http.delete<ApiResponse>(`${this.apiUrl}delete_product.php?productID=${productID}`).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.readProducts();  // Reload products after deletion
+        } else {
+          this.errorMessage = response.message || 'Failed to delete product';
         }
-      });
-    }
+        this.isLoading = false;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.errorMessage = error.error?.message || 'Failed to delete product';
+        this.isLoading = false;
+      }
+    });
   }
+  
 }

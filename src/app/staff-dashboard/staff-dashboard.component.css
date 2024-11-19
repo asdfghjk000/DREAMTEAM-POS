@@ -33,22 +33,27 @@
 
 .sidebar ul li {
     margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.8; /* Adjust this value to control the line spacing */
+    font-size:1.5rem; /* Add this line to increase font size */
 }
 
 .sidebar ul li a {
     text-decoration: none;
     color: #fff;
-    font-size: 5px;
+    font-size: 30px;
     padding: 10px;
     border-radius: 5px;
     display: block;
     transition: background-color 0.3s ease;
 }
 
-.sidebar ul li a:hover,
+/* Styling for active sidebar link */
 .sidebar ul li a.active {
-    background-color: #dec1ad;
-}
+    background-color: #1976d2; /* You can choose a color to highlight the active item */
+    color: white;
+  }
+  
 
 /* Main container styling */
 .main-container {
