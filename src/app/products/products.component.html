@@ -73,10 +73,15 @@
       <tr *ngFor="let product of products; let i = index">
         <td>{{ i + 1 }}</td>
         <td>
-          <div *ngIf="!product.isEditing">
-            <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="Product Image" class="product-image-icon" />
-            <img *ngIf="!product.imageUrl" src="assets/default-image.jpg" alt="Default Image" class="product-image-icon" />
-          </div>
+          <!-- Product Image Display -->
+<div class="product-image">
+  <img *ngIf="product.image" [src]="'data:image/jpeg;base64,' + product.image" alt="{{ product.productName }}">
+  <img *ngIf="product.imageUrl && !product.image" [src]="product.imageUrl" alt="{{ product.productName }}">
+  <ng-template #noImage>
+    <p>No image available</p>
+  </ng-template>
+</div>
+
           <div *ngIf="product.isEditing">
             <input type="file" (change)="onFileSelected($event, product)" [disabled]="isLoading" class="input-field" />
           </div>

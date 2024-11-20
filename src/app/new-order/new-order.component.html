@@ -1,1 +1,38 @@
-<p>new-order works!</p>
+<div class="order-container">
+  <div class="order-section">
+    <h3>NEW ORDER</h3>
+    <div class="order-list">
+      <table>
+        <thead>
+          <tr>
+            <th>ITEM</th>
+            <th>QUANTITY</th>
+            <th>COST</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of products">
+            <td>{{ item.productName }}</td>
+            <td>
+              <button (click)="decreaseQuantity(item)">-</button>
+              {{ item.quantity }}
+              <button (click)="increaseQuantity(item)">+</button>
+            </td>
+            <td>₱ {{ item.price * item.quantity | number: '1.2-2' }}</td>
+            <td>
+              <button (click)="removeItem(item)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="total">
+      <span>TOTAL:</span>
+      <span>₱ {{ calculateTotal() | number: '1.2-2' }}</span>
+    </div>
+
+    <button class="payment-btn" (click)="proceedToPayment()">PAYMENT</button>
+  </div>
+</div>

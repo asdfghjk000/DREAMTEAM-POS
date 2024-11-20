@@ -1,19 +1,17 @@
 <div class="container">
-  <!-- Show a loading spinner while fetching data -->
   <div *ngIf="isLoading" class="loader">
     <p>Loading...</p>
   </div>
 
-  <!-- Show error message if any -->
   <div *ngIf="errorMessage" class="error-message">
     <p>{{ errorMessage }}</p>
   </div>
 
-  <!-- Display products in a grid card format -->
   <div *ngIf="products.length > 0" class="product-grid">
-    <div *ngFor="let product of products" class="product-card">
+    <div *ngFor="let product of products" class="product-card" (click)="selectProduct(product)">
       <div class="product-image-container">
-        <img [src]="product.imageUrl" alt="{{ product.productName }}" class="product-image" />
+        <img *ngIf="product.image" [src]="'data:image/jpeg;base64,' + product.image" alt="{{ product.productName }}">
+        <img *ngIf="product.imageUrl && !product.image" [src]="product.imageUrl" alt="{{ product.productName }}">
       </div>
       <div class="product-details">
         <h3 class="product-name">{{ product.productName }}</h3>
@@ -22,8 +20,12 @@
     </div>
   </div>
 
-  <!-- Show a message if no products are available -->
   <div *ngIf="products.length === 0" class="no-products">
     <p>No products available.</p>
+  </div>
+
+  <!-- Pass the list of selected products to the NewOrderComponent -->
+  <div *ngIf="selectedProducts.length > 0">
+    <app-new-order [products]="selectedProducts"></app-new-order>
   </div>
 </div>

@@ -95,32 +95,40 @@ export class ProductsComponent implements OnInit {
 
   onFileSelected(event: Event, product?: Product): void {
     const fileInput = event.target as HTMLInputElement;
+  
     if (fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      if (file.type.startsWith('image/')) {
-        if (file.size > 2 * 1024 * 1024) {
-          this.errorMessage = 'The image file is too large. Please select an image under 2MB.';
-          return;
-        }
-        const reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = () => {
-          if (reader.result) {
-            const imageBlob = new Blob([reader.result], { type: file.type });
-            const imageUrl = URL.createObjectURL(imageBlob);
-            if (product) {
-              product.imageUrl = imageUrl;  
-              product.selectedImage = imageBlob;  
-            } else {
-              this.selectedImage = imageBlob;  // For new product
-            }
-          }
-        };
-      } else {
+  
+      if (!file.type.startsWith('image/')) {
         this.errorMessage = 'Please select a valid image file (PNG, JPEG, etc.)';
+        return;
       }
+  
+      if (file.size > 2 * 1024 * 1024) {
+        this.errorMessage = 'The image file is too large. Please select an image under 2MB.';
+        return;
+      }
+  
+      this.errorMessage = ''; // Clear error message if file is valid
+  
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(file); // Use ArrayBuffer for Blob conversion
+      reader.onload = () => {
+        if (reader.result) {
+          const imageBlob = new Blob([reader.result], { type: file.type });
+          const imageUrl = URL.createObjectURL(imageBlob); // Temporary URL for preview
+  
+          if (product) {
+            product.imageUrl = imageUrl; // Temporary preview URL
+            product.selectedImage = imageBlob; // Blob for storage
+          } else {
+            this.selectedImage = imageBlob; // For new product
+          }
+        }
+      };
     }
   }
+  
 
   createProduct(): void {
     if (!this.newProduct.productName || !this.newProduct.categoryName || this.newProduct.price === undefined) {
