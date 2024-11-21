@@ -1,455 +1,107 @@
-/* Sidebar styling */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 250px;
-  background-color: #d2a689;
-  color: #fff;
-  padding: 20px;
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 1;
+  height: 100vh;
 }
 
-.sidebar .logo {
-  text-align: center;
-  margin-bottom: 30px;
+.main-content {
+  flex: 1;
+  display: flex;
+  height: 100vh; /* Ensure it fills the viewport height */
+  overflow: hidden; /* Prevent unwanted scrollbars */
 }
+
+
+/* Sidebar */
+.sidebar {
+  width: 350px;
+  background-color: #ca9572;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  height: 100vh; /* Set to exactly match viewport height */
+}
+
 
 .sidebar .logo img {
-  width: 100%;
-  max-width: 150px;
+  width: 150px;
   height: auto;
+  margin-bottom: 20px;
 }
 
 .sidebar ul {
+  font-size: 1.5rem;
   list-style: none;
   padding: 0;
+  width: 100%;
 }
 
 .sidebar ul li {
-  margin-bottom: 20px;
-  font-family: 'Roboto', sans-serif;
-  line-height: 1.8; /* Adjust this value to control the line spacing */
-  font-size:1.5rem; /* Add this line to increase font size */
+  padding: 30px 20px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s ease;
 }
 
-.sidebar ul li a {
-  text-decoration: none;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  display: block;
-  transition: background-color 0.3s ease;
+
+.sidebar ul li.active,
+.sidebar ul li:hover {
+  background-color: #e0ae8c;
 }
 
-/* Highlight active link */
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
-  background-color: #dec1ad;  /* Light brown background for active or hovered link */
-}
-
-/* Main container styling */
-.main-container {
-  width: 100%;  /* Set width to 100% of the viewport width */
-  height: 100%; /* Set height to 100% of the viewport height */
+/* Main Container */
+.main-content {
+  flex: 1;
   display: flex;
-  background-color: #e5c4a3;
-  box-sizing: border-box; /* Ensure padding/borders are included in the total width/height */
-  overflow: hidden; /* Prevent content from overflowing */
 }
 
 .container {
-  width: 89%;
-  height: 740px;
-  margin-top: 50px;
-  margin-left: 220px;
-  padding: 10px;
-  box-sizing: border-box;
-  background-color: #e5c4a3;
   padding: 20px;
-  border-radius: 8px;
+  width: 100%;
+  overflow-y: auto;
 }
 
-/* New Order button */
-.new-order {
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #333;
-  color: white;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-  border-radius: 10px;
-  z-index: 2;
-}
-
-/* Table styling for category - similar to product table */
-.category-table,
-.product-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    font-size: 16px;
-}
-
-.category-table th, .product-table th,
-.category-table td, .product-table td {
-    border: 1px solid #d8a66d;
-    padding: 10px;
-    text-align: center;
-}
-
-.category-table th, .product-table th {
-    background-color: #f0dabd;
-    font-weight: bold;
-}
-
-.category-table td, .product-table td {
-    background-color: #fff;
-}
-
-/* Button styling remains the same */
-.edit-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-right: 5px;
-}
-
-.delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-
-/* Category menu */
-.category-menu {
-
-  display: flex;
-  gap: 15px;
+.category-content p {
+  font-size: 18px;
   margin-bottom: 20px;
 }
 
-.category-menu span {
-  cursor: pointer;
-  padding: 8px;
-  font-weight: bold;
-}
-
-.category-menu span.active {
-  color: #1976d2;
-  border-bottom: 2px solid #1976d2;
-}
-
-/* Grid layout for items */
+/* Item Grid */
 .item-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  width: 100%;
-  max-width: 1200px;
-  margin-top: 20px;
-  padding: 10px;
 }
 
-/* Item card styling */
-.item-card {
-  background-color: #f5d7b2;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.item-card img {
-  width: 100%;
-  max-height: 120px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-bottom: 10px;
-}
-
-.item-card h4 {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #333;
-  margin: 5px 0;
-}
-
-.item-card p {
-  font-size: 1rem;
-  color: #333;
-  margin: 5px 0;
-}
-
-
-/* ------------------------------------------------------------- */
-
-/* Category Form */
-.category-form {
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
-  transition: all 0.3s ease-in-out;
-}
-
-.category-form h3 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.category-form input#categoryName {
-  max-width: 500px; /* Ensure it spans the full width of the form */
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
-}
-
-.category-form input#categoryName {
-  width: 100%; /* Adjust the percentage as needed */
-  max-width: 475px; /* Maximum width limit */
-  padding: 12px;
-}
-
-.category-form label {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.category-form input,
-.category-form select {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
-}
-
-.category-form input:focus,
-.category-form select:focus {
-  border-color: #0052cc;
-  outline: none;
-  background-color: #f1f1f1;
-}
-
-.category-form button {
-  width: 100%;
-  padding: 12px;
-  background-color: #0052cc;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.category-form button:hover {
-  background-color: #003d99;
-}
-
-.category-form .error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-  text-align: center;
-}
-
-
-
-/*New Order Button */
-nav button {
-  padding: 12px 20px;
-  background-color: #007BFF; /* Primary button color */
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px; /* Rounded corners */
-  cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
-  text-transform: uppercase;
-}
-
-nav button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: translateY(-2px); /* Slight lift effect */
-}
-
-nav button:focus {
-  outline: none; /* Removes default outline */
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Adds blue shadow on focus */
-}
-
-/* Optional: Make the button centered if needed */
-nav {
-  display: flex;
-  justify-content: center;
+/* Product Container */
+.product-container {
   margin-top: 20px;
 }
 
-/* ------------------------------------------------------------- */
-
-/* Product Form */
-.product-form {
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
-  transition: all 0.3s ease-in-out;
-}
-
-.product-form h3 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.product-form label {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.product-form input,
-.product-form select {
-  width: 100%;                /* Full width for inputs */
-  max-width: 475px;           /* Matching max-width from Category Form */
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
-  transition: border-color 0.3s ease;
-}
-
-.product-form input:focus,
-.product-form select:focus {
-  border-color: #0052cc;
-  outline: none;
-  background-color: #f1f1f1;
-}
-
-.product-form button {
-  width: 100%;
-  padding: 12px;
-  background-color: #0052cc;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
+/* Modern styling for the category menu */
+.category-menu span {
+  margin-right: 20px;
+  padding: 12px 18px; /* Slightly larger padding for a more modern look */
+  font-size: 16px; /* Set a more modern font size */
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  display: inline-block; /* Ensure they behave like buttons */
+  font-weight: 600; /* Slightly lighter than bold for a modern feel */
+  color: #333; /* Dark gray text for a sleek appearance */
+  transition: all 0.3s ease; /* Smooth transition for all properties */
+  border-radius: 8px; /* Slight rounding of corners */
+  text-transform: uppercase; /* Uppercase text for a modern touch */
 }
 
-.product-form button:hover {
-  background-color: #003d99;
-}
-
-.product-form .error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-  text-align: center;
-}
-
-/* Specific styling for category input box */
-.product-form .category-input {
-  width: 100%;
-  max-width: 750px; /* Adjusted to make it longer than other inputs */
-}
-
-/* Button styling for "New Order" or "Add New" buttons */
-nav button {
-  padding: 12px 20px;
-  background-color: #007BFF;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-}
-
-nav button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-}
-
-nav button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.add-category-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
-
-.add-category-card {
-  width: 400px;
-  padding: 20px;
-}
-
-.full-width {
-  width: 100%;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+/* Modern underline effect on active or hover */
+.category-menu span.active,
+.category-menu span:hover {
+  color: #007bff; /* Highlight color when active/hovered */
+  background-color: #f0f8ff; /* Soft background on hover */
+  text-decoration: underline; /* Add underline effect */
+  transform: scale(1.05); /* Slight zoom effect for interaction */
 }

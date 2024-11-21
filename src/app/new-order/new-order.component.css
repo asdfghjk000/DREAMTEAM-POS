@@ -115,7 +115,7 @@
   /* Media Queries for Responsiveness */
   @media (max-width: 768px) {
     .order-container {
-      max-width: 85%; /* More compact on medium screens */
+      max-width: 80%; /* More compact on medium screens */
       padding: 18px; /* Reduced padding */
     }
   

@@ -1,7 +1,9 @@
 <div class="order-container">
   <div class="order-section">
-    <h3>NEW ORDER</h3>
-    <div class="order-list">
+    <h3>{{ isPaymentCompleted ? 'ORDER SUMMARY' : 'NEW ORDER' }}</h3>
+    
+    <!-- Show New Order Content -->
+    <div *ngIf="!isPaymentCompleted" class="order-list">
       <table>
         <thead>
           <tr>
@@ -28,11 +30,17 @@
       </table>
     </div>
 
-    <div class="total">
+    <!-- Total and Payment Button -->
+    <div *ngIf="!isPaymentCompleted" class="total">
       <span>TOTAL:</span>
       <span>₱ {{ calculateTotal() | number: '1.2-2' }}</span>
     </div>
 
-    <button class="payment-btn" (click)="proceedToPayment()">PAYMENT</button>
+    <button *ngIf="!isPaymentCompleted" class="payment-btn" (click)="proceedToPayment()">PAYMENT</button>
+    
+    <!-- Show Order Summary or History Content -->
+    <div *ngIf="isPaymentCompleted">
+      <app-order-summary [newOrder]="products"></app-order-summary> <!-- Pass the products here -->
+    </div>
   </div>
 </div>

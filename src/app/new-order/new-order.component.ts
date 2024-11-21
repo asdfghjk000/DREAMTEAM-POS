@@ -1,15 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OrderSummaryComponent } from "../order-summary/order-summary.component";
 
 @Component({
   selector: 'app-new-order',
   templateUrl: './new-order.component.html',
   styleUrls: ['./new-order.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, OrderSummaryComponent]
 })
 export class NewOrderComponent implements OnInit {
   @Input() products: any[] = []; // Receive selected products
+  isPaymentCompleted: boolean = false; // Track payment status
 
   ngOnInit() {
     console.log(this.products); // Verify if products are being passed correctly
@@ -35,5 +37,6 @@ export class NewOrderComponent implements OnInit {
 
   proceedToPayment() {
     console.log('Proceeding to payment...');
+    this.isPaymentCompleted = true; // Change status to show order summary
   }
 }

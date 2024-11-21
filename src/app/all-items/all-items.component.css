@@ -1,16 +1,21 @@
+/* Main container to hold both product grid and new order section */
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;  /* Use row layout for side-by-side content */
+  gap: 20px;  /* Add space between the product grid and new order section */
   padding: 20px;
+  align-items: flex-start;  /* Align items at the top */
 }
 
+/* Product Grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
-  margin-top: 20px;
+  flex: 1; /* Ensure product grid takes up remaining space */
 }
 
+/* Product Card Styling */
 .product-card {
   background-color: #faf4e9;
   padding: 15px;
@@ -24,6 +29,7 @@
   transform: scale(1.05);
 }
 
+/* Image container styling */
 .product-image-container {
   width: 100%;
   height: 200px; /* Fix the height */
@@ -36,6 +42,7 @@
   object-fit: cover; /* Ensure the image covers the space without stretching */
 }
 
+/* Product details */
 .product-details {
   margin-top: 10px;
 }
@@ -50,30 +57,28 @@
   font-size: 16px;
 }
 
-.no-products {
-  text-align: center;
-  font-size: 18px;
-  color: #777;
-}
-
-.product-details-side {
-  margin-top: 20px;
+/* New Order Section Styling (To the right of the product grid) */
+.new-order-section {
+  width: 300px;  /* Fixed width for the order section */
+  height: 100vh;  /* Full height of the viewport */
   padding: 20px;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  width: 300px;
+  box-sizing: border-box;  /* Include padding and border in element's total width/height */
+  overflow-y: auto;  /* Allow scrolling if content overflows */
 }
 
-.product-details-side h2 {
-  font-size: 22px;
+.new-order-section h2 {
+  font-size: 20px;
   margin-bottom: 10px;
 }
 
-.product-details-side p {
+.new-order-section p {
   font-size: 18px;
   margin-bottom: 15px;
 }
 
+/* Button Styling */
 button {
   padding: 10px 15px;
   background-color: #007bff;
@@ -85,4 +90,18 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+/* No Products Available */
+.no-products {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
+
+/* Loading and Error Message Styling */
+.loader, .error-message {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
 }

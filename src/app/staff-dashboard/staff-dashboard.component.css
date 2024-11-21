@@ -1,153 +1,108 @@
-/* Sidebar styling */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 250px;
-    background-color: #d2a689;
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-.sidebar .logo {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.sidebar .logo img {
-    width: 100%;
-    max-width: 150px;
-    height: auto;
-}
-
-.sidebar ul {
-    list-style: none;
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
     padding: 0;
-}
-
-.sidebar ul li {
-    margin-bottom: 20px;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.8; /* Adjust this value to control the line spacing */
-    font-size:1.5rem; /* Add this line to increase font size */
-}
-
-.sidebar ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 30px;
-    padding: 10px;
-    border-radius: 5px;
-    display: block;
-    transition: background-color 0.3s ease;
-}
-
-/* Styling for active sidebar link */
-.sidebar ul li a.active {
-    background-color: #1976d2; /* You can choose a color to highlight the active item */
-    color: white;
+    display: flex;
+    height: 100vh;
   }
   
-
-/* Main container styling */
-.main-container {
-    width: 100%;  /* Set width to 100% of the viewport width */
-    height: 100%; /* Set height to 100% of the viewport height */
+  .main-content {
+    flex: 1;
     display: flex;
-    background-color: #e5c4a3;
-    box-sizing: border-box; /* Ensure padding/borders are included in the total width/height */
-    overflow: hidden; /* Prevent content from overflowing */
-}
-
-.container {
-    width: 89%;
-    height: 740px;
-    margin-top: 50px;
-    margin-left: 220px;
-    padding: 10px;
-    box-sizing: border-box;
-    background-color: #e5c4a3;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-/* New Order button */
-.new-order {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-    border: none;
-    font-size: 1.2em;
-    cursor: pointer;
-    border-radius: 10px;
-    z-index: 2;
-}
-
-/* Category menu */
-.category-menu {
-
+    height: 100vh; /* Ensure it fills the viewport height */
+    overflow: hidden; /* Prevent unwanted scrollbars */
+  }
+  
+  
+  /* Sidebar */
+  .sidebar {
+    width: 350px;
+    background-color: #ca9572;
+    color: #fff;
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    height: 100vh; /* Set to exactly match viewport height */
+  }
+  
+  
+  .sidebar .logo img {
+    width: 150px;
+    height: auto;
     margin-bottom: 20px;
-}
-
-.category-menu span {
+  }
+  
+  .sidebar ul {
+    font-size: 1.5rem;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .sidebar ul li {
+    padding: 30px 20px;
     cursor: pointer;
-    padding: 8px;
-    font-weight: bold;
-}
-
-.category-menu span.active {
-    color: #1976d2;
-    border-bottom: 2px solid #1976d2;
-}
-
-/* Grid layout for items */
-.item-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin-top: 20px;
-    padding: 10px;
-}
-
-/* Item card styling */
-.item-card {
-    background-color: #f5d7b2;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-.item-card img {
+    transition: background 0.3s ease;
+  }
+  
+  
+  .sidebar ul li.active,
+  .sidebar ul li:hover {
+    background-color: #e0ae8c;
+  }
+  
+  /* Main Container */
+  .main-content {
+    flex: 1;
+    display: flex;
+  }
+  
+  .container {
+    padding: 20px;
     width: 100%;
-    max-height: 120px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.item-card h4 {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #333;
-    margin: 5px 0;
-}
-
-.item-card p {
-    font-size: 1rem;
-    color: #333;
-    margin: 5px 0;
-}
+    overflow-y: auto;
+  }
+  
+  .category-content p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  /* Item Grid */
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Product Container */
+  .product-container {
+    margin-top: 20px;
+  }
+  
+  /* Modern styling for the category menu */
+  .category-menu span {
+    margin-right: 20px;
+    padding: 12px 18px; /* Slightly larger padding for a more modern look */
+    font-size: 16px; /* Set a more modern font size */
+    cursor: pointer;
+    display: inline-block; /* Ensure they behave like buttons */
+    font-weight: 600; /* Slightly lighter than bold for a modern feel */
+    color: #333; /* Dark gray text for a sleek appearance */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    border-radius: 8px; /* Slight rounding of corners */
+    text-transform: uppercase; /* Uppercase text for a modern touch */
+  }
+  
+  /* Modern underline effect on active or hover */
+  .category-menu span.active,
+  .category-menu span:hover {
+    color: #007bff; /* Highlight color when active/hovered */
+    background-color: #f0f8ff; /* Soft background on hover */
+    text-decoration: underline; /* Add underline effect */
+    transform: scale(1.05); /* Slight zoom effect for interaction */
+  }
+  
