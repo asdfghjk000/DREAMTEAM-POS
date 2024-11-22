@@ -29,34 +29,26 @@
       <p>Manage Products</p>
       <!-- Product Navigation Buttons -->
       <div class="product-container">
-        <div class="category-menu">
-          <span (click)="changeSubCategory('category')" [class.active]="currentSubCategory === 'category'">Category</span>
-          <span (click)="changeSubCategory('product')" [class.active]="currentSubCategory === 'product'">Product</span>
-            </div>
-
-  <!--CATEGORYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY-->
-      <div *ngIf="currentSubCategory === 'category'">
-          <app-category></app-category>
-          </div>    
-          
-          
-<!-- PRODUCTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -->
-<div *ngIf="currentSubCategory === 'product'">
-  <app-products></app-products>
-</div>
-
-
+        <span (click)="changeSubCategory('category')" [class.active]="currentSubCategory === 'category'">Category</span>
+        <span (click)="changeSubCategory('product')" [class.active]="currentSubCategory === 'product'">Product</span>
       </div>
 
-      <div class="item-grid">
-        <!-- Grid for displaying products, add/edit/delete options, etc. -->
+      <!-- Category Content Section -->
+      <div *ngIf="currentSubCategory === 'category'">
+        <app-category></app-category>
+      </div>
+          
+      <!-- Product Content Section -->
+      <div *ngIf="currentSubCategory === 'product'">
+        <app-products></app-products>
       </div>
     </div>
 
     <!-- Orders Category Content -->
     <div *ngIf="currentCategory === 'orders'" class="category-content">
-      <app-order-history> </app-order-history>
+      <p>Manage Orders</p>
+      <app-order-history></app-order-history>
     </div>
 
   </div> <!-- End of container -->
-
+</div>
