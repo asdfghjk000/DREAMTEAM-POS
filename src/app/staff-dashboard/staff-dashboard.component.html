@@ -18,7 +18,6 @@
 
     <!-- All Items Category Content -->
     <div *ngIf="currentCategory === 'allItems'" class="category-content">
-      <p>All Items</p>
       <app-all-items></app-all-items>
       <div class="item-grid">
         <!-- Grid for displaying all items, including foods and drinks -->
@@ -27,7 +26,7 @@
 
     <!-- Foods Category Content -->
     <div *ngIf="currentCategory === 'foods'" class="category-content">
-      <p>Displaying all available foods.</p>
+      <app-foods></app-foods>
       <div class="item-grid">
         <!-- Grid for displaying food-related items -->
       </div>
@@ -35,7 +34,8 @@
 
     <!-- Drinks Category Content -->
     <div *ngIf="currentCategory === 'drinks'" class="category-content">
-      <p>Displaying all available drinks.</p>
+      <app-drinks></app-drinks>
+      
       <div class="item-grid">
         <!-- Grid for displaying drink-related items -->
       </div>

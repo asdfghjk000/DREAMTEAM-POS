@@ -1,22 +1,35 @@
-<!-- Direct display of categories for selection -->
-<div class="category-menu">
-    <span (click)="changeContent('hot-drinks')" [class.active]="currentCategory === 'hot-drinks'">Hot Drinks</span>
-    <span (click)="changeContent('cold-drinks')" [class.active]="currentCategory === 'cold-drinks'">Cold Drinks</span>
-    <span (click)="changeContent('smoothies')" [class.active]="currentCategory === 'smoothies'">Smoothies</span>
-    <span (click)="changeContent('specialty-drinks')" [class.active]="currentCategory === 'specialty-drinks'">Specialty Drinks</span>
+<div class="container">
+  <!-- Loading state -->
+  <div *ngIf="isLoading" class="loader">
+    <p>Loading...</p>
   </div>
-  
-  <!-- Display content based on the selected category -->
-  <div *ngIf="currentCategory === 'hot-drinks'">
-    <p>Showing Hot Drinks</p>
+
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
   </div>
-  <div *ngIf="currentCategory === 'cold-drinks'">
-    <p>Showing Cold Drinks</p>
+
+  <!-- Product grid (displays products when available) -->
+  <div *ngIf="products.length > 0" class="product-grid">
+    <div *ngFor="let product of products" class="product-card" (click)="selectProduct(product)">
+      <div class="product-image-container">
+        <img *ngIf="product.image" [src]="'data:image/jpeg;base64,' + product.image" alt="{{ product.productName }}">
+        <img *ngIf="product.imageUrl && !product.image" [src]="product.imageUrl" alt="{{ product.productName }}">
+      </div>
+      <div class="product-details">
+        <h3 class="product-name">{{ product.productName }}</h3>
+        <p class="price">₱{{ product.price }}</p>
+      </div>
+    </div>
   </div>
-  <div *ngIf="currentCategory === 'smoothies'">
-    <p>Showing Smoothies</p>
+
+  <!-- Message when no products are available -->
+  <div *ngIf="products.length === 0" class="no-products">
+    <p>No products available.</p>
   </div>
-  <div *ngIf="currentCategory === 'specialty-drinks'">
-    <p>Showing Specialty Drinks</p>
+
+  <!-- Display selected products in NewOrderComponent -->
+  <div *ngIf="selectedProducts.length > 0">
+    <app-new-order [products]="selectedProducts"></app-new-order>
   </div>
-  
+</div>

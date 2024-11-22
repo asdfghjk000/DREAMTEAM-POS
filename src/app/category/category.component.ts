@@ -4,9 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 interface Category {
+main: any;
   categoryID: number;
   categoryName: string;
-  isEditing?: boolean; // Add this property to track edit mode
+  categoryMain: string; // Added categoryMain
+  isEditing?: boolean;
 }
 
 interface ApiResponse {
@@ -21,13 +23,13 @@ interface ApiResponse {
     CommonModule,
     FormsModule
   ],
-  
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
   categories: Category[] = [];
   categoryName: string = '';
+  categoryMain: string = ''; // Added categoryMain
   apiUrl: string = 'http://localhost/backend-db/';
   errorMessage: string = '';
   isLoading: boolean = false;
@@ -50,7 +52,7 @@ export class CategoryComponent implements OnInit {
         console.log('Categories received:', data);
         this.categories = data.map(category => ({
           ...category,
-          isEditing: false // Initialize isEditing to false
+          isEditing: false
         }));
         this.isLoading = false;
       },
@@ -63,9 +65,12 @@ export class CategoryComponent implements OnInit {
   }
 
   createCategory(): void {
-    if (this.categoryName.trim()) {
+    if (this.categoryName.trim() && this.categoryMain.trim()) {
       this.isLoading = true;
-      const postData = { categoryName: this.categoryName };
+      const postData = { 
+        categoryName: this.categoryName, 
+        categoryMain: this.categoryMain // Include categoryMain in the request
+      };
       
       this.http.post<ApiResponse>(`${this.apiUrl}create_category.php`, postData).subscribe({
         next: (response) => {
@@ -73,6 +78,7 @@ export class CategoryComponent implements OnInit {
           if (response.success) {
             this.readCategories(); // Refresh the categories
             this.categoryName = '';
+            this.categoryMain = ''; // Clear the categoryMain
             this.errorMessage = '';
             this.showAddForm = false; // Close the form after creating category
           } else {
@@ -83,16 +89,12 @@ export class CategoryComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error creating category:', error);
-          if (error.error && error.error.message) {
-            this.errorMessage = error.error.message; // Display server error message if available
-          } else {
-            this.errorMessage = 'Failed to create category';
-          }
+          this.errorMessage = 'Failed to create category';
           this.isLoading = false;
         }
       });
     } else {
-      this.errorMessage = 'Category name cannot be empty'; // Provide user feedback
+      this.errorMessage = 'Category name and category main cannot be empty';
     }
   }
 
@@ -105,11 +107,12 @@ export class CategoryComponent implements OnInit {
   }
 
   updateCategory(category: Category): void {
-    if (!category.isEditing) return; // Prevent update if not in edit mode
+    if (!category.isEditing) return;
     this.isLoading = true;
     const postData = { 
       categoryID: category.categoryID, 
-      categoryName: category.categoryName 
+      categoryName: category.categoryName,
+      categoryMain: category.categoryMain // Send categoryMain during update
     };
 
     this.http.post<ApiResponse>(`${this.apiUrl}update_category.php`, postData).subscribe({
@@ -132,7 +135,6 @@ export class CategoryComponent implements OnInit {
     category.isEditing = false; // Disable edit mode after update
   }
 
-  // Immediately delete category without confirmation
   deleteCategory(categoryID: number): void {
     this.isLoading = true;
     this.http.get<ApiResponse>(`${this.apiUrl}delete_category.php?id=${categoryID}`).subscribe({

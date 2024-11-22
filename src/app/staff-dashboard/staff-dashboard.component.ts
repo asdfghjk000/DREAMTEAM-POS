@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { AllItemsComponent } from '../all-items/all-items.component';
+import { FoodsComponent } from "../foods/foods.component";
+import { DrinksComponent } from "../drinks/drinks.component";
 
 @Component({
   selector: 'app-staff-dashboard',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatButtonModule, MatMenuModule, AllItemsComponent],
+  imports: [FormsModule, CommonModule, MatButtonModule, MatMenuModule, AllItemsComponent, FoodsComponent, DrinksComponent],
   templateUrl: './staff-dashboard.component.html',
   styleUrls: ['./staff-dashboard.component.css']
 })

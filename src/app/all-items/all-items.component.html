@@ -1,12 +1,15 @@
 <div class="container">
+  <!-- Loading state -->
   <div *ngIf="isLoading" class="loader">
     <p>Loading...</p>
   </div>
 
+  <!-- Error message -->
   <div *ngIf="errorMessage" class="error-message">
     <p>{{ errorMessage }}</p>
   </div>
 
+  <!-- Product grid (displays products when available) -->
   <div *ngIf="products.length > 0" class="product-grid">
     <div *ngFor="let product of products" class="product-card" (click)="selectProduct(product)">
       <div class="product-image-container">
@@ -20,11 +23,12 @@
     </div>
   </div>
 
+  <!-- Message when no products are available -->
   <div *ngIf="products.length === 0" class="no-products">
     <p>No products available.</p>
   </div>
 
-  <!-- Pass the list of selected products to the NewOrderComponent -->
+  <!-- Display selected products in NewOrderComponent -->
   <div *ngIf="selectedProducts.length > 0">
     <app-new-order [products]="selectedProducts"></app-new-order>
   </div>

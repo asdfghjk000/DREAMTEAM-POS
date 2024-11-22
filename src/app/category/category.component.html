@@ -18,7 +18,20 @@
         required
         [disabled]="isLoading"
       />
-      <button type="submit" [disabled]="!categoryName.trim() || isLoading">
+      
+      <!-- Add Category Main Dropdown -->
+      <select
+        name="categoryMain"
+        [(ngModel)]="categoryMain"
+        required
+        [disabled]="isLoading"
+      >
+        <option value="" disabled>Select Main</option>
+        <option value="Food">Food</option>
+        <option value="Drinks">Drink</option>
+      </select>
+
+      <button type="submit" [disabled]="!categoryName.trim() || !categoryMain || isLoading">
         Create Category
       </button>
     </form>
@@ -39,6 +52,7 @@
     <thead>
       <tr>
         <th>Category Code</th>
+        <th>Main</th> <!-- Main column to display Food/Drinks -->
         <th>Category Name</th>
         <th>Actions</th>
       </tr>
@@ -46,6 +60,17 @@
     <tbody>
       <tr *ngFor="let category of categories; let i = index">
         <td>{{ i + 1 }}</td>
+        <td>
+          <div *ngIf="!category.isEditing">
+            {{ category.categoryMain }} <!-- Display Food/Drinks value here -->
+          </div>
+          <div *ngIf="category.isEditing">
+            <select [(ngModel)]="category.categoryMain" [disabled]="isLoading">
+              <option value="Food">Food</option>
+              <option value="Drink">Drink</option>
+            </select>
+          </div>
+        </td>
         <td>
           <div *ngIf="!category.isEditing">
             {{ category.categoryName }}

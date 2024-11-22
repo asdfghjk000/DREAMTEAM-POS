@@ -10,38 +10,16 @@ import { NewOrderComponent } from '../new-order/new-order.component';
   standalone: true, // Mark the component as standalone
   templateUrl: './all-items.component.html',
   styleUrls: ['./all-items.component.css'],
-  imports: [FormsModule, CommonModule, NewOrderComponent], // No external components or modules needed for a standalone component
+  imports: [FormsModule, CommonModule, NewOrderComponent],
 })
 export class AllItemsComponent implements OnInit {
-
   selectedProducts: any[] = []; // Track selected products
-
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
-
-  // Handle selection of a product
-  selectProduct(product: Product) {
-    const existingProduct = this.selectedProducts.find(p => p.productName === product.productName);
-    
-    if (existingProduct) {
-      // If the product is already selected, increase the quantity
-      existingProduct.quantity++;
-    } else {
-      // Add new product to the order with a quantity of 1
-      this.selectedProducts.push({
-        productName: product.productName,
-        price: product.price,
-        quantity: 1
-      });
-    }
-
-    // Ensure Angular detects the change in the array
-    this.cdr.detectChanges();
-  }
-
   products: Product[] = [];
   errorMessage: string = '';
   isLoading: boolean = false;
   apiUrl: string = 'http://localhost/backend-db/';
+
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.fetchProducts(); // Fetch products on initialization
@@ -63,7 +41,40 @@ export class AllItemsComponent implements OnInit {
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error?.message || 'Failed to load products.';
         this.isLoading = false;
-      }
+      },
     });
+  }
+
+  // Handle product selection
+  selectProduct(product: Product): void {
+    const existingProduct = this.selectedProducts.find(
+      (p) => p.productName === product.productName
+    );
+
+    if (existingProduct) {
+      // If product exists, increase quantity
+      existingProduct.quantity++;
+    } else {
+      // If not, add new product with quantity 1
+      this.selectedProducts.push({
+        productName: product.productName,
+        price: product.price,
+        quantity: 1,
+      });
+    }
+
+    // Trigger change detection to ensure UI is updated
+    this.cdr.detectChanges();
+  }
+
+  // Remove product from selected items
+  removeProduct(item: any): void {
+    const index = this.selectedProducts.findIndex(
+      (product) => product.productName === item.productName
+    );
+    if (index !== -1) {
+      this.selectedProducts.splice(index, 1); // Remove item by index
+    }
+    this.cdr.detectChanges(); // Trigger change detection manually
   }
 }

@@ -95,14 +95,19 @@ export class AdminDashboardComponent implements AfterViewInit {
     this.editingIndex = index;
     this.isCategoryFormVisible = true;
   }
+// Change main category
+changeContent(category: string): void {
+  this.currentCategory = category;
 
-  // Change main category
-  changeContent(category: string): void {
-    this.currentCategory = category;
-    if (category !== 'sales') {
-      this.currentSubCategory = null;
-    }
+  // Set default subcategory when "products" is clicked
+  if (category === 'products') {
+    this.currentSubCategory = 'category'; // Set the default subcategory as 'category'
+  } else {
+    this.currentSubCategory = null; // Reset subcategory if not 'products'
   }
+}
+
+
 
   // Change subcategory
   changeSubCategory(subCategory: string): void {
