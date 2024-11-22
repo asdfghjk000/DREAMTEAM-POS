@@ -1,0 +1,69 @@
+.order-history {
+    width: 95%; /* Increased width for a larger container */
+    max-width: 1200px; /* Optional: Limit the maximum width for larger screens */
+    margin: 40px auto; /* Add more spacing around the container */
+    padding: 20px; /* Add padding inside the container */
+    background-color: #fdfdfd; /* Optional: Subtle background for the container */
+    border-radius: 10px; /* Rounded corners for a modern look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+  }
+  
+  .item {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ddd;
+  }
+  
+  .item span {
+    font-weight: bold;
+  }
+  
+  .action-button {
+    padding: 5px 15px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .action-button:hover {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  }
+  

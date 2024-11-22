@@ -6,11 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { CategoryComponent } from '../category/category.component';
 import { ProductsComponent } from "../products/products.component";
+import { OrderHistoryComponent } from "../order-history/order-history.component";
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [FormsModule, CommonModule, RouterModule, MatButtonModule, MatMenuModule, CategoryComponent, ProductsComponent],
+  imports: [FormsModule, CommonModule, RouterModule, MatButtonModule, MatMenuModule, CategoryComponent, ProductsComponent, OrderHistoryComponent, OrderHistoryComponent],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })

@@ -55,10 +55,7 @@
 
     <!-- Orders Category Content -->
     <div *ngIf="currentCategory === 'orders'" class="category-content">
-      <p>View and manage current and pending orders.</p>
-      <div class="item-grid">
-        <!-- Grid for displaying orders, statuses, and related actions -->
-      </div>
+      <app-order-history> </app-order-history>
     </div>
 
   </div> <!-- End of container -->
