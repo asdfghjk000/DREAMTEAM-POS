@@ -14,7 +14,6 @@ body {
   overflow: hidden; /* Prevent unwanted scrollbars */
 }
 
-
 /* Sidebar */
 .sidebar {
   width: 350px;
@@ -26,7 +25,6 @@ body {
   padding: 20px 0;
   height: 100vh; /* Set to exactly match viewport height */
 }
-
 
 .sidebar .logo img {
   width: 150px;
@@ -47,7 +45,6 @@ body {
   text-align: center;
   transition: background 0.3s ease;
 }
-
 
 .sidebar ul li.active,
 .sidebar ul li:hover {
@@ -81,10 +78,12 @@ body {
 /* Product Container */
 .product-container {
   margin-top: 20px;
+  display: flex;
+  gap: 20px; /* Add some space between the elements */
 }
 
 /* Modern styling for the category menu */
-.category-menu span {
+.product-container span {
   margin-right: 20px;
   padding: 12px 18px; /* Slightly larger padding for a more modern look */
   font-size: 16px; /* Set a more modern font size */
@@ -93,15 +92,10 @@ body {
   font-weight: 600; /* Slightly lighter than bold for a modern feel */
   color: #333; /* Dark gray text for a sleek appearance */
   transition: all 0.3s ease; /* Smooth transition for all properties */
-  border-radius: 8px; /* Slight rounding of corners */
   text-transform: uppercase; /* Uppercase text for a modern touch */
 }
 
-/* Modern underline effect on active or hover */
-.category-menu span.active,
-.category-menu span:hover {
-  color: #007bff; /* Highlight color when active/hovered */
-  background-color: #f0f8ff; /* Soft background on hover */
-  text-decoration: underline; /* Add underline effect */
-  transform: scale(1.05); /* Slight zoom effect for interaction */
+/* Additional styles for product-container when active */
+.product-container .active {
+  border-bottom: 3px solid #007bff; /* Bold bottom border to indicate active selection */
 }
