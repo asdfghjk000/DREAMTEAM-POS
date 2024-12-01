@@ -10,7 +10,7 @@ import { NewOrderComponent } from "../new-order/new-order.component";
   standalone: true,
   templateUrl: './all-items.component.html',
   styleUrls: ['./all-items.component.css'],
-  imports: [FormsModule, CommonModule, NewOrderComponent],
+  imports: [FormsModule, CommonModule],
 })
 export class AllItemsComponent implements OnInit {
 
@@ -24,7 +24,7 @@ export class AllItemsComponent implements OnInit {
       this.filteredProducts = [...this.products];  // Reset to all products if search query is empty
     }
   }
-  
+
   @Output() selectProduct = new EventEmitter<Product>();  // Emitting Product type
   products: Product[] = [];
   filteredProducts: Product[] = [];

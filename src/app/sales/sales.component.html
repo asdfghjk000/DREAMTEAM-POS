@@ -1,1 +1,41 @@
-<p>sales works!</p>
+<div class="sales-summary">
+    <h2>Sales Analytics</h2>
+  
+    <p><strong>Overall Total Sales:</strong> ₱{{ overallTotalSales | number }}</p>
+    <p><strong>Overall Total Quantity:</strong> {{ overallTotalQuantity }}</p>
+    <p>Food:{{ totalFoodQuantity }}</p>
+    <p>Drink:{{ totalDrinkQuantity }}</p>
+  
+    <h3>Top 5 Products with Highest Quantity Sold</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Total Quantity Sold</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of top5Products">
+          <td>{{ product.ProductName }}</td>
+          <td>{{ product.totalQuantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <h3>Top 5 Categories with Highest Quantity Sold</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Total Quantity Sold</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of top5Categories">
+          <td>{{ category.categoryName }}</td>
+          <td>{{ category.totalQuantity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

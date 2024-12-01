@@ -8,7 +8,7 @@ import { Product, ApiResponse } from '../products/products.component';
 @Component({
   selector: 'app-foods',
   standalone: true,
-  imports: [FormsModule, CommonModule, NewOrderComponent],
+  imports: [FormsModule, CommonModule],
   templateUrl: './foods.component.html',
   styleUrls: ['./foods.component.css']
 })

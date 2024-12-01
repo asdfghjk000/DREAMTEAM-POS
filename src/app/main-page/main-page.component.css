@@ -39,6 +39,7 @@ button:hover {
 
 /* Logo styling */
 .logo img {
+  margin-top: 40px;
   width: 200px;
   margin-bottom: 20px;
 }

@@ -1,14 +1,4 @@
 <div class="category-container">
-  <!-- Search Bar -->
-  <div class="search-bar">
-    <input
-      type="text"
-      [(ngModel)]="searchText"
-      placeholder="Search categories..."
-      (keyup)="onSearchChange()"
-      [disabled]="isLoading"
-    />
-  </div>
 
   <!-- Add New Category -->
   <div class="new-category-section">
@@ -54,6 +44,19 @@
 
   <!-- Loading Indicator -->
   <div *ngIf="isLoading" class="loading">Loading...</div>
+
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search categories..."
+      (keyup)="onSearchChange()"
+      [disabled]="isLoading"
+    />
+  </div>
+
 
   <!-- Categories Table -->
   <table class="category-table" *ngIf="filteredCategories.length > 0; else noCategories">
