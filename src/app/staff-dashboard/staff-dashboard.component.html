@@ -1,0 +1,39 @@
+<!-- Main content area -->
+<div class="main-content">
+
+  <!-- Sidebar with Logo and Navigation Links -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="eshercafelogo.png" alt="Esher Cafe Logo">
+    </div>
+    <ul>
+      <li (click)="changeContent('allItems')" [class.active]="currentCategory === 'allItems'">ALL ITEMS</li>
+      <li (click)="changeContent('foods')" [class.active]="currentCategory === 'foods'">FOODS</li>
+      <li (click)="changeContent('drinks')" [class.active]="currentCategory === 'drinks'">DRINKS</li>
+    </ul>
+  </div>
+
+  <!-- Main Container for Displaying Content Based on Selection -->
+  <div class="container">
+    <!-- All Items Category Content -->
+    <div *ngIf="currentCategory === 'allItems'" class="category-content">
+      <app-all-items (selectProduct)="selectProduct($event)"></app-all-items>
+    </div>
+
+    <!-- Foods Category Content -->
+    <div *ngIf="currentCategory === 'foods'" class="category-content">
+      <app-foods (selectProduct)="selectProduct($event)"></app-foods>
+    </div>
+
+    <!-- Drinks Category Content -->
+    <div *ngIf="currentCategory === 'drinks'" class="category-content">
+      <app-drinks (selectProduct)="selectProduct($event)"></app-drinks>
+    </div>
+  </div>
+
+  <!-- Display New Order Component fixed to the right, only if there are selected products -->
+  <div class="new-order-container" *ngIf="selectedProducts.length > 0 && !isOrderConfirmed">
+    <app-new-order [products]="selectedProducts" (orderConfirmed)="onOrderConfirmed()"></app-new-order>
+  </div>
+
+</div> <!-- End of main-content -->

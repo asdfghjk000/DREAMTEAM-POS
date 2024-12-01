@@ -1,0 +1,58 @@
+<div class="container">
+  <!-- Search bar -->
+  <div class="search-container">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="onSearchQueryChange()"
+      placeholder="Search for drink products..."
+      class="search-input"
+    />
+  </div>
+
+  <!-- Loading state -->
+  <div *ngIf="isLoading" class="loader">
+    <p>Loading...</p>
+  </div>
+
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Product grid (displays filtered products) -->
+  <div *ngIf="filteredProducts.length > 0" class="product-grid">
+    <div
+      *ngFor="let product of filteredProducts"
+      class="product-card"
+      (click)="selectAndEmitProducts(product)"
+    >
+      <div class="product-image-container">
+        <img
+          *ngIf="product.image"
+          [src]="'data:image/jpeg;base64,' + product.image"
+          alt="{{ product.productName }}"
+        />
+        <img
+          *ngIf="product.imageUrl && !product.image"
+          [src]="product.imageUrl"
+          alt="{{ product.productName }}"
+        />
+      </div>
+      <div class="product-details">
+        <h3 class="product-name">{{ product.productName }}</h3>
+        <p class="price">₱{{ product.price }}</p>
+
+        <!-- Display product status -->
+        <p class="status" *ngIf="product.status">
+          <strong>Status: </strong>{{ product.status }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message when no products are available -->
+  <div *ngIf="filteredProducts.length === 0" class="no-products">
+    <p>No products available.</p>
+  </div>
+</div>

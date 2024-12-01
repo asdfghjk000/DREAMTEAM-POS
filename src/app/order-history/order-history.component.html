@@ -1,0 +1,29 @@
+<div class="order-history">
+  <table>
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Order</th>
+        <th>Amount</th>
+        <th>Payment</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of currentPageOrders">
+        <td>{{ order.orderNumber }}</td>
+        <td>
+          <span *ngFor="let item of order.items" class="item">{{ item }}</span>
+        </td>
+        <td>{{ order.amount | currency: 'PHP':'symbol' }}</td>
+        <td>{{ order.payment }}</td>
+        <td>{{ order.date }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination-controls">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+</div>

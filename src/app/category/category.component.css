@@ -1,0 +1,212 @@
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+
+  .search-bar {
+    margin-bottom: 2 rem;
+    text-align: left;
+  }
+  
+  .search-bar input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  /* Container for the category list */
+  .category-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  /* Heading */
+  .category-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Error and Loading Messages */
+  .error-message,
+  .loading {
+    text-align: center;
+    margin: 1rem 0;
+    color: #ff4d4d;
+  }
+  
+  .loading {
+    color: #4d90fe;
+  }
+  
+  /* Add New Category Section */
+  .new-category-section {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-end; /* Align the add button to the right */
+  }
+  
+  .new-category-button {
+    background-color: #4d90fe;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .new-category-button:hover {
+    background-color: #3578e5;
+  }
+  
+ /* Floating Form */
+.add-category-form {
+  position: fixed;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for true centering */
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+  padding: 25px 30px; /* Increase padding for breathing space */
+  border-radius: 10px; /* Slightly rounder corners for a modern look */
+  z-index: 1000;
+  display: block;
+  transition: opacity 0.3s ease;
+  width: 360px; /* Slightly wider for better spacing */
+  max-width: 90%;
+  font-family: 'Roboto', sans-serif; /* Ensure consistent font */
+  color: #333;
+}
+
+/* Form Fields */
+.add-category-form input,
+.add-category-form select {
+  margin-bottom: 15px; /* More spacing between fields */
+  padding: 12px; /* Better touch target size */
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  width: 100%; /* Ensure fields span full width */
+  box-sizing: border-box; /* Prevent overflow from padding */
+}
+
+/* Input Focus */
+.add-category-form input:focus,
+.add-category-form select:focus {
+  border-color: #4d90fe; /* Highlight border on focus */
+  box-shadow: 0 0 5px rgba(77, 144, 254, 0.5); /* Subtle glow effect */
+  outline: none;
+}
+
+/* Form Buttons */
+.add-category-form button {
+  background-color: #28a745;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%; /* Full-width button for better usability */
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.add-category-form button:hover {
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(1.02); /* Slight zoom effect */
+}
+
+.add-category-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Form Title */
+.add-category-form h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center; /* Center the title */
+}
+
+/* Optional Form Description */
+.add-category-form p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+  
+  /* Categories Table Styles */
+  .category-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+  }
+  
+  .category-table th,
+  .category-table td {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  .category-table th {
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  .category-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .category-table tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .category-table td {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .category-table .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .category-table .action-buttons button {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .category-table .action-buttons button:hover {
+    background-color: #e0a800;
+  }
+  
+  /* No Categories Message */
+  .no-categories {
+    text-align: center;
+    color: #888;
+    font-size: 1.2rem;
+    margin-top: 3rem;
+  }
+  

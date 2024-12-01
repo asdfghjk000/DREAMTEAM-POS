@@ -1,0 +1,212 @@
+/* General Layout */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4e1d2;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+
+button:hover {
+  transform: translateY(-5px); /* Slight upward movement on hover */
+  transition: transform 0.3s ease-in-out; /* Smooth animation */
+}
+
+/* Container for the login form */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.welcome-text {
+  font-size: 20px; /* Adjust size as needed */
+  font-weight: bold;
+  color: white;
+  text-align: center; /* Center align the text */
+  padding-top: 15px; /* Ensure it's not too compressed at the top */
+  margin: 0;
+}
+
+/* Logo styling */
+.logo img {
+  width: 200px;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  margin-top: 15px;
+  color: red;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Login card styling */
+.login-card {
+  color: #444;
+  background-color: rgba(251, 219, 180, 0.9);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 420px;
+  margin: auto;
+}
+
+/* Title styling */
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Input Group */
+.input-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Wrapper for input fields and icons */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* Icon styling: Move to the right */
+.input-wrapper i {
+  position: absolute;
+  right: 0; /* Move icon to the right */
+  color: #888;
+  font-size: 22px;
+  padding-right: 5px;
+}
+
+/* Input Field: Line-Based Style */
+input {
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 5px;
+  border: none;
+  border-bottom: 2px solid rgb(252, 252, 217); /* Bottom border only */
+  font-size: 1.2em; /* Adjust font size */
+  background-color: transparent;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Focus state for input */
+input:focus {
+  border-bottom: 2px solid burlywood; /* Change border color on focus */
+}
+
+/* Placeholder styling */
+input::placeholder {
+  color: #888;
+  font-size: 1em;
+  font-style: italic;
+}
+
+/* Button Styles */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: black; 
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: rgb(226, 161, 76);
+}
+
+button:disabled {
+  background-color: black;
+}
+
+
+/* Error message styling */
+.error-message {
+  margin-top: 15px;
+  color: red;
+  font-size: 0.9em;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Show password button */
+button[type="button"] {
+  background-color: transparent;
+  color: #444;
+  border: none;
+  font-size: 0.9em;
+  cursor: pointer;
+  margin-top: 5px;
+  text-decoration: underline;
+}
+
+button[type="button"]:hover {
+  color: #333;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .login-card {
+    padding: 20px;
+    width: 90%;
+    font-size: 0.9em;
+  }
+
+  .logo img {
+    width: 150px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 1.2em;
+  }
+
+  input {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .logo img {
+    width: 120px;
+  }
+
+  button {
+    font-size: 1em;
+  }
+
+  input {
+    font-size: 0.9em;
+  }
+}
+
+

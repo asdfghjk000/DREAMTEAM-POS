@@ -1,0 +1,18 @@
+/* General reset and setup */
+html, body {
+  height: 100%;
+  background-color: #d2a689; /* Light brown background */
+  font-family: 'Poppins', sans-serif; /* Apply Poppins font globally */
+  font-weight: 700; /* Use bold weight globally */
+  margin: 0; /* Ensure no default margin */
+  padding: 0; /* Remove any default padding */
+}
+
+
+/* Ensure responsive scaling if viewport changes */
+@media (max-width: 768px) {
+  body {
+    justify-content: flex-start; /* Adjust centering for smaller screens */
+    padding: 0; /* Remove padding for smaller screens */
+  }
+}

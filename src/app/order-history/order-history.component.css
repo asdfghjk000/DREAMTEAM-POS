@@ -1,0 +1,98 @@
+.order-history {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+table {
+  width: 100%; /* Ensure table fills the container */
+  border-collapse: collapse; /* Remove gaps between table cells */
+  margin-top: 15px; /* Spacing between table and other content */
+  border: 1px solid #ccc; /* Border for the entire table */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle depth effect */
+}
+
+th, td {
+  text-align: left; /* Align text to the left */
+  padding: 10px; /* Add space within cells */
+  border: 1px solid #ddd; /* Light borders for structure */
+  word-wrap: break-word; /* Handle long text gracefully */
+  height: 40px; /* Fixed height for each row */
+  vertical-align: middle; /* Vertically center content */
+}
+
+th {
+  background-color: #f4f4f4; /* Distinguish header row */
+  font-weight: bold; /* Emphasize header text */
+}
+
+tr:hover {
+  background-color: #f9f9f9; /* Highlight row on hover */
+  cursor: pointer; /* Indicate interactivity */
+}
+
+.item {
+  display: inline-block; /* Align items in a row */
+  margin-right: 8px; /* Spacing between items */
+  padding: 5px 10px; /* Inner spacing for items */
+  background-color: #f7f7f7; /* Light background */
+  border-radius: 15px; /* Rounded corners */
+  font-size: 14px; /* Text size for readability */
+  color: #333; /* Text color */
+  border: 1px solid #ddd; /* Outline for items */
+}
+
+.item span {
+  font-weight: bold; /* Emphasize inner text */
+}
+
+.pagination-controls {
+  display: flex; /* Use flexbox for pagination controls */
+  justify-content: center; /* Center the buttons */
+  gap: 15px; /* Add space between buttons */
+  margin-top: 20px; /* Add spacing above the pagination controls */
+}
+
+button {
+  padding: 8px 16px; /* Add padding to buttons */
+  font-size: 16px; /* Font size for buttons */
+  background-color: #007bff; /* Blue button background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Show pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth color change on hover */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darken button color on hover */
+}
+
+button[disabled] {
+  background-color: #d6d6d6; /* Light gray for disabled buttons */
+  cursor: not-allowed; /* Change cursor for disabled state */
+}
+
+@media (max-width: 768px) {
+  .order-history {
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+  table {
+    font-size: 14px; /* Reduce font size for smaller screens */
+  }
+  th, td {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
+  .item {
+    font-size: 12px; /* Smaller item font size */
+    padding: 5px 10px; /* Adjust item padding */
+  }
+  button {
+    font-size: 14px; /* Smaller button font size */
+    padding: 6px 12px; /* Adjust button padding */
+  }
+}

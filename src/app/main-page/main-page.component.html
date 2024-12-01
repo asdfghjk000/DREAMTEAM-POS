@@ -1,0 +1,72 @@
+<div class="login-container">
+  <p class="welcome-text">WELCOME TO</p>
+  <!-- Logo outside the card, centered -->
+  <div class="logo">
+    <img src="eshercafelogo.png" alt="Esher Cafe Logo" />
+  </div>
+
+  <!-- Login Card -->
+  <div class="login-card">
+    <h2>Esher Cafe POS System</h2>
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <!-- Username Field -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <i class="fas fa-user"></i> <!-- FontAwesome Icon -->
+          <input
+            type="text"
+            id="username"
+            name="username"
+            [(ngModel)]="username"
+            required
+            placeholder="Username"
+            #usernameInput="ngModel"
+          />
+        </div>
+        <!-- Error message in red for Username -->
+        <div
+          class="error-message"
+          *ngIf="usernameInput.invalid && usernameInput.touched"
+        >
+          Username is required.
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="input-group">
+        <div class="input-wrapper">
+          <i class="fas fa-lock"></i> <!-- FontAwesome Icon -->
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            placeholder="Password"
+            #passwordInput="ngModel"
+          />
+        </div>
+        <!-- Error message in red for Password -->
+        <div
+          class="error-message"
+          *ngIf="passwordInput.invalid && passwordInput.touched"
+        >
+          Password is required.
+        </div>
+      </div>
+
+      <!-- Toggle Password Visibility -->
+      <button type="button" (click)="togglePasswordVisibility()">
+        {{ showPassword ? 'Hide Password' : 'Show Password' }}
+      </button>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>

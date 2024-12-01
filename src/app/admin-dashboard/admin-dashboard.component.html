@@ -1,0 +1,48 @@
+<!-- Main content area -->
+<div class="main-content">
+  
+  <!-- Sidebar with Logo and Navigation Links -->
+  <div class="sidebar">
+    <div class="logo">  
+      <img src="eshercafelogo.png" alt="Esher Cafe Logo">
+    </div>
+    <ul>
+      <li (click)="changeContent('sales')" [class.active]="currentCategory === 'sales'">SALES</li>
+      <li (click)="changeContent('orders')" [class.active]="currentCategory === 'orders'">ORDERS</li> 
+      <li (click)="changeContent('products')" [class.active]="currentCategory === 'products'">PRODUCT</li>
+      <li (click)="changeContent('category')" [class.active]="currentCategory === 'category'">CATEGORY</li>
+
+    </ul>
+  </div>
+
+  <!-- Main Container for Displaying Content Based on Selection -->
+  <div class="container">
+
+    <!-- Sales Category Content -->
+    <div *ngIf="currentCategory === 'sales'" class="category-content">
+      <div class="item-grid">
+        <!-- Grid for displaying sales-related items, such as summaries, charts, etc. -->
+      </div>
+    </div>
+
+    <!-- Products Category Content -->
+    <div *ngIf="currentCategory === 'products'" class="category-content">
+      <div class="product-container">
+        <app-products></app-products>
+      </div>
+    </div>
+
+    <!-- Category Content -->
+    <div *ngIf="currentCategory === 'category'" class="category-content">
+      <div class="product-container">
+        <app-category></app-category>
+      </div>
+    </div>
+
+    <!-- Orders Category Content -->
+    <div *ngIf="currentCategory === 'orders'" class="category-content">
+      <app-order-history></app-order-history>
+    </div>
+
+  </div> <!-- End of container -->
+</div>

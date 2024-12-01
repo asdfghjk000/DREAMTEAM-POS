@@ -1,0 +1,113 @@
+/* Main container styling */
+.container {
+  display: flex;
+  flex-direction: column; /* Stack the search bar and product grid vertically */
+  gap: 20px;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Search Container */
+.search-container {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px; /* Spacing below the search box */
+  text-align: left; /* Ensure the text box stays left-aligned */
+}
+
+/* Adjust search input styles */
+.search-container input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  flex: 1;
+}
+
+/* Product Card Styling */
+.product-card {
+  background-color: #faf4e9;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-details {
+  margin-top: 10px;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.price {
+  color: #b12704;
+  font-size: 16px;
+}
+
+/* No Products Available */
+.no-products {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
+
+/* Loading and Error Message Styling */
+.loader, .error-message {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .product-image-container {
+    height: 150px;
+  }
+}
+
+
+

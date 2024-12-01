@@ -1,0 +1,115 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  overflow: hidden; /* Hide the overflow for the entire body */
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  height: 100vh; /* Ensure it fills the viewport height */
+  overflow: hidden; /* Prevent unwanted scrollbars in the main content */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px; /* Reduced sidebar width */
+  background-color: #ca9572;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0; /* Reduced padding */
+  height: 100vh; /* Set to exactly match viewport height */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+.sidebar .logo img {
+  width: 130px; /* Reduced logo size */
+  height: auto;
+  margin-bottom: 15px; /* Reduced margin */
+}
+
+.sidebar ul {
+  font-size: 1.2rem; /* Reduced font size */
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar ul li {
+  padding: 20px 15px; /* Reduced padding */
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.sidebar ul li.active,
+.sidebar ul li:hover {
+  background-color: #e0ae8c;
+}
+
+/* Main Container */
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  padding: 15px;
+  width: 100%;
+  overflow-y: auto; /* Allow vertical scrolling within the container */
+  -ms-overflow-style: none;  /* Hide scrollbar in IE/Edge */
+  scrollbar-width: none;  /* Hide scrollbar in Firefox */
+}
+/* Hide scrollbar in WebKit browsers */
+.container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Category Content */
+.category-content {
+  margin-bottom: 20px; /* Add some space between content */
+}
+
+/* New Order Container (Expanded Space) */
+.new-order-container {
+  padding-top: 20px;
+  padding-right: 20px;
+  flex-shrink: 0; /* Prevent shrinking */
+  width: 100%;
+  max-width: 30%; /* Set maximum width */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  -ms-overflow-style: none;  /* Hide scrollbar in IE/Edge */
+  scrollbar-width: none;  /* Hide scrollbar in Firefox */
+}
+
+/* Hide scrollbar in WebKit browsers */
+.new-order-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Modern styling for the category menu */
+.category-menu span {
+  margin-right: 15px;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  color: #333;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+/* Modern underline effect on active or hover */
+.category-menu span.active,
+.category-menu span:hover {
+  color: #007bff;
+  background-color: #f0f8ff;
+  text-decoration: underline;
+  transform: scale(1.03);
+}

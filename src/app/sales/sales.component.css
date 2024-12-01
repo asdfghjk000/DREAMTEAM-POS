@@ -1,0 +1,206 @@
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Container for the product list */
+  .product-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+  
+  /* Heading */
+  .product-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Error and Loading Messages */
+  .error-message,
+  .loading {
+    text-align: center;
+    margin: 1rem 0;
+    color: #ff4d4d;
+  }
+  
+  .loading {
+    color: #4d90fe;
+  }
+  
+  /* Add New Product Section */
+  .new-product-section {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-end; /* Align the add button to the right */
+  }
+  
+  .new-product-button {
+    background-color: #4d90fe;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .new-product-button:hover {
+    background-color: #3578e5;
+  }
+  
+  /* Floating Form */
+  .floating-form {
+    position: fixed;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for true centering */
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+    padding: 30px 35px; /* Increased padding for better spacing */
+    border-radius: 10px; /* Slightly rounder corners for modern look */
+    z-index: 1000;
+    display: block;
+    transition: opacity 0.3s ease;
+    width: 380px; /* Slightly wider for better alignment */
+    max-width: 90%;
+    font-family: 'Roboto', sans-serif; /* Ensure consistent font */
+    color: #333;
+  }
+  
+  /* Form Title */
+  .floating-form h3 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center; /* Center the title */
+  }
+  
+  /* Form Fields */
+  .floating-form input,
+  .floating-form select {
+    margin-bottom: 15px; /* More spacing between fields */
+    padding: 12px; /* Better touch target size */
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    width: 100%; /* Ensure fields span full width */
+    box-sizing: border-box; /* Prevent overflow from padding */
+  }
+  
+  /* Input Focus */
+  .floating-form input:focus,
+  .floating-form select:focus {
+    border-color: #4d90fe; /* Highlight border on focus */
+    box-shadow: 0 0 5px rgba(77, 144, 254, 0.5); /* Subtle glow effect */
+    outline: none;
+  }
+  
+  /* Form Buttons */
+  .floating-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%; /* Full-width button for better usability */
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .floating-form button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.02); /* Slight zoom effect */
+  }
+  
+  .floating-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Optional Form Description */
+  .floating-form p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Products Table Styles */
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+  }
+  
+  .product-table th,
+  .product-table td {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  .product-table th {
+    background-color: #f8f9fa;
+    color: #333;
+  }
+  
+  .product-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .product-table tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .product-table td {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .product-table .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .product-table .action-buttons button {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .product-table .action-buttons button:hover {
+    background-color: #e0a800;
+  }
+  
+  /* Make the product image fit within table cells */
+  .product-table .product-image img {
+    width: 40px; /* Make the image small */
+    height: 40px; /* Set height to match width */
+    object-fit: cover; /* Ensures the image fits well without distortion */
+    border-radius: 4px; /* Optional: Adds rounded corners to the image */
+  }
+  
+  /* No Products Message */
+  .no-categories {
+    text-align: center;
+    color: #888;
+    font-size: 1.2rem;
+    margin-top: 3rem;
+  }
+  

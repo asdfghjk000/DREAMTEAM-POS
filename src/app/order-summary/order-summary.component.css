@@ -1,0 +1,158 @@
+/* order-summary.component.css */
+
+/* Main container for the order summary */
+
+.summary-container {
+    background-color: #eddcc5; /* Background matches the design */
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #fff; /* White text for contrast */
+    margin-bottom: 8px;
+    padding: 4px 0;
+  }
+  
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Subtle divider */
+  }
+  
+  /* Payment section styling */
+  .payment-section {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .payment-section div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  
+  .payment-section label {
+    font-size: 16px;
+    color: #000000; /* Brown for text to match theme */
+  }
+  .payment-section input {
+    -webkit-appearance: none;   /* Remove arrows in Webkit browsers (Chrome, Safari) */
+    -moz-appearance: textfield; /* Remove arrows in Firefox */
+    appearance: none;           /* Ensure it works across all browsers */
+    width: 120px;
+    padding: 8px;
+    font-size: 16px;
+    text-align: right;
+    border: none;               /* Remove border */
+    outline: none;              /* Remove focus outline */
+    background-color: transparent; /* Optional: make background transparent if desired */
+    box-sizing: border-box;     /* Prevent any padding or border issues */
+}
+
+/* Additional styles for some browsers */
+.payment-section input::-webkit-outer-spin-button,
+.payment-section input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Payment buttons */
+.payment-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.payment-buttons button {
+  width: 48%; /* Equal width for buttons */
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Cash button */
+.payment-buttons button:first-of-type {
+  background-color: #bcbcbc; /* Default Cash button color */
+}
+
+.payment-buttons button:first-of-type:hover {
+  background-color: #e67e22 !important; /* Hover effect for Cash button */
+}
+
+/* GCash button */
+.payment-buttons button:nth-of-type(2) {
+  background-color: #bcbcbc; /* Default GCash button color */
+}
+
+.payment-buttons button:nth-of-type(2):hover {
+  background-color: #e67e22 !important; /* Hover effect for GCash button */
+}
+
+/* Active button color */
+.payment-buttons button.active {
+  background-color: #e67e22 !important; /* Keep color after click */
+}
+
+/* Remove the focus outline for a cleaner design */
+.payment-buttons button:focus {
+  outline: none;
+}
+  
+  
+  
+  /* Confirm and cancel buttons */
+  .action-buttons {
+    margin-top: 16px;
+  }
+  
+  .action-buttons button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .action-buttons button:first-of-type {
+    background-color: #333; /* Confirm button */
+    color: #fff;
+  }
+  
+  .action-buttons button.cancel {
+    background: none;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: underline;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+  
+  /* Empty order message */
+  .no-items {
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 16px;
+  }
+  

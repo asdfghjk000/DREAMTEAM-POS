@@ -1,0 +1,58 @@
+<div *ngIf="isOrderVisible" class="order-container">
+  <div class="order-section">
+    <!-- Close Button (X) -->
+    <button class="close-btn" (click)="closeOrder()">
+      &#10005; <!-- X character -->
+    </button>
+
+    <h3>{{ isPaymentCompleted ? 'ORDER SUMMARY' : 'NEW ORDER' }}</h3>
+
+    <!-- Displaying Order List when Payment is Not Completed -->
+    <div *ngIf="!isPaymentCompleted" class="order-list">
+      <table>
+        <thead>
+          <tr>
+            <th>ITEM</th>
+            <th>QUANTITY</th>
+            <th>COST</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of products">
+            <td>{{ item.productName }}</td>
+            <td>
+              <!-- Buttons to decrease/increase quantity -->
+              <button (click)="decreaseQuantity(item)">-</button>
+              {{ item.quantity }}
+              <button (click)="increaseQuantity(item)">+</button>
+            </td>
+            <td>₱ {{ item.price * item.quantity | number: '1.2-2' }}</td>
+            <td>
+              <!-- Remove Item Button -->
+              <button (click)="removeItem(item)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Display Total when Payment is Not Completed -->
+    <div *ngIf="!isPaymentCompleted" class="total">
+      <span>TOTAL:</span>
+      <span>₱ {{ calculateTotal() | number: '1.2-2' }}</span>
+    </div>
+
+    <!-- Payment Button to Proceed to Payment -->
+    <button *ngIf="!isPaymentCompleted" class="payment-btn" (click)="proceedToPayment()">PAYMENT</button>
+
+    <!-- Display Order Summary when Payment is Completed -->
+    <div *ngIf="isPaymentCompleted">
+      <app-order-summary
+  [newOrder]="products"
+  (orderConfirmed)="handleConfirmOrder()"
+  (cancel)="handleCancelOrder()">
+</app-order-summary>
+    </div>
+  </div>
+</div>

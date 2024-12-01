@@ -1,0 +1,148 @@
+<div class="product-container">
+  <!-- Error Message Display -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading">
+    Loading...
+  </div>
+
+  <!-- Add New Product -->
+  <div class="new-product-section">
+    <button (click)="toggleAddProductForm()" class="new-product-button">
+      {{ showAddForm ? 'Cancel' : 'New Product' }}
+    </button>
+
+    <!-- Floating Form -->
+    <div *ngIf="showAddForm" class="floating-form">
+      <form (ngSubmit)="createProduct()" #productForm="ngForm" class="add-product-form">
+        <div class="input-group">
+          <input
+            type="text"
+            name="productName"
+            [(ngModel)]="newProduct.productName"
+            placeholder="Enter product name"
+            required
+            [disabled]="isLoading"
+            class="input-field"
+          />
+        </div>
+
+        <div class="input-group">
+          <select [(ngModel)]="newProduct.categoryName" name="category" required [disabled]="isLoading" class="input-field">
+            <option value="" disabled selected>Select a Category</option>
+            <option *ngFor="let category of categories" [value]="category.categoryName">
+              {{ category.categoryName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <input [(ngModel)]="newProduct.price" name="price" type="number" placeholder="Enter price" required [disabled]="isLoading" class="input-field" />
+        </div>
+
+        <!-- File Input for Image -->
+        <div class="input-group">
+          <input type="file" (change)="onFileSelected($event)" [disabled]="isLoading" class="input-field" /><br />
+        </div>
+
+        <!-- Status Dropdown for Creating New Product -->
+        <div class="input-group">
+          <select [(ngModel)]="newProduct.status" [disabled]="isLoading" name="status">
+            <option [value]="'Available'">Available</option>
+            <option [value]="'Unavailable'">Unavailable</option>
+          </select>
+        </div>
+
+        <button type="submit" [disabled]="!newProduct.productName || !newProduct.categoryName || !newProduct.price || isLoading" class="submit-button">
+          Create Product
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (input)="filterProducts()"
+      placeholder="Search products by name..."
+      class="search-input"
+    />
+  </div>
+
+  <!-- Products Table -->
+  <table class="product-table" *ngIf="filteredProducts.length > 0; else noProducts">
+    <thead>
+      <tr>
+        <th>Product Code</th>
+        <th>Picture</th>
+        <th>Product Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of filteredProducts; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>
+          <div class="product-image">
+            <img *ngIf="product.image; else noImage" [src]="'data:image/jpeg;base64,' + product.image" alt="{{ product.productName }}" />
+            <ng-template #noImage>
+              <p>No image available</p>
+            </ng-template>
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!product.isEditing">{{ product.productName }}</div>
+          <div *ngIf="product.isEditing">
+            <input [(ngModel)]="product.productName" [disabled]="isLoading" class="input-field" placeholder="Edit product name" />
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!product.isEditing">{{ product.categoryName }}</div>
+          <div *ngIf="product.isEditing">
+            <select [(ngModel)]="product.categoryName" [disabled]="isLoading" class="input-field">
+              <option *ngFor="let category of categories" [value]="category.categoryName">
+                {{ category.categoryName }}
+              </option>
+            </select>
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!product.isEditing">{{ product.price | currency:'PHP' }}</div>
+          <div *ngIf="product.isEditing">
+            <input [(ngModel)]="product.price" type="number" [disabled]="isLoading" class="input-field" placeholder="Edit price" min="0" />
+          </div>
+        </td>
+        <td>
+          <div *ngIf="!product.isEditing">
+            {{ product.status }}  <!-- Use product.status to display the correct status -->
+          </div>
+          <div *ngIf="product.isEditing">
+            <select [(ngModel)]="product.status" [disabled]="isLoading" name="status" class="input-field">
+              <option [value]="'Available'">Available</option>
+              <option [value]="'Unavailable'">Unavailable</option>
+            </select>
+          </div>
+        </td>
+        
+        <td>
+          <button *ngIf="!product.isEditing" (click)="enableEdit(product)" class="edit-button">Edit</button>
+          <button *ngIf="product.isEditing" (click)="updateProduct(product)" class="save-button" [disabled]="isLoading">Save</button>
+          <button *ngIf="product.isEditing" (click)="cancelEdit(product)" class="cancel-button">Cancel</button>
+          <button *ngIf="!product.isEditing" (click)="deleteProduct(product.productID)" class="delete-button" [disabled]="isLoading">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noProducts>
+    <p>No products found.</p>
+  </ng-template>
+</div>

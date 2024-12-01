@@ -1,0 +1,58 @@
+<div *ngIf="newOrder.length > 0; else noItems" class="summary-container">
+  <!-- Order Items List -->
+  <div *ngFor="let item of newOrder" class="summary-item">
+    <span>{{ item.quantity }} {{ item.productName }}</span>
+    <span>₱ {{ item.price * item.quantity | number: '1.2-2' }}</span>
+  </div>
+</div>
+
+<ng-template #noItems>
+  <p class="no-items">No items in your order.</p>
+</ng-template>
+
+<!-- Total Section -->
+<div class="summary-total">
+  <span>TOTAL:</span>
+  <span>₱ {{ calculateTotal() | number: '1.2-2' }}</span>
+</div>
+
+<!-- Payment Section -->
+<div class="payment-section">
+  <div>
+    <label for="paidAmount">PAID:</label>
+    <input
+      id="paidAmount"
+      type="number"
+      [(ngModel)]="paidAmount"
+      (input)="calculateChange()"
+      placeholder="Enter amount"
+    />
+  </div>
+  <div>
+    <label>CHANGE:</label>
+    <span>₱ {{ change | number: '1.2-2' }}</span>
+  </div>
+</div>
+
+<!-- Payment Buttons -->
+<div class="payment-buttons">
+  <button
+    (click)="selectPaymentMethod('cash')"
+    [class.active]="paymentMethod === 'cash'"
+  >
+    CASH
+  </button>
+  <button
+    (click)="selectPaymentMethod('gcash')"
+    [class.active]="paymentMethod === 'gcash'"
+  >
+    GCASH
+  </button>
+</div>
+
+
+<!-- Confirm and Cancel Buttons -->
+<div class="action-buttons">
+  <button (click)="confirmOrder()">CONFIRM</button>
+  <button class="cancel" (click)="cancelOrder()">CANCEL</button>
+</div>
