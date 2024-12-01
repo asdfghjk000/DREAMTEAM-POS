@@ -13,11 +13,32 @@
 <!-- Total Section -->
 <div class="summary-total">
   <span>TOTAL:</span>
-  <span>₱ {{ calculateTotal() | number: '1.2-2' }}</span>
+  <!-- Display original total only when discount is applied -->
+  <span *ngIf="discount > 0" class="original-total">₱ {{ calculateTotal() | number: '1.2-2' }}</span>
+  <!-- Display discounted total -->
+  <span class="discounted-total">₱ {{ calculateTotalAfterDiscount() | number: '1.2-2' }}</span>
 </div>
 
+
+<!-- Discount Section -->
+
+
 <!-- Payment Section -->
+
+
 <div class="payment-section">
+  <div>
+    <label for="discount">DISCOUNT (%)</label>
+    <input
+      id="discount"
+      type="number"
+      [(ngModel)]="discount"
+      (input)="applyDiscount()"
+      [min]="0"
+      [max]="100"
+      placeholder="Enter discount"
+    />
+  </div>
   <div>
     <label for="paidAmount">PAID:</label>
     <input
@@ -49,7 +70,6 @@
     GCASH
   </button>
 </div>
-
 
 <!-- Confirm and Cancel Buttons -->
 <div class="action-buttons">

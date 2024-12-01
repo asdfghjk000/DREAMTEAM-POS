@@ -20,6 +20,7 @@ export class OrderSummaryComponent implements OnInit {
   paidAmount: number = 0;
   change: number = 0;
   paymentMethod: string | null = null;
+  discount: number = 0; // Discount percentage
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -27,9 +28,28 @@ export class OrderSummaryComponent implements OnInit {
     return this.newOrder.reduce((total, item) => total + item.price * item.quantity, 0);
   }
 
-  calculateChange(): void {
+  calculateTotalAfterDiscount(): number {
     const total = this.calculateTotal();
-    this.change = Math.max(0, this.paidAmount - total); // Prevent negative change
+    const discountAmount = (this.discount / 100) * total;
+    return total - discountAmount;
+  }
+
+  calculateChange(): void {
+    const totalAfterDiscount = this.calculateTotalAfterDiscount();
+    this.change = Math.max(0, this.paidAmount - totalAfterDiscount); // Prevent negative change
+  }
+
+  applyDiscount(): void {
+    if (this.discount < 0) {
+      this.discount = 0; // Prevent negative discount values
+    } else if (this.discount > 100) {
+      this.discount = 100; // Prevent discount values greater than 100
+    }
+
+    // Set paidAmount equal to the total after discount
+    this.paidAmount = this.calculateTotalAfterDiscount();
+
+    this.calculateChange(); // Recalculate change after discount
   }
 
   selectPaymentMethod(method: string): void {
@@ -42,14 +62,15 @@ export class OrderSummaryComponent implements OnInit {
       alert('Please select a payment method.');
       return;
     }
-
-    if (this.paidAmount < this.calculateTotal()) {
-      alert('Paid amount is less than the total. Please adjust.');
+  
+    const totalAfterDiscount = this.calculateTotalAfterDiscount();
+    if (this.paidAmount < totalAfterDiscount) {
+      alert('Paid amount is less than the total after discount. Please adjust.');
       return;
     }
-
+  
     const orderData = {
-      totalAmount: this.calculateTotal(),
+      totalAmount: totalAfterDiscount, // Use the discounted total
       paymentMethod: this.paymentMethod,
       paidAmount: this.paidAmount,
       change: this.change,
@@ -60,7 +81,7 @@ export class OrderSummaryComponent implements OnInit {
         quantity: item.quantity,
       })),
     };
-
+  
     this.http.post('http://localhost/backend-db/saveOrder.php', orderData)
       .subscribe({
         next: (response: any) => {
