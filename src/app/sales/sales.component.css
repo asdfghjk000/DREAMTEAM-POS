@@ -1,27 +1,91 @@
 .sales-summary {
-    margin: 20px;
+  font-family: 'Roboto', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sales-summary h2, .sales-summary h3 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.sales-summary h3, .sales-summary h4 {
+  font-size: 1.4rem; /* Adjusted to make the titles smaller */
+  margin-bottom: 10px; /* Optional: Adjust spacing */
+}
+
+.sales-summary section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sales-summary p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  margin-top: 15px;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #e0e0e0;
+}
+
+table th {
+  background-color: #00796b;
+  color: white;
+  font-size: 1.1rem;
+}
+
+table td {
+  background-color: #ffffff;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+strong {
+  color: #00796b;
+}
+
+@media (max-width: 768px) {
+  .sales-summary {
+    padding: 10px;
   }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+
+  .sales-summary h2, .sales-summary h3 {
+    font-size: 1.5rem;
   }
-  
-  table, th, td {
-    border: 1px solid #ddd;
+
+  table th, table td {
+    font-size: 0.9rem;
   }
-  
-  th, td {
-    padding: 8px;
-    text-align: left;
+
+  .sales-summary h3, .sales-summary h4 {
+    font-size: 1.2rem; /* Adjust the size for smaller screens */
+    margin-bottom: 8px; /* Optional: Adjust spacing */
   }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  h2, h3 {
-    color: #333;
-  }
-  
+}

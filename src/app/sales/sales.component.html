@@ -1,12 +1,17 @@
 <div class="sales-summary">
-    <h2>Sales Analytics</h2>
-  
-    <p><strong>Overall Total Sales:</strong> ₱{{ overallTotalSales | number }}</p>
-    <p><strong>Overall Total Quantity:</strong> {{ overallTotalQuantity }}</p>
-    <p>Food:{{ totalFoodQuantity }}</p>
-    <p>Drink:{{ totalDrinkQuantity }}</p>
-  
-    <h3>Top 5 Products with Highest Quantity Sold</h3>
+  <h2>TODAY</h2>
+
+  <!-- Overall Totals -->
+  <section class="overall-totals">
+    <h2><strong>Total Sales:</strong> ₱{{ overallTotalSales | number:'1.2-2' }}</h2>
+    <h3><strong>Total Products Sold:</strong> {{ overallTotalQuantity }}</h3>
+    <p><strong>Foods:</strong> {{ totalFoodQuantity }}</p>
+    <p><strong>Drinks:</strong> {{ totalDrinkQuantity }}</p>
+  </section>
+
+  <!-- Top 5 Products -->
+  <section class="top-products">
+    <h3>TOP PRODUCTS</h3>
     <table>
       <thead>
         <tr>
@@ -21,8 +26,11 @@
         </tr>
       </tbody>
     </table>
-  
-    <h3>Top 5 Categories with Highest Quantity Sold</h3>
+  </section>
+
+  <!-- Top 5 Categories -->
+  <section class="top-categories">
+    <h3>TOP CATEGORIES</h3>
     <table>
       <thead>
         <tr>
@@ -37,5 +45,54 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </section>
+
+  <!-- Weekly Sales -->
+  <h2>THIS WEEK</h2>
+  <p><strong>Week Period:</strong> {{ weeklyPeriod }}</p> <!-- Display the weekly range -->
+
+  <section class="weekly-sales">
+    <table>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>Total Sales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let day of weeklySalesByDay">
+          <td>{{ day.day }}</td>
+          <td>{{ day.date }}</td>
+          <td>₱{{ day.totalSales | number }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Total Sales:</strong> ₱{{ weeklySales | number }}</p>
+  </section>
+
+
+  <h2>THIS MONTH</h2>
   
+  <section class="monthly-sales">
+    <table>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Total Sales</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let month of monthlySales">
+          <td>{{ month.month }}</td>
+          <td>₱{{ month.totalSales | number }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Total Sales:</strong> ₱{{ totalMonthlySales | number }}</p>
+  </section>
+
+</div>
+
+
+
