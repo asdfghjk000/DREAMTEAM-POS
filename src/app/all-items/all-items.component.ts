@@ -10,7 +10,7 @@ import { NewOrderComponent } from "../new-order/new-order.component";
   standalone: true,
   templateUrl: './all-items.component.html',
   styleUrls: ['./all-items.component.css'],
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, NewOrderComponent],
 })
 export class AllItemsComponent implements OnInit {
 
@@ -33,7 +33,7 @@ export class AllItemsComponent implements OnInit {
   apiUrl: string = 'http://localhost/backend-db/';  // Replace with your backend URL
   selectedProducts: any[] = [];
   currentOrder: any[] = [];
-  isOrderSummaryVisible: boolean = false;  // Flag to control visibility of order summary
+  isOrderSummaryVisible: boolean = true;  // Flag to control visibility of order summary
   searchQuery: string = ''; // Search input
 
   constructor(private http: HttpClient) {}

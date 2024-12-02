@@ -27,6 +27,13 @@
     </div>
 
     <!-- Products Category Content -->
+    <div *ngIf="currentCategory === 'orders'" class="category-content">
+      <div class="product-container">
+        <app-order-history></app-order-history>
+      </div>
+    </div>
+
+    <!-- Products Category Content -->
     <div *ngIf="currentCategory === 'products'" class="category-content">
       <div class="product-container">
         <app-products></app-products>
@@ -39,11 +46,5 @@
         <app-category></app-category>
       </div>
     </div>
-
-    <!-- Orders Category Content -->
-    <div *ngIf="currentCategory === 'orders'" class="category-content">
-      <app-order-history></app-order-history>
-    </div>
-
   </div> <!-- End of container -->
 </div>

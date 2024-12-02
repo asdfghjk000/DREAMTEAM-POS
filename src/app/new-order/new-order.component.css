@@ -178,3 +178,21 @@
     font-size: 0.85rem; /* Smaller font size */
   }
 }
+
+/* Additional Styling Adjustments */
+.order-section table td button:focus {
+  outline: none; /* Removes focus outline for better visual appeal */
+}
+
+.order-section .payment-btn:active {
+  transform: translateY(2px); /* Adds a click effect */
+}
+
+.order-container .order-list {
+  max-height: 300px; /* Ensure scrollable list if it overflows */
+  overflow-y: auto;
+}
+
+.order-section .payment-btn {
+  cursor: pointer;
+}

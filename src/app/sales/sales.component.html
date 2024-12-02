@@ -1,98 +1,57 @@
 <div class="sales-summary">
-  <h2>TODAY</h2>
+  <p><strong>SALES ANALYTICS</strong></p>
 
-  <!-- Overall Totals -->
-  <section class="overall-totals">
-    <p><strong>Total Sales:</strong> ₱{{ overallTotalSales | number:'1.2-2' }}</p>
-    <p><strong>Total Products Sold:</strong> {{ overallTotalQuantity }}</p>
-    <p><strong>Foods:</strong> {{ totalFoodQuantity }}</p>
-    <p><strong>Drinks:</strong> {{ totalDrinkQuantity }}</p>
-  </section>
+  <div class="total-container">
+    <div class="total-item">
+      <p><strong>TODAY</strong></p>
+      <h1>₱ {{ TotalSales | number:'1.2-2' }}</h1>
+      <p>TOTAL SALES</p>
+    </div>
 
-  <!-- Top 5 Products -->
-  <section class="top-products">
-    <h3>TOP PRODUCTS</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Total Quantity Sold</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of top5Products">
-          <td>{{ product.ProductName }}</td>
-          <td>{{ product.totalQuantity }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+    <div class="total-item">
+      <p><strong>PRODUCT SOLD</strong></p>
+      <h1>{{ TotalQuantity }}</h1>
+      <p><strong>{{ totalFoodQuantity }}</strong> FOODS & <strong>{{ totalDrinkQuantity }}</strong> DRINKS</p>
+    </div>
+  </div>
 
-  <!-- Top 5 Categories -->
-  <section class="top-categories">
-    <h3>TOP CATEGORIES</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Category Name</th>
-          <th>Total Quantity Sold</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let category of top5Categories">
-          <td>{{ category.categoryName }}</td>
-          <td>{{ category.totalQuantity }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- Weekly Sales -->
-  <h2>WEEKLY SALES</h2>
-  <p><strong>Week Period:</strong> {{ weeklyPeriod }}</p> <!-- Display the weekly range -->
-
-  <section class="weekly-sales">
-    <table>
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Date</th>
-          <th>Total Sales</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let day of weeklySalesByDay">
-          <td>{{ day.day }}</td>
-          <td>{{ day.date }}</td>
-          <td>₱{{ day.totalSales | number }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>Total Sales:</strong> ₱{{ weeklySales | number }}</p>
-  </section>
-
-
-  <h2>MONTHLY SALES</h2>
-
-  <section class="monthly-sales">
-    <table>
-      <thead>
-        <tr>
-          <th>Month</th>
-          <th>Total Sales</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let month of monthlySales">
-          <td>{{ month.month }}</td>
-          <td>₱{{ month.totalSales | number }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>Total Sales:</strong> ₱{{ totalMonthlySales | number }}</p>
-  </section>
-
+  <div class="charts-container">
+    <div class="chart-item">
+      <h3>Top Products</h3>
+      <canvas id="topProductsPieChart"></canvas>
+    </div>
+    <div class="chart-item">
+      <h3>Top Categories</h3>
+      <canvas id="topCategoriesPieChart"></canvas>
+    </div>
+    <div class="chart-item">
+      <h3>Weekly Sales</h3>
+      <canvas id="weeklySalesBarChart"></canvas>
+    </div>
+    <div class="chart-item">
+      <h3>Monthly Sales</h3>
+      <canvas id="monthlySalesBarChart"></canvas>
+    </div>
+    <!-- AOV Chart Item -->
+    <div class="chart-item aov-chart-item">
+      <h3>Average Order Value (AOV)</h3>
+      <canvas id="aovLineChart"></canvas>
+    </div>
+    
 </div>
 
 
+  <div class="total-container">
+    <div class="total-item">
+      <p><strong>OVERALL</strong></p>
+      <h1>₱ {{ OverallTotalSales | number:'1.2-2' }}</h1>
+      <p>TOTAL SALES</p>
+    </div>
 
+    <div class="total-item">
+      <p><strong>OVERALL PRODUCT SOLD</strong></p>
+      <h1>{{ OverallTotalQuantity }}</h1>
+      <p><strong>{{ overalltotalFoodQuantity }}</strong> FOODS & <strong>{{ overalltotalDrinkQuantity }}</strong> DRINKS</p>
+    </div>
+  </div>
+</div>
