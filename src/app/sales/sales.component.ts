@@ -50,7 +50,7 @@ export class SalesComponent implements OnInit {
         if (response.success) {
           this.salesData = response.data;
           this.calculateTotals();
-          this.calculateCategoryTotals();
+          this.calculateCategoryTotals(this.salesData);
           this.calculateOverallTotals();  // Call the method to calculate the totals
           this.calculateOverallCategoryTotals();
           this.getTop5Products();
@@ -66,47 +66,77 @@ export class SalesComponent implements OnInit {
     );
   }
 
-  calculateTotals(): void {
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in "YYYY-MM-DD" format
-  
-    // Filter sales data to include only today's entries
-    const todaySalesData = this.salesData.filter(product => 
-      product.OrderDate.startsWith(today) // Assuming product.date is a string in ISO format
-    );
-  
-    // Calculate today's total sales
-    this.TotalSales = todaySalesData.reduce(
-      (total, product) => total + parseFloat(product.totalSales),
-      0
-    );
-  
-    // Calculate today's total quantity
-    this.TotalQuantity = todaySalesData.reduce(
-      (total, product) => total + parseInt(product.totalQuantity, 10),
-      0
-    );
-  }
 
-  calculateCategoryTotals(): void {
-    const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
-  
-    this.totalFoodQuantity = this.salesData
-      .filter(
-        (product) =>
-          product.categoryMain === 'Food' && product.OrderDate.startsWith(today)
-      )
-      .reduce((total, product) => total + parseInt(product.totalQuantity, 10), 0);
-  
-    this.totalDrinkQuantity = this.salesData
-      .filter(
-        (product) =>
-          product.categoryMain === 'Drink' && product.OrderDate.startsWith(today)
-      )
-      .reduce((total, product) => total + parseInt(product.totalQuantity, 10), 0);
-  
-    console.log('Total Food Quantity:', this.totalFoodQuantity);
-    console.log('Total Drink Quantity:', this.totalDrinkQuantity);
+// Calculate Total Sales and Total Quantity from all products sold today
+calculateTotals(): void {
+  const today = new Date().toISOString().split('T')[0]; // Get today's date in "YYYY-MM-DD" format
+
+  // Filter sales data to include only today's entries
+  const todaySalesData = this.salesData.filter(product => 
+    product.OrderDate.startsWith(today) // Filter for today's date
+  );
+
+  // Debugging log
+  console.log('All Sales Data Today:', todaySalesData);
+
+  // Calculate today's total sales (sum of totalSales from all products sold today)
+  this.TotalSales = todaySalesData.reduce(
+    (total, product) => total + parseFloat(product.totalSales),
+    0
+  );
+
+  // Calculate today's total quantity (sum of totalQuantity from all products sold today)
+  this.TotalQuantity = todaySalesData.reduce(
+    (total, product) => total + parseInt(product.totalQuantity, 10),
+    0
+  );
+
+  console.log('Total Sales Today:', this.TotalSales);
+  console.log('Total Quantity Today:', this.TotalQuantity);
+
+  // Call calculateCategoryTotals and pass the filtered todaySalesData
+  this.calculateCategoryTotals(todaySalesData); // Pass the todaySalesData here
+}
+
+
+
+// Calculate Total Quantity of Food and Drink categories sold today
+calculateCategoryTotals(todaySalesData: any[]): void {
+  const today = new Date().toISOString().split('T')[0]; // Get today's date in "YYYY-MM-DD" format
+
+  // Filter and calculate total Food and Drink quantities for today
+  this.totalFoodQuantity = todaySalesData
+    .filter(
+      (product) =>
+        product.categoryMain === 'Food' && product.OrderDate.startsWith(today)
+    )
+    .reduce((total, product) => total + parseInt(product.totalQuantity, 10), 0);
+
+  this.totalDrinkQuantity = todaySalesData
+    .filter(
+      (product) =>
+        product.categoryMain === 'Drink' && product.OrderDate.startsWith(today)
+    )
+    .reduce((total, product) => total + parseInt(product.totalQuantity, 10), 0);
+
+  // Debugging logs to check category-wise breakdown
+  console.log('Total Food Quantity:', this.totalFoodQuantity);
+  console.log('Total Drink Quantity:', this.totalDrinkQuantity);
+
+  // Calculate the total quantity of both categories (Food + Drink)
+  const totalCategoryQuantity = this.totalFoodQuantity + this.totalDrinkQuantity;
+  console.log('Total Category Quantity (Food + Drink):', totalCategoryQuantity);
+
+  // Ensure TotalQuantity reflects the sum of food and drink quantities
+  this.TotalQuantity = totalCategoryQuantity;
+
+  // Check if the calculated category total matches the total products sold
+  if (this.TotalQuantity === totalCategoryQuantity) {
+      console.log('Total Quantity matches!');
+  } else {
+      console.log('Mismatch detected between total and category quantities.');
   }
+}
 
   calculateOverallTotals(): void {
     // Calculate overall total sales
@@ -133,8 +163,6 @@ export class SalesComponent implements OnInit {
       .filter((product) => product.categoryMain === 'Drink')
       .reduce((total, product) => total + parseInt(product.totalQuantity, 10), 0);
   
-    console.log('Overall Food Quantity:', this.overalltotalFoodQuantity);
-    console.log('Overall Drink Quantity:', this.overalltotalDrinkQuantity);
   }
   
 

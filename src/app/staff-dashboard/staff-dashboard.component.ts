@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 import { AllItemsComponent } from '../all-items/all-items.component';
 import { FoodsComponent } from "../foods/foods.component";
 import { DrinksComponent } from "../drinks/drinks.component";
@@ -65,4 +66,37 @@ export class StaffDashboardComponent {
     this.isOrderConfirmed = true;
     this.selectedProducts = [];  // Clear the selected products after confirming
   }
+
+  // Inject Router into the constructor
+  constructor(private router: Router) {}
+
+  // Logout function
+  logout(): void {
+    // Clear any session data or authentication tokens
+    localStorage.removeItem('authToken'); // Example of clearing a token from local storage
+
+    // Redirect the user to the login page
+    this.router.navigate(['/main']); // Adjust this route based on your actual login page route
+  }
+
+  // Open the logout confirmation modal
+  openLogoutConfirmation(): void {
+    this.showLogoutModal = true;
+  }
+
+  // Confirm logout and perform actions
+  confirmLogout(): void {
+    this.showLogoutModal = false;
+    // Clear session data or authentication tokens
+    localStorage.removeItem('authToken'); // Example of clearing a token from local storage
+    // Redirect to the login page
+    this.router.navigate(['/main']); // Adjust the route based on your login page
+  }
+
+  // Close the logout confirmation modal
+  closeLogout(): void {
+    this.showLogoutModal = false;
+  }
+  // Declare the showLogoutModal property
+  showLogoutModal: boolean = false;
 }

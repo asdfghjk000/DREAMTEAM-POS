@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CategoryComponent } from '../category/category.component';
 import { ProductsComponent } from "../products/products.component";
 import { OrderHistoryComponent } from "../order-history/order-history.component";
@@ -55,8 +55,6 @@ export class AdminDashboardComponent implements AfterViewInit {
     if (!this.isProductFormVisible) {
     }
   }
-
-  
 
   // Create or update category
   createCategory(): void {
@@ -196,5 +194,41 @@ createProduct(): void {
         document.addEventListener('mouseup', onMouseUp);
       });
     }
+  }
+
+  // Inject Router into the constructor
+  constructor(private router: Router) {}
+  
+  // Logout function
+  logout(): void {
+    // Clear any session data or authentication tokens
+    localStorage.removeItem('authToken'); // Example of clearing a token from local storage
+
+    // Redirect the user to the login page
+    this.router.navigate(['/main']); // Adjust this route based on your actual login page route
+  }
+
+  // Add property for showing the logout confirmation modal
+  showLogoutModal: boolean = false;
+
+  // Method to open the logout confirmation modal
+  openLogoutConfirmation(): void {
+    this.showLogoutModal = true;
+  }
+
+  // Method to confirm logout
+  confirmLogout(): void {
+    this.showLogoutModal = false;
+
+    // Clear session data or authentication tokens
+    localStorage.removeItem('authToken'); // Example of clearing a token from local storage
+
+    // Redirect to the login page
+    this.router.navigate(['/main']); // Adjust the route based on your login page
+  }
+
+  // Method to close the logout confirmation modal
+  closeLogout(): void {
+    this.showLogoutModal = false;
   }
 }

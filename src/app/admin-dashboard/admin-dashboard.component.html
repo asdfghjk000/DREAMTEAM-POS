@@ -1,35 +1,27 @@
 <!-- Main content area -->
 <div class="main-content">
-  
   <!-- Sidebar with Logo and Navigation Links -->
   <div class="sidebar">
-    <div class="logo">  
+    <div class="logo">
       <img src="eshercafelogo.png" alt="Esher Cafe Logo">
     </div>
     <ul>
       <li (click)="changeContent('sales')" [class.active]="currentCategory === 'sales'">SALES</li>
-      <li (click)="changeContent('orders')" [class.active]="currentCategory === 'orders'">ORDERS</li> 
+      <li (click)="changeContent('orders')" [class.active]="currentCategory === 'orders'">ORDERS</li>
       <li (click)="changeContent('products')" [class.active]="currentCategory === 'products'">PRODUCT</li>
       <li (click)="changeContent('category')" [class.active]="currentCategory === 'category'">CATEGORY</li>
-
     </ul>
+    <!-- Logout Button -->
+    <button class="action-button logout-button" (click)="openLogoutConfirmation()">Logout</button>
   </div>
 
   <!-- Main Container for Displaying Content Based on Selection -->
   <div class="container">
-
     <!-- Sales Category Content -->
     <div *ngIf="currentCategory === 'sales'" class="category-content">
       <div class="item-grid">
         <app-sales></app-sales>
         <!-- Grid for displaying sales-related items, such as summaries, charts, etc. -->
-      </div>
-    </div>
-
-    <!-- Products Category Content -->
-    <div *ngIf="currentCategory === 'orders'" class="category-content">
-      <div class="product-container">
-        <app-order-history></app-order-history>
       </div>
     </div>
 
@@ -46,5 +38,22 @@
         <app-category></app-category>
       </div>
     </div>
-  </div> <!-- End of container -->
+
+    <!-- Orders Category Content -->
+    <div *ngIf="currentCategory === 'orders'" class="category-content">
+      <app-order-history></app-order-history>
+    </div>
+  </div>
+</div>
+
+<!-- Logout Confirmation Modal -->
+<div *ngIf="showLogoutModal" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Confirm Logout</h3>
+    <p>Are you sure you want to log out?</p>
+    <div class="modal-actions">
+      <button class="action-button confirm-button" (click)="confirmLogout()">Yes</button>
+      <button class="action-button cancel-button" (click)="closeLogout()">Cancel</button>
+    </div>
+  </div>
 </div>
