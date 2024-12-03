@@ -3,6 +3,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -22,7 +23,11 @@ export class OrderSummaryComponent implements OnInit {
   paymentMethod: string | null = null;
   discount: number = 0; // Discount percentage
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient, 
+    private router: Router,
+    private dashboardService: DashboardService // Inject DashboardService
+  ) {}
 
   calculateTotal(): number {
     return this.newOrder.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -62,13 +67,13 @@ export class OrderSummaryComponent implements OnInit {
       alert('Please select a payment method.');
       return;
     }
-  
+
     const totalAfterDiscount = this.calculateTotalAfterDiscount();
     if (this.paidAmount < totalAfterDiscount) {
       alert('Paid amount is less than the total after discount. Please adjust.');
       return;
     }
-  
+
     const orderData = {
       totalAmount: totalAfterDiscount, // Use the discounted total
       paymentMethod: this.paymentMethod,
@@ -81,15 +86,18 @@ export class OrderSummaryComponent implements OnInit {
         quantity: item.quantity,
       })),
     };
-  
+
+    // Send the order data to the backend for saving
     this.http.post('http://localhost/backend-db/saveOrder.php', orderData)
       .subscribe({
         next: (response: any) => {
           if (response.success) {
             alert('Order saved successfully');
-            this.resetOrder();
-            this.orderConfirmed.emit(); // Emit event to notify parent component
-            this.router.navigate(['/staff-dashboard'], { queryParams: { refresh: new Date().getTime() } });
+            this.resetOrder(); // Reset the order after confirming
+            this.orderConfirmed.emit(); // Emit event to notify the parent component
+
+            // Trigger the refresh in DashboardService
+            this.dashboardService.triggerDashboardRefresh();
           } else {
             alert('Error saving order: ' + response.message);
           }

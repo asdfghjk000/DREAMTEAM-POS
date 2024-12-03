@@ -11,8 +11,10 @@
       <li (click)="changeContent('products')" [class.active]="currentCategory === 'products'">PRODUCT</li>
       <li (click)="changeContent('category')" [class.active]="currentCategory === 'category'">CATEGORY</li>
     </ul>
-    <!-- Logout Button -->
-    <button class="action-button logout-button" (click)="openLogoutConfirmation()">Logout</button>
+    <!-- Logout Icon -->
+    <div class="action-button logout-button" (click)="openLogoutConfirmation()">
+      <span class="material-icons">logout</span>
+    </div>
   </div>
 
   <!-- Main Container for Displaying Content Based on Selection -->
@@ -21,7 +23,6 @@
     <div *ngIf="currentCategory === 'sales'" class="category-content">
       <div class="item-grid">
         <app-sales></app-sales>
-        <!-- Grid for displaying sales-related items, such as summaries, charts, etc. -->
       </div>
     </div>
 

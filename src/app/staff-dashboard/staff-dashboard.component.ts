@@ -9,6 +9,7 @@ import { FoodsComponent } from "../foods/foods.component";
 import { DrinksComponent } from "../drinks/drinks.component";
 import { NewOrderComponent } from '../new-order/new-order.component';
 import { Product } from '../products/products.component';
+import { DashboardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-staff-dashboard',
@@ -25,21 +26,14 @@ export class StaffDashboardComponent {
   isOrderConfirmed: boolean = false;  // Track if the order is confirmed
   showOrderComponents: boolean = true; // Show/Hide New Order and Summary
   orderProducts: Product[] = []; // Store products for new order
+  showLogoutModal: boolean = false; // For logout modal visibility
+
+  // Inject the DashboardService to trigger the refresh
+  constructor(private router: Router, private dashboardService: DashboardService) {}
 
   // Method to change the main category
   changeContent(category: string): void {
     this.currentCategory = category;
-  }
-
-  // Close the order components after confirmation
-  closeOrderComponents() {
-    this.showOrderComponents = false;
-  }
-
-  // Restore the New Order data
-  restoreNewOrder(products: Product[]) {
-    this.orderProducts = products; // Set the products back
-    this.showOrderComponents = true; // Show the components again
   }
 
   // Method to handle product selection in AllItems, Foods, Drinks
@@ -52,29 +46,26 @@ export class StaffDashboardComponent {
     }
   }
 
-  // Method to handle new order received from DrinksComponent or AllItemsComponent
-  handleNewOrder(order: any[]): void {
-    if (order.length > 0) {
-      this.currentOrder = order; // Store the new order
-    } else {
-      this.errorMessage = 'No products selected!';
-    }
-  }
-
   // Handle the order confirmation event
   onOrderConfirmed(): void {
     this.isOrderConfirmed = true;
     this.selectedProducts = [];  // Clear the selected products after confirming
+    this.closeNewOrder(); // Close the new order container when the order is confirmed
+
+    // Trigger the dashboard refresh after order confirmation
+    this.dashboardService.triggerDashboardRefresh();
   }
 
-  // Inject Router into the constructor
-  constructor(private router: Router) {}
+  // Close the New Order container when it is closed manually
+  closeNewOrder(): void {
+    this.selectedProducts = [];  // Clear the selected products
+    this.isOrderConfirmed = false; // Reset the order confirmation state
+  }
 
   // Logout function
   logout(): void {
     // Clear any session data or authentication tokens
     localStorage.removeItem('authToken'); // Example of clearing a token from local storage
-
     // Redirect the user to the login page
     this.router.navigate(['/main']); // Adjust this route based on your actual login page route
   }
@@ -97,6 +88,4 @@ export class StaffDashboardComponent {
   closeLogout(): void {
     this.showLogoutModal = false;
   }
-  // Declare the showLogoutModal property
-  showLogoutModal: boolean = false;
 }

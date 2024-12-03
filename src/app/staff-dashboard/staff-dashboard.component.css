@@ -78,12 +78,11 @@ body {
 .new-order-container {
   padding-top: 20px;
   padding-right: 20px;
+  padding-bottom: 40px;
   flex-shrink: 0; /* Prevent shrinking */
   width: 100%;
   max-width: 30%; /* Set maximum width */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  -ms-overflow-style: none;  /* Hide scrollbar in IE/Edge */
-  scrollbar-width: none;  /* Hide scrollbar in Firefox */
+
 }
 
 /* Hide scrollbar in WebKit browsers */
@@ -114,26 +113,25 @@ body {
   transform: scale(1.03);
 }
 
-/* Logout Button Styling */
+/* Logout Button */
 .logout-button {
-  padding: 1em 1em;
-  border: none;
+  font-size: 36px;  /* Icon size */
+  color: #fff;    /* Icon color */
   cursor: pointer;
-  background-color: black; 
-  color: white;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 1em;
-  width: 80%; /* Make it span the full width of the sidebar */
-  text-align: center;
-  margin-top: auto; /* Push button to the bottom of the sidebar */
-  margin-bottom: auto;
-  transition: background-color 0.3s ease;
+  margin-top: auto;  /* Push the button to the bottom of the sidebar */
+  margin-bottom: 10vh;
+  padding: 10px;  /* Add padding around the icon for better spacing */
+  width: 50px;     /* Set a fixed width for the button */
+  height: 50px;    /* Set a fixed height for the button */
+  display: flex;
+  justify-content: center; /* Center icon horizontally */
+  align-items: center;     /* Center icon vertically */
+  border-radius: 30%;      /* Optional: Make the button circular */
+  background-color: #333;  /* Set a background color */
 }
 
 .logout-button:hover {
-  background-color: #CD7F32 !important;
-  color: white !important;
+  background-color: #CD7F32; /* Change background on hover */
 }
 
 /* Modal overlay */

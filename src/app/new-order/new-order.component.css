@@ -1,6 +1,13 @@
-/* Styling for Order Container */
+/* Ensure the body and html take full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrollbars on the page */
+}
+
 .order-container {
-  max-height: fit-content;
+  height: 100%; /* Full height of the viewport */
   width: 100%;
   margin: 10px auto; /* Slightly reduced margin */
   padding: 15px; /* Reduced padding */
@@ -11,10 +18,10 @@
   border: 1px solid #c3a084;
   box-sizing: border-box;
   transition: box-shadow 0.3s ease;
-}
-
-.order-container {
   position: relative; /* Required for absolute positioning of the close button */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevent overflow of entire container */
 }
 
 .close-btn {
@@ -31,7 +38,6 @@
 .close-btn:hover {
   color: red; /* Change color on hover for better UX */
 }
-
 
 /* Order Section Styling */
 .order-section h3 {
@@ -188,11 +194,17 @@
   transform: translateY(2px); /* Adds a click effect */
 }
 
+/* Scrollable order list without scrollbar */
 .order-container .order-list {
-  max-height: 300px; /* Ensure scrollable list if it overflows */
-  overflow-y: auto;
+  max-height: 550px; /* Set a height limit for scrolling */
+  overflow-y: scroll; /* Allow vertical scrolling */
 }
 
-.order-section .payment-btn {
-  cursor: pointer;
+.order-container .order-list::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar */
+}
+
+/* For Firefox */
+.order-container .order-list {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }

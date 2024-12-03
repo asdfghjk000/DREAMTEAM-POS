@@ -10,7 +10,7 @@ import { NewOrderComponent } from "../new-order/new-order.component";
   standalone: true,
   templateUrl: './all-items.component.html',
   styleUrls: ['./all-items.component.css'],
-  imports: [FormsModule, CommonModule, NewOrderComponent],
+  imports: [FormsModule, CommonModule],
 })
 export class AllItemsComponent implements OnInit {
 
@@ -39,9 +39,11 @@ export class AllItemsComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   // Method to update order in the parent component
-  updateOrder(updatedProducts: Product[]): void {
-    this.products = updatedProducts; // Update the shared state when order changes
+  handleUpdatedOrder(updatedProducts: Product[]): void {
+    this.products = updatedProducts;
   }
+
+  
 
   // Handle cancel order logic
   handleCancelOrder(): void {

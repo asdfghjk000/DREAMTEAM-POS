@@ -11,8 +11,11 @@
       <li (click)="changeContent('foods')" [class.active]="currentCategory === 'foods'">FOODS</li>
       <li (click)="changeContent('drinks')" [class.active]="currentCategory === 'drinks'">DRINKS</li>
     </ul>
-     <!-- Logout Button -->
-     <button class="action-button logout-button" (click)="openLogoutConfirmation()">Logout</button>
+    
+    <!-- Logout Icon -->
+    <div class="action-button logout-button" (click)="openLogoutConfirmation()">
+      <span class="material-icons">logout</span> <!-- Material Icon for logout -->
+    </div>
   </div>
 
   <!-- Main Container for Displaying Content Based on Selection -->
@@ -35,22 +38,26 @@
 
   <!-- Display New Order Component fixed to the right, only if there are selected products -->
   <div class="new-order-container" *ngIf="selectedProducts.length > 0 && !isOrderConfirmed">
-    <app-new-order [products]="selectedProducts" (orderConfirmed)="onOrderConfirmed()"></app-new-order>
+    <app-new-order 
+      [products]="selectedProducts" 
+      (orderConfirmed)="onOrderConfirmed()" 
+      (closeOrder)="closeNewOrder()">
+    </app-new-order>
   </div>
 
- <!-- Modal Overlay for Logout Confirmation -->
- <div *ngIf="showLogoutModal" class="modal-overlay">
-  <div class="modal-content">
-    <span class="modal-close-icon" (click)="closeLogout()">X</span>
-    <div class="modal-header">Confirm Logout</div>
-    <div class="modal-body">
-      Are you sure you want to logout?
-    </div>
-    <div class="modal-actions">
-      <button class="confirm-button" (click)="confirmLogout()">Yes</button>
-      <button class="cancel-button" (click)="closeLogout()">No</button>
+  <!-- Modal Overlay for Logout Confirmation -->
+  <div *ngIf="showLogoutModal" class="modal-overlay">
+    <div class="modal-content">
+      <span class="modal-close-icon" (click)="closeLogout()">X</span>
+      <div class="modal-header">Confirm Logout</div>
+      <div class="modal-body">
+        Are you sure you want to logout?
+      </div>
+      <div class="modal-actions">
+        <button class="confirm-button" (click)="confirmLogout()">Yes</button>
+        <button class="cancel-button" (click)="closeLogout()">No</button>
+      </div>
     </div>
   </div>
-</div>
 
 </div> <!-- End of main-content -->
