@@ -110,7 +110,15 @@
     </tbody>
   </table>
 
-  <!-- Message if No Categories -->
+  <!-- Confirmation Modal for Category Deletion -->
+<div *ngIf="showConfirmDialog" class="confirmation-modal">
+  <div class="modal-content">
+    <h3>Are you sure you want to delete this category?</h3>
+    <button (click)="confirmDeleteCategory()">Confirm</button>
+    <button (click)="cancelDeleteCategory()">Cancel</button>
+  </div>
+</div>
+
   <ng-template #noCategories>
     <p class="no-categories">No categories available.</p>
   </ng-template>

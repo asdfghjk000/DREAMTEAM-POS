@@ -39,6 +39,7 @@ export class SalesComponent implements OnInit {
   totalDrinkQuantity: any;
   overalltotalFoodQuantity: any;
   overalltotalDrinkQuantity: any;
+CategoryTotalQuantity: any;
   
   
   
@@ -85,14 +86,7 @@ calculateTotals(): void {
     0
   );
 
-  // Calculate today's total quantity (sum of totalQuantity from all products sold today)
-  this.TotalQuantity = todaySalesData.reduce(
-    (total, product) => total + parseInt(product.totalQuantity, 10),
-    0
-  );
-
   console.log('Total Sales Today:', this.TotalSales);
-  console.log('Total Quantity Today:', this.TotalQuantity);
 
   // Call calculateCategoryTotals and pass the filtered todaySalesData
   this.calculateCategoryTotals(todaySalesData); // Pass the todaySalesData here
@@ -100,11 +94,10 @@ calculateTotals(): void {
 
 
 
-// Calculate Total Quantity of Food and Drink categories sold today
 calculateCategoryTotals(todaySalesData: any[]): void {
   const today = new Date().toISOString().split('T')[0]; // Get today's date in "YYYY-MM-DD" format
 
-  // Filter and calculate total Food and Drink quantities for today
+  // Calculate total Food quantity for today
   this.totalFoodQuantity = todaySalesData
     .filter(
       (product) =>
@@ -112,6 +105,7 @@ calculateCategoryTotals(todaySalesData: any[]): void {
     )
     .reduce((total, product) => total + parseInt(product.totalQuantity, 10), 0);
 
+  // Calculate total Drink quantity for today
   this.totalDrinkQuantity = todaySalesData
     .filter(
       (product) =>
@@ -119,24 +113,16 @@ calculateCategoryTotals(todaySalesData: any[]): void {
     )
     .reduce((total, product) => total + parseInt(product.totalQuantity, 10), 0);
 
-  // Debugging logs to check category-wise breakdown
+  // Sum of Food and Drink quantities to update CategoryTotalQuantity
+  this.CategoryTotalQuantity = this.totalFoodQuantity + this.totalDrinkQuantity;
+
+  // Debugging logs to check category-wise and total quantities
   console.log('Total Food Quantity:', this.totalFoodQuantity);
   console.log('Total Drink Quantity:', this.totalDrinkQuantity);
-
-  // Calculate the total quantity of both categories (Food + Drink)
-  const totalCategoryQuantity = this.totalFoodQuantity + this.totalDrinkQuantity;
-  console.log('Total Category Quantity (Food + Drink):', totalCategoryQuantity);
-
-  // Ensure TotalQuantity reflects the sum of food and drink quantities
-  this.TotalQuantity = totalCategoryQuantity;
-
-  // Check if the calculated category total matches the total products sold
-  if (this.TotalQuantity === totalCategoryQuantity) {
-      console.log('Total Quantity matches!');
-  } else {
-      console.log('Mismatch detected between total and category quantities.');
-  }
+  console.log('Category Total Quantity (Food + Drink):', this.CategoryTotalQuantity);
 }
+
+
 
   calculateOverallTotals(): void {
     // Calculate overall total sales
@@ -222,35 +208,50 @@ calculateCategoryTotals(todaySalesData: any[]): void {
   }
 
   calculateWeeklySales(): void {
+    const today = new Date();
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - today.getDay()); // Sunday
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6); // Saturday
+  
     const dailySales: { [key: string]: number } = {};
     this.salesData.forEach((product) => {
       const orderDate = product.OrderDate.split(' ')[0];
       dailySales[orderDate] = (dailySales[orderDate] || 0) + parseFloat(product.totalSales);
     });
-
-    this.weeklySalesByDay = Object.keys(dailySales).map((date) => ({
-      day: new Date(date).toLocaleDateString('en-US', { weekday: 'long' }),
-      date: date,
-      totalSales: dailySales[date],
-    }));
+  
+    this.weeklySalesByDay = [];
+    for (let day = startOfWeek; day <= endOfWeek; day.setDate(day.getDate() + 1)) {
+      const date = day.toISOString().split('T')[0];
+      this.weeklySalesByDay.push({
+        day: day.toLocaleDateString('en-US', { weekday: 'long' }),
+        date: date,
+        totalSales: dailySales[date] || 0,
+      });
+    }
   }
+  
 
   calculateMonthlySales(): void {
-    const monthlyTotals: { [key: string]: number } = {};
-    this.salesData.forEach((product) => {
-      const orderDate = new Date(product.OrderDate);
-      const monthKey = `${orderDate.getFullYear()}-${orderDate.getMonth() + 1}`;
-      monthlyTotals[monthKey] = (monthlyTotals[monthKey] || 0) + parseFloat(product.totalSales);
-    });
+  const monthlyTotals: { [key: string]: number } = {};
+  this.salesData.forEach((product) => {
+    const orderDate = new Date(product.OrderDate);
+    const monthKey = `${orderDate.getFullYear()}-${orderDate.getMonth() + 1}`;
+    monthlyTotals[monthKey] = (monthlyTotals[monthKey] || 0) + parseFloat(product.totalSales);
+  });
 
-    this.monthlySales = Object.keys(monthlyTotals).map((key) => {
-      const [year, month] = key.split('-');
-      return {
-        month: `${month}/${year}`,
-        totalSales: monthlyTotals[key],
-      };
-    });
-  }
+  const sortedKeys = Object.keys(monthlyTotals).sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+  const latest5Months = sortedKeys.slice(0, 5);
+
+  this.monthlySales = latest5Months.map((key) => {
+    const [year, month] = key.split('-');
+    return {
+      month: `${month.padStart(2, '0')}/${year}`,
+      totalSales: monthlyTotals[key],
+    };
+  });
+
+}
 
   renderCharts(): void {
     this.renderTopProductsDoughnutChart();
@@ -318,7 +319,7 @@ calculateCategoryTotals(todaySalesData: any[]): void {
         labels: this.weeklySalesByDay.map((day) => day.day),
         datasets: [
           {
-            label: 'Weekly Sales',
+            label: 'Current Week',
             data: this.weeklySalesByDay.map((day) => day.totalSales),
             borderColor: '#FF6384',
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -362,30 +363,38 @@ calculateCategoryTotals(todaySalesData: any[]): void {
   }
 
   renderAOVChart(): void {
+    const latestSalesData = this.salesData
+      .sort((a, b) => new Date(b.OrderDate).getTime() - new Date(a.OrderDate).getTime())
+      .slice(0, 25);
+  
     const ctx = document.getElementById('aovLineChart') as HTMLCanvasElement;
   
     new Chart(ctx, {
-      type: 'line',  // or 'bar' for bar chart
+      type: 'line',
       data: {
-        labels: this.salesData.map(data => data.OrderDate.split(' ')[0]),  // or any time-based labels
-        datasets: [{
-          label: 'Average Order Value (AOV)',
-          data: this.salesData.map(data => parseFloat(data.totalSales) / parseInt(data.totalQuantity, 10)),
-          borderColor: '#4CAF50',  // green color
-          backgroundColor: 'rgba(76, 175, 80, 0.2)',  // green with transparency
-          fill: true,
-          tension: 0.1
-        }]
+        labels: latestSalesData.map(data => data.OrderDate.split(' ')[0]),
+        datasets: [
+          {
+            label: 'Average Order Value (Latest 25 Days)',
+            data: latestSalesData.map(
+              data => parseFloat(data.totalSales) / parseInt(data.totalQuantity, 10)
+            ),
+            borderColor: '#4CAF50',
+            backgroundColor: 'rgba(76, 175, 80, 0.2)',
+            fill: true,
+            tension: 0.1,
+          },
+        ],
       },
       options: {
         responsive: true,
         scales: {
           y: {
-            beginAtZero: true
-          }
-        }
-      }
+            beginAtZero: true,
+          },
+        },
+      },
     });
-  }
+  }  
   
 }

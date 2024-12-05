@@ -33,6 +33,9 @@ export class CategoryComponent implements OnInit {
   errorMessage: string = '';
   isLoading: boolean = false;
   showAddForm: boolean = false;
+  categoryToDelete: number | undefined;
+  showConfirmDialog!: boolean;
+category: any;
 
   constructor(private http: HttpClient) {}
 
@@ -157,25 +160,44 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(categoryID: number): void {
+    if (!categoryID) {
+      this.errorMessage = "Category ID is missing.";
+      return;
+    }
+  
+    this.categoryToDelete = categoryID;  // Store the category ID for confirmation
+    this.showConfirmDialog = true;       // Show the confirmation dialog
+  }
+  
+  confirmDeleteCategory(): void {
+    if (!this.categoryToDelete) return;
+  
     this.isLoading = true;
+  
     this.http
-      .get<ApiResponse>(`${this.apiUrl}delete_category.php?id=${categoryID}`)
+      .get<ApiResponse>(`${this.apiUrl}delete_category.php?id=${this.categoryToDelete}`)
       .subscribe({
         next: (response) => {
           console.log('Category deleted:', response);
           if (response.success) {
-            this.readCategories();
+            this.readCategories();  // Reload categories after deletion
           } else {
-            this.errorMessage =
-              response.message || 'Failed to delete category';
+            this.errorMessage = response.message || 'Failed to delete category';
           }
           this.isLoading = false;
+          this.showConfirmDialog = false; // Hide the confirmation dialog
         },
         error: (error) => {
           console.error('Error deleting category:', error);
           this.errorMessage = 'Failed to delete category';
           this.isLoading = false;
+          this.showConfirmDialog = false; // Hide the confirmation dialog
         },
       });
   }
+  
+  cancelDeleteCategory(): void {
+    this.showConfirmDialog = false; // Hide the confirmation dialog if canceled
+  }
+  
 }

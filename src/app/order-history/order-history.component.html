@@ -7,6 +7,7 @@
         <th>Amount</th>
         <th>Payment</th>
         <th>Date</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,10 @@
         <td>{{ order.amount | currency: 'PHP':'symbol' }}</td>
         <td>{{ order.payment }}</td>
         <td>{{ order.date }}</td>
+        <td>
+          <!-- Delete button -->
+          <button (click)="deleteOrder(order)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -25,5 +30,14 @@
     <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
     <span>Page {{ currentPage }} of {{ totalPages }}</span>
     <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+  
+  <!-- Confirmation Modal for Order Deletion -->
+  <div *ngIf="showConfirmDialog" class="confirmation-modal">
+    <div class="modal-content">
+      <h3>Are you sure you want to delete this order?</h3>
+      <button (click)="confirmDeleteOrder()">Confirm</button>
+      <button (click)="cancelDeleteOrder()">Cancel</button>
+    </div>
   </div>
 </div>

@@ -46,11 +46,6 @@ export class ProductsComponent implements OnInit {
   filteredProducts: Product[] = []; // Filtered list for displaying in the table
   searchQuery: string = ''; // Search query string
 
-
-editProduct(_t82: Product) {
-throw new Error('Method not implemented.');
-}  
-  
   products: Product[] = [];
   categories: Category[] = [];
   newProduct: Partial<Product> = { 
@@ -60,6 +55,8 @@ throw new Error('Method not implemented.');
   errorMessage: string = '';
   isLoading: boolean = false;
   showAddForm: boolean = false;
+  productToDelete: number | undefined;
+  showConfirmDialog!: boolean;
 
   constructor(private http: HttpClient) {}
 
@@ -287,9 +284,16 @@ throw new Error('Method not implemented.');
       return;
     }
   
+    this.productToDelete = productID;  // Store the product ID for confirmation
+    this.showConfirmDialog = true;     // Show the confirmation dialog
+  }
+    
+  confirmDelete(): void {
+    if (!this.productToDelete) return;
+  
     this.isLoading = true;
   
-    this.http.delete<ApiResponse>(`${this.apiUrl}delete_product.php?productID=${productID}`).subscribe({
+    this.http.delete<ApiResponse>(`${this.apiUrl}delete_product.php?productID=${this.productToDelete}`).subscribe({
       next: (response) => {
         if (response.success) {
           this.readProducts();  // Reload products after deletion
@@ -297,11 +301,18 @@ throw new Error('Method not implemented.');
           this.errorMessage = response.message || 'Failed to delete product';
         }
         this.isLoading = false;
+        this.showConfirmDialog = false; // Hide the confirmation dialog
       },
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error?.message || 'Failed to delete product';
         this.isLoading = false;
+        this.showConfirmDialog = false; // Hide the confirmation dialog
       }
     });
   }
+  
+  cancelDelete(): void {
+    this.showConfirmDialog = false; // Hide the confirmation dialog if canceled
+  }
+  
 }  

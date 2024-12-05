@@ -10,7 +10,7 @@
 
     <div class="total-item">
       <p><strong>PRODUCT SOLD</strong></p>
-      <h1>{{ TotalQuantity }}</h1>
+      <h1>{{ CategoryTotalQuantity }}</h1>
       <p><strong>{{ totalFoodQuantity }}</strong> FOODS & <strong>{{ totalDrinkQuantity }}</strong> DRINKS</p>
     </div>
   </div>
@@ -43,13 +43,12 @@
 
   <div class="total-container">
     <div class="total-item">
-      <p><strong>OVERALL</strong></p>
+      <p><strong>OVERALL SALES</strong></p>
       <h1>₱ {{ OverallTotalSales | number:'1.2-2' }}</h1>
-      <p>TOTAL SALES</p>
     </div>
 
     <div class="total-item">
-      <p><strong>OVERALL PRODUCT SOLD</strong></p>
+      <p><strong>OVERALL PRODUCTS SOLD</strong></p>
       <h1>{{ OverallTotalQuantity }}</h1>
       <p><strong>{{ overalltotalFoodQuantity }}</strong> FOODS & <strong>{{ overalltotalDrinkQuantity }}</strong> DRINKS</p>
     </div>

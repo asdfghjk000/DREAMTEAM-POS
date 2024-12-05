@@ -242,3 +242,55 @@ button {
     font-size: 14px;
   }
 }
+
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);  /* Slightly less intense background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;  /* Ensure it appears on top */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Soft shadow for depth */
+  text-align: center;
+  min-width: 250px;  /* Minimum width to make it compact */
+  max-width: 400px;  /* Maximum width for a small, neat design */
+}
+
+h3 {
+  font-size: 18px;  /* Slightly larger text for the message */
+  font-weight: 600;  /* Bold for emphasis */
+  color: #333;  /* Dark text for contrast */
+  margin-bottom: 20px;  /* Space below the message */
+}
+
+button {
+  background-color: #007BFF;  /* Blue background for the button */
+  color: white;  /* White text */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;  /* Smooth transition */
+  margin: 5px;
+}
+
+button:hover {
+  background-color: #0056b3;  /* Darker blue on hover */
+}
+
+button:focus {
+  outline: none;  /* Removes the outline after clicking */
+}
+
+
