@@ -21,6 +21,7 @@ export class NewOrderComponent {
 
   isPaymentCompleted: boolean = false;
   isOrderVisible: boolean = true;
+  cdr: any;
 
   increaseQuantity(item: Product): void {
     item.quantity++; // Increase the quantity of the item
@@ -37,11 +38,14 @@ export class NewOrderComponent {
   }
 
   removeItem(item: Product): void {
-    this.products = this.products.filter((i) => i !== item); // Remove the item from the order
-    this.remove.emit(item); // Emit the removed item
-    this.updateOrder.emit(this.products); // Emit the updated list to the parent (AllItemsComponent)
+    const index = this.products.findIndex(p => p.productID === item.productID);
+    if (index !== -1) {
+      this.products.splice(index, 1);
+      this.remove.emit(item);
+      this.updateOrder.emit([...this.products]); // Create a new array reference
+      this.cdr.detectChanges();
+    }
   }
-
   calculateTotal(): number {
     return this.products.reduce((total, item) => total + item.price * item.quantity, 0);
   }
@@ -63,7 +67,7 @@ export class NewOrderComponent {
 
   closeOrder(): void {
     this.isOrderVisible = false;  // Hide the current order view
-    this.orderClosed.emit();      // Emit the orderClosed event to notify the parent component
+    this.cdr.detectChanges();    // Emit the orderClosed event to notify the parent component
   }
 
   handleCancelOrder(): void {

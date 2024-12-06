@@ -45,7 +45,14 @@ export interface ApiResponse {
 export class ProductsComponent implements OnInit {
   filteredProducts: Product[] = []; // Filtered list for displaying in the table
   searchQuery: string = ''; // Search query string
+  productToDelete: number = 0;
+  showConfirmDialog: boolean = false;
 
+
+editProduct(_t82: Product) {
+throw new Error('Method not implemented.');
+}  
+  
   products: Product[] = [];
   categories: Category[] = [];
   newProduct: Partial<Product> = { 
@@ -55,8 +62,6 @@ export class ProductsComponent implements OnInit {
   errorMessage: string = '';
   isLoading: boolean = false;
   showAddForm: boolean = false;
-  productToDelete: number | undefined;
-  showConfirmDialog!: boolean;
 
   constructor(private http: HttpClient) {}
 
@@ -256,7 +261,7 @@ export class ProductsComponent implements OnInit {
         if (response.success) {
           product.isEditing = false; // Close the edit form
           this.readProducts(); // Refresh the product list
-          this.resetForm(); // Reset the newProduct form and selected image
+          this.resetForm(); // Reset the form and selected image
           this.errorMessage = ''; // Clear any existing error messages
         } else {
           this.errorMessage = response.message || 'Failed to update product';
@@ -278,14 +283,15 @@ export class ProductsComponent implements OnInit {
   }
   
 
+  // Delete product logic
   deleteProduct(productID: number): void {
     if (!productID) {
       this.errorMessage = "Product ID is missing.";
       return;
     }
   
-    this.productToDelete = productID;  // Store the product ID for confirmation
-    this.showConfirmDialog = true;     // Show the confirmation dialog
+    this.productToDelete = productID;
+    this.showConfirmDialog = true;
   }
     
   confirmDelete(): void {
@@ -296,23 +302,23 @@ export class ProductsComponent implements OnInit {
     this.http.delete<ApiResponse>(`${this.apiUrl}delete_product.php?productID=${this.productToDelete}`).subscribe({
       next: (response) => {
         if (response.success) {
-          this.readProducts();  // Reload products after deletion
+          this.readProducts();
         } else {
           this.errorMessage = response.message || 'Failed to delete product';
         }
         this.isLoading = false;
-        this.showConfirmDialog = false; // Hide the confirmation dialog
+        this.showConfirmDialog = false;
       },
       error: (error: HttpErrorResponse) => {
         this.errorMessage = error.error?.message || 'Failed to delete product';
         this.isLoading = false;
-        this.showConfirmDialog = false; // Hide the confirmation dialog
+        this.showConfirmDialog = false;
       }
     });
   }
-  
+
   cancelDelete(): void {
-    this.showConfirmDialog = false; // Hide the confirmation dialog if canceled
+    this.productToDelete = 0;
+    this.showConfirmDialog = false;
   }
-  
-}  
+}

@@ -1,6 +1,7 @@
 // app.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { PageReloadService } from './page-reload.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,18 @@ import { RouterOutlet } from '@angular/router';
   `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'dreamteam-pos';
+export class AppComponent implements OnInit {
+
+  constructor(private pageReloadService: PageReloadService) {}
+
+  ngOnInit(): void {
+    // Subscribe to the reload event
+    this.pageReloadService.reload$.subscribe(() => {
+      this.reloadPage();
+    });
+  }
+
+  reloadPage(): void {
+    window.location.reload();  // Reload the page when the event is triggered
+  }
 }

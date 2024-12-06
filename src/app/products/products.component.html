@@ -97,8 +97,12 @@
             <ng-template #noImage>
               <p>No image available</p>
             </ng-template>
+          
+            <!-- Allow editing when isEditing is true -->
+            <input *ngIf="product.isEditing" type="file" (change)="onFileSelected($event, product)" accept="image/*" />
           </div>
-        </td>
+          
+        </td> 
         <td>
           <div *ngIf="!product.isEditing">{{ product.productName }}</div>
           <div *ngIf="product.isEditing">
