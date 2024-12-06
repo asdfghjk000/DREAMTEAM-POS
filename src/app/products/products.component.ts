@@ -100,6 +100,7 @@ throw new Error('Method not implemented.');
       }
     });
   }
+  
   filterProducts(): void {
     const query = this.searchQuery.toLowerCase();
     this.filteredProducts = this.products.filter((product) =>

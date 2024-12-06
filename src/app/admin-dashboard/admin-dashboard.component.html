@@ -1,48 +1,67 @@
 <!-- Main content area -->
 <div class="main-content">
   <!-- Sidebar with Logo and Navigation Links -->
-  <div class="sidebar">
-    <div class="logo">
-      <img src="eshercafelogo.png" alt="Esher Cafe Logo">
-    </div>
-    <ul>
-      <li (click)="changeContent('sales')" [class.active]="currentCategory === 'sales'">SALES</li>
-      <li (click)="changeContent('orders')" [class.active]="currentCategory === 'orders'">ORDERS</li>
-      <li (click)="changeContent('products')" [class.active]="currentCategory === 'products'">PRODUCT</li>
-      <li (click)="changeContent('category')" [class.active]="currentCategory === 'category'">CATEGORY</li>
-    </ul>
-    <!-- Logout Icon -->
-    <div class="action-button logout-button" (click)="openLogoutConfirmation()">
-      <span class="material-icons">logout</span>
+  <!-- Sidebar with Logo and Navigation Links -->
+<div class="sidebar">
+  <div class="logo">
+    <img src="eshercafelogo.png" alt="Esher Cafe Logo">
+  </div>
+  <ul>
+    <li (click)="changeContent('sales')" [class.active]="currentCategory === 'sales'">SALES</li>
+    <li (click)="changeContent('orders')" [class.active]="currentCategory === 'orders'">ORDERS</li>
+    <li (click)="changeContent('products')" [class.active]="currentCategory === 'products'">PRODUCT</li>
+    <li (click)="changeContent('category')" [class.active]="currentCategory === 'category'">CATEGORY</li>
+    <li (click)="changeContent('reports')" [class.active]="currentCategory === 'reports'">REPORT</li>
+    <li (click)="changeContent('about')" [class.active]="currentCategory === 'about'">ABOUT US</li> <!-- Add About Us Link -->
+  </ul>
+  <!-- Logout Icon -->
+  <div class="action-button logout-button" (click)="openLogoutConfirmation()">
+    <span class="material-icons">logout</span>
+  </div>
+</div>
+
+
+  <!-- Main Container for Displaying Content Based on Selection -->
+<div class="container">
+  <!-- Sales Category Content -->
+  <div *ngIf="currentCategory === 'sales'" class="category-content">
+    <div class="item-grid">
+      <app-sales></app-sales>
     </div>
   </div>
 
-  <!-- Main Container for Displaying Content Based on Selection -->
-  <div class="container">
-    <!-- Sales Category Content -->
-    <div *ngIf="currentCategory === 'sales'" class="category-content">
-      <div class="item-grid">
-        <app-sales></app-sales>
-      </div>
+  <!-- Products Category Content -->
+  <div *ngIf="currentCategory === 'products'" class="category-content">
+    <div class="product-container">
+      <app-products></app-products>
     </div>
+  </div>
 
-    <!-- Products Category Content -->
-    <div *ngIf="currentCategory === 'products'" class="category-content">
-      <div class="product-container">
-        <app-products></app-products>
-      </div>
+  <!-- Category Content -->
+  <div *ngIf="currentCategory === 'category'" class="category-content">
+    <div class="product-container">
+      <app-category></app-category>
     </div>
+  </div>
 
-    <!-- Category Content -->
-    <div *ngIf="currentCategory === 'category'" class="category-content">
-      <div class="product-container">
-        <app-category></app-category>
-      </div>
-    </div>
-
-    <!-- Orders Category Content -->
-    <div *ngIf="currentCategory === 'orders'" class="category-content">
+  <!-- Orders Category Content -->
+  <div *ngIf="currentCategory === 'orders'" class="category-content">
+    <div class="product-container">
       <app-order-history></app-order-history>
+    </div>
+  </div>
+
+  <!-- Reports Category Content -->
+  <div *ngIf="currentCategory === 'reports'" class="category-content">
+    <div class="product-container">
+      <app-reports></app-reports>
+    </div>
+  </div>
+
+  <!-- About Category Content -->
+  <div *ngIf="currentCategory === 'about'" class="category-content">
+    <div class="product-container">
+      <app-about></app-about>
     </div>
   </div>
 </div>

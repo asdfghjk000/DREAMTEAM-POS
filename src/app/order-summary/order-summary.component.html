@@ -1,31 +1,19 @@
-<div *ngIf="newOrder.length > 0; else noItems" class="summary-container">
-  <!-- Order Items List -->
+<!-- Order Items List -->
+<div *ngIf="newOrder.length > 0" class="summary-container">
   <div *ngFor="let item of newOrder" class="summary-item">
     <span>{{ item.quantity }} {{ item.productName }}</span>
     <span>₱ {{ item.price * item.quantity | number: '1.2-2' }}</span>
   </div>
 </div>
 
-<ng-template #noItems>
-  <p class="no-items">No items in your order.</p>
-</ng-template>
-
 <!-- Total Section -->
 <div class="summary-total">
   <span>TOTAL:</span>
-  <!-- Display original total only when discount is applied -->
   <span *ngIf="discount > 0" class="original-total">₱ {{ calculateTotal() | number: '1.2-2' }}</span>
-  <!-- Display discounted total -->
   <span class="discounted-total">₱ {{ calculateTotalAfterDiscount() | number: '1.2-2' }}</span>
 </div>
 
-
-<!-- Discount Section -->
-
-
 <!-- Payment Section -->
-
-
 <div class="payment-section">
   <div>
     <label for="discount">DISCOUNT (%)</label>
@@ -74,4 +62,9 @@
 <!-- Confirm and Cancel Buttons -->
 <div class="action-buttons">
   <button (click)="confirmOrder()">CONFIRM</button>
+</div>
+
+<!-- Warning Message -->
+<div *ngIf="warningMessage" class="warning-message">
+  <p>{{ warningMessage }}</p>
 </div>

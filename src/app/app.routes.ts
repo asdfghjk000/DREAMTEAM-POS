@@ -12,11 +12,12 @@ import { SalesComponent } from './sales/sales.component';
 import { ProductsComponent } from './products/products.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
 import { CategoryComponent } from './category/category.component';
-import { CategoryListComponent } from './category-list/category-list.component';
 import { RoleGuard } from './Guards/role.guard';
 import { AuthGuard } from './Guards/auth.guard';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { ReportsComponent } from './reports/reports.component';
 import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unauthorized/unauthorized.component';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -34,7 +35,8 @@ export const routes: Routes = [
   { path: 'order-summary', component: OrderSummaryComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'category', component: CategoryComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
-  { path: 'category-list', component: CategoryListComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
+  { path: 'about', component: AboutComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: '**', redirectTo: '/main' } // Wildcard route should be last
 ];
 

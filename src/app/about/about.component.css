@@ -1,0 +1,106 @@
+/* Main container for About Us */
+.about-us {
+  padding: 30px;
+  background-color: #f2a4c7; /* Lighter, soft pinkish tone */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.about-container {
+  background-color: #f0e4d5; /* Soft, light beige */
+  color: #333; /* Dark text for better contrast */
+  font-family: Arial, sans-serif;
+  min-height: 91.5vh; /* Ensures it takes at least full screen height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+  align-items: center; /* Horizontally center content */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  position: relative; /* Keeps it in place */
+}
+
+/* Header section inside about container */
+.about-header {
+  margin-bottom: 20px;
+}
+
+.about-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #3a3a3a; /* Darker header text for emphasis */
+}
+
+/* Logo styles - Center and Size adjustments */
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Ensures vertical centering */
+  margin-top: 30px;
+}
+
+.logo img {
+  width: 250px; /* Adjusted width to make the Dream Team logo bigger */
+  height: auto;
+  opacity: 0.85; /* Slightly less opaque */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.logo img:hover {
+  opacity: 1; /* Full opacity on hover for interactivity */
+}
+
+/* About details section (like version, company, etc.) */
+.about-details p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.app-id {
+  color: #8e8e8e; /* Lighter gray for the app ID */
+}
+
+.company {
+  font-weight: bold;
+  color: #3c6e71; /* A rich teal color for the company name */
+}
+
+/* Footer section with button */
+.about-footer {
+  margin-top: 20px;
+}
+
+.change-button {
+  background-color: #6d9eeb; /* Calming light blue */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.change-button:hover {
+  background-color: #5889d1; /* Darker blue for hover effect */
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 15px;
+  }
+
+  .about-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .about-details p {
+    font-size: 0.9rem;
+  }
+}

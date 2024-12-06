@@ -11,6 +11,39 @@ import { CommonModule } from '@angular/common';
   imports: [OrderSummaryComponent, CommonModule],
 })
 export class NewOrderComponent {
+  itemToDelete: Product | null = null;
+  
+  showDeleteConfirmation(item: Product): void {
+    this.itemToDelete = item; // Store the item to be deleted
+    this.showConfirmDialog = true; // Show the confirmation modal
+  }
+
+  confirmRemoveItem(): void {
+    if (!this.itemToDelete) return;
+  
+    const index = this.products.findIndex(p => p.productID === this.itemToDelete!.productID);
+    if (index !== -1) {
+      this.products.splice(index, 1);
+      this.remove.emit(this.itemToDelete); // Emit the removed item
+      this.updateOrder.emit([...this.products]); // Update the order with the new products list
+      this.itemToDelete = null; // Clear the item to be deleted
+    }
+  
+    // Close the confirmation dialog after the item has been removed
+    this.showConfirmDialog = false;
+  
+    // Trigger change detection again to ensure the modal is hidden
+    this.cdr.detectChanges();
+  }
+  
+  
+  cancelRemoveItem(): void {
+  this.showConfirmDialog = false; // Close the confirmation dialog
+  this.itemToDelete = null; // Clear the item to be deleted
+}
+
+
+
   @Input() products: Product[] = []; // List of products passed from the parent
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() confirm: EventEmitter<void> = new EventEmitter<void>();
@@ -22,6 +55,7 @@ export class NewOrderComponent {
   isPaymentCompleted: boolean = false;
   isOrderVisible: boolean = true;
   cdr: any;
+  showConfirmDialog: boolean = false;
 
   increaseQuantity(item: Product): void {
     item.quantity++; // Increase the quantity of the item
@@ -66,8 +100,23 @@ export class NewOrderComponent {
   }
 
   closeOrder(): void {
-    this.isOrderVisible = false;  // Hide the current order view
-    this.cdr.detectChanges();    // Emit the orderClosed event to notify the parent component
+    // Clear all items and notify parent about the updated order
+    while (this.products.length > 0) {
+      const item = this.products.pop(); // Remove the last item
+      if (item) {
+        this.remove.emit(item); // Emit the removed item
+      }
+    }
+  
+    this.updateOrder.emit([]); // Emit an empty product list
+    this.resetToDefaultDisplay(); // Reset the state to default
+    this.isOrderVisible = false; // Hide the current order view
+    this.orderClosed.emit(); // Notify the parent component
+  
+    console.log('Order closed, products cleared, and dashboard reset');
+  }
+  resetToDefaultDisplay() {
+    throw new Error('Method not implemented.');
   }
 
   handleCancelOrder(): void {

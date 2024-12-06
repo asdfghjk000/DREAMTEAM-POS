@@ -1,0 +1,34 @@
+<div class="reports-container">
+    <h1>Sales Reports</h1>
+  
+    <!-- Display buttons to download sales data -->
+    <div>
+      <button (click)="exportToExcel('daily')">Download Daily Sales</button>
+      <button (click)="exportToExcel('weekly')">Download Weekly Sales</button>
+      <button (click)="exportToExcel('monthly')">Download Monthly Sales</button>
+    </div>
+  
+    <!-- Sales data table for visual preview -->
+    <table *ngIf="salesData.length > 0">
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Total Sales</th>
+          <th>Total Quantity</th>
+          <th>Category</th>
+          <th>Order Date</th>
+          <th>Order Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of salesData">
+          <td>{{ sale.ProductName }}</td>
+          <td>{{ sale.totalSales | currency:'PHP' }}</td> <!-- Use PHP currency symbol -->
+          <td>{{ sale.totalQuantity }}</td>
+          <td>{{ sale.categoryName }}</td>
+          <td>{{ sale.OrderDate }}</td>
+          <td>{{ sale.OrderTime }}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

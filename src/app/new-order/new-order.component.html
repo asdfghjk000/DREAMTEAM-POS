@@ -26,12 +26,28 @@
             </td>
             <td>₱ {{ item.price * item.quantity | number: '1.2-2' }}</td>
             <td>
-              <button (click)="removeItem(item)">🗑️</button>
+              <!-- Delete Button -->
+<button (click)="showDeleteConfirmation(item)">🗑️</button>
+
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <!-- Confirmation Modal for Item Deletion -->
+<div *ngIf="showConfirmDialog" class="confirmation-modal">
+  <div class="modal-content">
+    <h3 style="font-size: 18px; font-weight: 600; color: #333; margin-bottom: 20px;">
+      Are you sure you want to delete this item?
+    </h3>
+    <button (click)="confirmRemoveItem()">Confirm</button>
+    <button (click)="cancelRemoveItem()">Cancel</button>
+  </div>
+</div>
+
+              
+
 
     <!-- Display Total when Payment is Not Completed -->
     <div *ngIf="!isPaymentCompleted" class="total">

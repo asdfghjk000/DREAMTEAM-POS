@@ -22,6 +22,9 @@ export class OrderSummaryComponent implements OnInit {
   change: number = 0;
   paymentMethod: string | null = null;
   discount: number = 0; // Discount percentage
+  warningMessage: string = '';
+  showConfirmDialog: boolean = false;
+  cdr: any;
 
   constructor(
     private http: HttpClient, 
@@ -63,17 +66,22 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   confirmOrder(): void {
+    this.warningMessage = '';  // Clear any previous warning message
+  
+    // Check if payment method is selected
     if (!this.paymentMethod) {
-      alert('Please select a payment method.');
+      this.warningMessage = 'Please select a payment method.';
       return;
     }
-
+  
+    // Calculate the total amount after discount and check if the paid amount is sufficient
     const totalAfterDiscount = this.calculateTotalAfterDiscount();
     if (this.paidAmount < totalAfterDiscount) {
-      alert('Paid amount is less than the total after discount. Please adjust.');
+      this.warningMessage = 'Paid amount is less than the total amount. Please adjust.';
       return;
     }
-
+  
+    // Prepare the order data
     const orderData = {
       totalAmount: totalAfterDiscount, // Use the discounted total
       paymentMethod: this.paymentMethod,
@@ -86,28 +94,27 @@ export class OrderSummaryComponent implements OnInit {
         quantity: item.quantity,
       })),
     };
-
+  
     // Send the order data to the backend for saving
     this.http.post('http://localhost/backend-db/saveOrder.php', orderData)
       .subscribe({
         next: (response: any) => {
           if (response.success) {
-            alert('Order saved successfully');
             this.resetOrder(); // Reset the order after confirming
             this.orderConfirmed.emit(); // Emit event to notify the parent component
-
-            // Trigger the refresh in DashboardService
-            this.dashboardService.triggerDashboardRefresh();
+            this.showConfirmDialog = false;
+            this.cdr.detectChanges();
           } else {
-            alert('Error saving order: ' + response.message);
+            this.warningMessage = 'Error saving order: ' + response.message;
           }
         },
         error: (err) => {
           console.error('Error occurred:', err);
-          alert('An error occurred while saving the order.');
+          this.warningMessage = 'An error occurred while saving the order.';
         },
       });
   }
+  
 
   cancelOrder(): void {
     if (confirm('Are you sure you want to cancel the order?')) {

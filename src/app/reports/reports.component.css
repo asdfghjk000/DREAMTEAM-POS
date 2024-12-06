@@ -1,0 +1,71 @@
+.reports-container {
+    padding: 20px;
+    background-color: #f9f5eb; /* Soft background color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .report-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .download-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 24px; /* Adjust size of the icon */
+  }
+  
+  .download-icons i {
+    cursor: pointer;
+    color: #4caf50; /* Green color for the icon */
+    transition: color 0.3s ease;
+  }
+  
+  .download-icons i:hover {
+    color: #2e7d32; /* Darker green when hovered */
+  }
+  
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+  
+  td {
+    background-color: #fff;
+  }
+  

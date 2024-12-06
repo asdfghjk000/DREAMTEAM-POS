@@ -5,13 +5,16 @@ import { ProductsComponent } from "../products/products.component";
 import { OrderHistoryComponent } from "../order-history/order-history.component";
 import { SalesComponent } from "../sales/sales.component";
 import { CommonModule } from '@angular/common';
+import { ReportsComponent } from "../reports/reports.component";
+import { AboutComponent } from "../about/about.component";
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
   imports: [
-    CategoryComponent, ProductsComponent, OrderHistoryComponent, SalesComponent, CommonModule
-  ],
+    CategoryComponent, ProductsComponent, OrderHistoryComponent, SalesComponent, CommonModule, ReportsComponent,
+    AboutComponent
+],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
