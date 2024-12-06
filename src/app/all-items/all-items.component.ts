@@ -13,6 +13,17 @@ import { NewOrderComponent } from "../new-order/new-order.component";
   imports: [FormsModule, CommonModule],
 })
 export class AllItemsComponent implements OnInit {
+  selectedCategory: string | null = null;
+
+// Filter products by selected category
+getProductsByCategory(category: string): Product[] {
+  return this.products.filter(product => product.categoryName === category);
+}
+
+  // Handle category click
+onCategoryClick(category: string): void {
+  this.selectedCategory = category;
+}
 
 // Method to handle search input and filter products
   onSearchQueryChange(): void {
@@ -93,27 +104,39 @@ export class AllItemsComponent implements OnInit {
     this.fetchProducts(); // Fetch products on initialization
   }
 
+// Method to get a list of all unique category names
+CategoryNameList(): string[] {
+  // Use a Set to ensure uniqueness
+  const uniqueCategories = new Set(this.products.map(product => product.categoryName));
+  return Array.from(uniqueCategories); // Convert the Set back to an array
+}
+
+
   // Fetch products from the API
-  fetchProducts(): void {
-    this.isLoading = true;
-    this.http.get<ApiResponse>(`${this.apiUrl}read_products.php`).subscribe({
-      next: (response) => {
-        if (response.success && Array.isArray(response.data)) {
-          this.products = response.data;
-          this.filteredProducts = this.products; // Initialize filteredProducts with all products
-        } else {
-          this.errorMessage = response.message || 'No products found.';
-          this.products = []; // Clear products if none are found
-          this.filteredProducts = [];
-        }
-        this.isLoading = false;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.errorMessage = error.error?.message || 'Failed to load products.';
-        this.isLoading = false;
-      },
-    });
-  }
+  // Fetch products from the API
+fetchProducts(): void {
+  this.isLoading = true;
+  this.http.get<ApiResponse>(`${this.apiUrl}read_products.php`).subscribe({
+    next: (response) => {
+      if (response.success && Array.isArray(response.data)) {
+        this.products = response.data.map(product => ({
+          ...product,
+          categoryName: product.categoryName || 'Uncategorized', // Default value if missing
+        }));
+        this.filteredProducts = this.products; // Initialize filteredProducts with all products
+      } else {
+        this.errorMessage = response.message || 'No products found.';
+        this.products = []; // Clear products if none are found
+        this.filteredProducts = [];
+      }
+      this.isLoading = false;
+    },
+    error: (error: HttpErrorResponse) => {
+      this.errorMessage = error.error?.message || 'Failed to load products.';
+      this.isLoading = false;
+    },
+  });
+}
 
   // Method to filter products based on search query
   onSearch(): void {
@@ -130,4 +153,9 @@ export class AllItemsComponent implements OnInit {
   onSelectProduct(product: Product): void {
     this.selectAndEmitProducts(product);  // Call the renamed method here
   }
+
+
+
+
+
 }

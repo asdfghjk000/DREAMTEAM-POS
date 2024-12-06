@@ -1,0 +1,126 @@
+<div class="category-container">
+
+    <!-- Add New Category -->
+    <div class="new-category-section">
+      <button (click)="toggleAddCategoryForm()" class="new-category-button">
+        {{ showAddForm ? 'Close Form' : 'New Category' }}
+      </button>
+      <form
+        *ngIf="showAddForm"
+        (ngSubmit)="createCategory()"
+        #categoryForm="ngForm"
+        class="add-category-form"
+      >
+        <input
+          type="text"
+          name="categoryName"
+          [(ngModel)]="categoryName"
+          placeholder="Enter category name"
+          required
+          [disabled]="isLoading"
+        />
+  
+        <select
+          name="categoryMain"
+          [(ngModel)]="categoryMain"
+          required
+          [disabled]="isLoading"
+        >
+          <option value="" disabled>Select Main</option>
+          <option value="Food">Food</option>
+          <option value="Drink">Drink</option>
+        </select>
+  
+        <button type="submit" [disabled]="!categoryName.trim() || !categoryMain || isLoading">
+          Create Category
+        </button>
+      </form>
+    </div>
+  
+    <!-- Error Message Display -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading">Loading...</div>
+  
+  
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search categories..."
+        (keyup)="onSearchChange()"
+        [disabled]="isLoading"
+      />
+    </div>
+  
+  
+    <!-- Categories Table -->
+    <table class="category-table" *ngIf="filteredCategories.length > 0; else noCategories">
+      <thead>
+        <tr>
+          <th>Category Code</th>
+          <th>Main</th>
+          <th>Category Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of filteredCategories; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <div *ngIf="!category.isEditing">
+              {{ category.categoryMain }}
+            </div>
+            <div *ngIf="category.isEditing">
+              <select [(ngModel)]="category.categoryMain" [disabled]="isLoading">
+                <option value="Food">Food</option>
+                <option value="Drink">Drink</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="!category.isEditing">
+              {{ category.categoryName }}
+            </div>
+            <div *ngIf="category.isEditing">
+              <input
+                [(ngModel)]="category.categoryName"
+                [disabled]="isLoading"
+                placeholder="Edit category name"
+              />
+            </div>
+          </td>
+          <td>
+            <div *ngIf="!category.isEditing" class="action-buttons">
+              <button (click)="enableEditMode(category)" [disabled]="isLoading">Edit</button>
+              <button (click)="deleteCategory(category.categoryID)" [disabled]="isLoading">
+                Delete
+              </button>
+            </div>
+            <div *ngIf="category.isEditing" class="action-buttons">
+              <button (click)="updateCategory(category)" [disabled]="isLoading">Save</button>
+              <button (click)="cancelEditMode(category)" [disabled]="isLoading">Cancel</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Confirmation Modal for Category Deletion -->
+  <div *ngIf="showConfirmDialog" class="confirmation-modal">
+    <div class="modal-content">
+      <h3>Are you sure you want to delete this category?</h3>
+      <button (click)="confirmDeleteCategory()">Confirm</button>
+      <button (click)="cancelDeleteCategory()">Cancel</button>
+    </div>
+  </div>
+  
+    <ng-template #noCategories>
+      <p class="no-categories">No categories available.</p>
+    </ng-template>
+  </div>
+  

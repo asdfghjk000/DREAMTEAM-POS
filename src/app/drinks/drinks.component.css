@@ -31,6 +31,45 @@
   border-color: #007bff;
 }
 
+.category-navigation ul {
+  display: flex; /* Arrange items in a row */
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+  justify-content: flex-start; /* Align items to the left */
+}
+
+.category-navigation li {
+  padding: 10px 20px; /* Add padding for clickability */
+  position: relative; /* Enable positioning for underline */
+  cursor: pointer; /* Pointer cursor for interactivity */
+  font-size: 16px; /* Adjust font size for better readability */
+  color: #333; /* Neutral text color */
+  text-transform: uppercase; /* Optional: uppercase for a modern look */
+  font-weight: 500; /* Slightly bold for emphasis */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.category-navigation li.active {
+  color: #ffffff; /* Highlight the active navigation item */
+}
+
+.category-navigation li::after {
+  content: ""; /* Empty content for underline */
+  position: absolute; /* Position relative to the parent */
+  bottom: -3px; /* Position just below the text */
+  left: 0; /* Start from the left */
+  width: 0; /* Default width is zero */
+  height: 2px; /* Line thickness */
+  background-color: #ffffff; /* Match hover or active color */
+}
+
+.category-navigation li.active::after {
+  width: 100%; /* Full underline on hover or when active */
+}
+
+
+
 
 /* Product Grid */
 .product-grid {

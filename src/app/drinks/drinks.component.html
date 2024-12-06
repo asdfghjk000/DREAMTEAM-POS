@@ -19,11 +19,26 @@
   <div *ngIf="errorMessage" class="error-message">
     <p>{{ errorMessage }}</p>
   </div>
+  
 
-  <!-- Product grid (displays filtered products) -->
-  <div *ngIf="filteredProducts.length > 0" class="product-grid">
+   <!-- CATEGORY NAVIGATION -->
+   <div *ngIf="CategoryNameList().length > 0; else noCategories" class="category-navigation">
+    <ul>
+      <li 
+        *ngFor="let category of CategoryNameList()" 
+        [class.active]="selectedCategory === category" 
+        (click)="onCategoryClick(category)">
+        {{ category }}
+      </li>
+    </ul>
+  </div>
+  
+
+<!-- Product cards for the selected category -->
+<div *ngIf="selectedCategory" class="category-content">
+  <div *ngIf="getProductsByCategory(selectedCategory).length > 0" class="product-grid">
     <div
-      *ngFor="let product of filteredProducts"
+      *ngFor="let product of getProductsByCategory(selectedCategory)"
       class="product-card"
       (click)="selectAndEmitProducts(product)"
     >
@@ -42,14 +57,18 @@
       <div class="product-details">
         <h3 class="product-name">{{ product.productName }}</h3>
         <p class="price">₱{{ product.price }}</p>
-
-        <!-- Display product status -->
         <p class="status" *ngIf="product.status">
           {{ product.status }}
         </p>
       </div>
     </div>
   </div>
+  <p *ngIf="getProductsByCategory(selectedCategory).length === 0">No products available in this category.</p>
+</div>
+
+<ng-template #noCategories>
+  <p>No categories available.</p>
+</ng-template>
 
   <!-- Message when no products are available -->
   <div *ngIf="filteredProducts.length === 0" class="no-products">
