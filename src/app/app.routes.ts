@@ -7,7 +7,6 @@ import { AllItemsComponent } from './all-items/all-items.component';
 import { FoodsComponent } from './foods/foods.component';
 import { DrinksComponent } from './drinks/drinks.component';
 import { NewOrderComponent } from './new-order/new-order.component';
-import { PaymentProcessComponent } from './payment-process/payment-process.component';
 import { SalesComponent } from './sales/sales.component';
 import { ProductsComponent } from './products/products.component';
 import { OrderHistoryComponent } from './order-history/order-history.component';
@@ -18,7 +17,6 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unauthorized/unauthorized.component';
 import { AboutComponent } from './about/about.component';
-import { ModalComponent } from './modal/modal.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -27,10 +25,8 @@ export const routes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: 'all-items', component: AllItemsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'foods', component: FoodsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
-  { path: 'modal', component: ModalComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'drinks', component: DrinksComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'new-order', component: NewOrderComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
-  { path: 'payment-process', component: PaymentProcessComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'sales', component: SalesComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: 'product', component: ProductsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
