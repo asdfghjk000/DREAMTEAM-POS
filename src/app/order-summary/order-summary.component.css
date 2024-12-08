@@ -1,56 +1,70 @@
 /* Main container for the order summary */
-.summary-container {
-  background-color: #eddcc5; /* Background matches the design */
-  padding: 16px;
-  padding: 8px;  /* Reduced padding */
-  margin-bottom: 8px;  /* Reduced bottom margin */
-  border-radius: 14px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
-  max-height: 300px; /* Set a maximum height for the container */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  position: relative; /* Ensure the container handles overflow */
+.order-container {
   display: flex;
-  flex-direction: column; /* Ensure vertical stacking */
+  flex-direction: column;
+  max-height: 80vh; /* Limit overall container height */
+  overflow: hidden;
 }
 
+.summary-container {
+  background-color: #eddcc5;
+  padding: 16px;
+  margin-bottom: 8px;
+  border-radius: 14px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 300px; /* Maximum height for order items */
+  overflow-y: auto; /* Enable vertical scrolling */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar styling */
 .summary-container::-webkit-scrollbar {
-  width: 0px; /* Hides the scrollbar */
-  background: transparent; /* Make scrollbar transparent */
+  width: 6px; /* Slim scrollbar */
+  background: transparent;
+}
+
+.summary-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Subtle scrollbar thumb */
+  border-radius: 3px;
 }
 
 .summary-item {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
-  color: #393939; /* Dark color for contrast */
-   margin-bottom: 4px;  /* Reduced bottom margin */
-  padding: 2px 0;  /* Reduced padding */
+  color: #393939;
+  margin-bottom: 4px;
+  padding: 2px 0;
 }
 
+/* Rest of the existing CSS remains the same */
 .summary-total {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
   font-weight: bold;
   color: #fff;
-  margin-top: 8px;  /* Reduced margin-top */
-  padding-top: 8px;  /* Reduced padding-top */
-  border-top: 1px solid rgba(255, 255, 255, 0.3); /* Subtle divider */
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .original-total {
   text-decoration: line-through;
-  color: #a4a0a0; /* Light gray color to show it's the canceled price */
-  margin-right: 10px; /* Optional spacing */
+  color: #a4a0a0;
+  margin-right: 10px;
 }
 
 .discounted-total-container {
-  margin-top: 5px; /* Optional spacing between totals */
+  margin-top: 5px;
 }
 
 .discounted-total {
-  font-weight: bold; /* Color for the discounted price (red or another color) */
+  font-weight: bold;
 }
+
 
 /* Discount section styling */
 .discount-section {

@@ -4,6 +4,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Prevent scrollbars on the page */
+  box-sizing: border-box; /* Include padding and borders in element's dimensions */
 }
 
 .confirmation-modal {
@@ -12,65 +13,56 @@ html, body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);  /* Slightly less intense background */
+  background-color: rgba(0, 0, 0, 0.3); /* Slightly less intense background */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;  /* Ensure it appears on top */
+  z-index: 1000; /* Ensure it appears on top */
 }
 
 .modal-content {
   background-color: white;
-  padding: 15px 20px;  /* Reduced padding */
-  border-radius: 8px;  /* Slightly smaller border radius */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Soft shadow for depth */
+  padding: 15px 20px; /* Reduced padding */
+  border-radius: 8px; /* Slightly smaller border radius */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
   text-align: center;
-  min-width: 220px;  /* Further reduced min-width */
-  max-width: 350px;  /* Reduced max-width for compact design */
+  min-width: 220px; /* Further reduced min-width */
+  max-width: 350px; /* Reduced max-width for compact design */
 }
 
 .h3 {
-  font-size: 16px;  /* Smaller font size */
-  font-weight: 600;  /* Bold for emphasis */
-  color: #333;  /* Dark text for contrast */
-  margin-bottom: 15px;  /* Reduced margin */
+  font-size: 16px; /* Smaller font size */
+  font-weight: 600; /* Bold for emphasis */
+  color: #333; /* Dark text for contrast */
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 button {
-  background-color: #007BFF;  /* Blue background for the button */
-  color: white;  /* White text */
+  background-color: #007BFF; /* Blue background for the button */
+  color: white; /* White text */
   border: none;
-  padding: 8px 16px;  /* Reduced padding */
+  padding: 8px 16px; /* Reduced padding */
   border-radius: 5px;
-  font-size: 12px;  /* Smaller font size */
+  font-size: 12px; /* Smaller font size */
   cursor: pointer;
-  transition: background-color 0.3s ease;  /* Smooth transition */
-  margin: 4px;  /* Reduced margin */
+  transition: background-color 0.3s ease; /* Smooth transition */
+  margin: 4px; /* Reduced margin */
 }
 
 .order-container {
-  height: 100%; /* Full height of the viewport */
+  height: 100%;
   width: 100%;
-  margin: 5px auto; /* Reduced margin */
-  padding: 10px; /* Reduced padding */
+  overflow: hidden; /* Prevent scroll bars */
   background-color: #d9b08c;
-  border-radius: 10px; /* Slightly smaller border-radius */
-  font-family: 'Arial', sans-serif;
-  color: #4d331f;
-  border: 1px solid #c3a084;
-  box-sizing: border-box;
-  transition: box-shadow 0.3s ease;
-  position: relative; /* Required for absolute positioning of the close button */
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Prevent overflow of entire container */
 }
 
 .close-btn {
   position: absolute;
-  top: 8px;  /* Reduced position for the close button */
-  right: 8px;  /* Reduced position for the close button */
-  font-size: 20px;  /* Slightly smaller font size */
+  top: 8px; /* Reduced position for the close button */
+  right: 8px; /* Reduced position for the close button */
+  font-size: 20px; /* Slightly smaller font size */
   background: none;
   border: none;
   color: #000;
@@ -174,80 +166,41 @@ button {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Scrollable Order List Container */
+.order-list-container {
+  max-height: 50vh;
+  overflow-y: auto; /* Ensure vertical scrolling */
+  background-color: rgba(255, 255, 255, 0.1);
+  box-sizing: border-box; /* Include padding in width/height */
+}
+
+.order-list {
+  max-height: 100%;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Custom Scrollbar for Order List */
+.order-list::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.order-list::-webkit-scrollbar-thumb {
+  background-color: #4d331f;
+  border-radius: 4px;
+}
+
+/* Firefox Scrollbar */
+.order-list {
+  scrollbar-width: thin;
+  scrollbar-color: #4d331f rgba(255, 255, 255, 0.2);
+}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .order-container {
-    max-width: 80%; /* Slightly narrower on medium screens */
+    max-width: 100%; /* Fix width */
     padding: 10px; /* Reduced padding */
   }
-
-  .order-section h3 {
-    font-size: 1.3rem; /* Smaller heading */
-  }
-
-  .order-section table th,
-  .order-section table td {
-    font-size: 0.75rem; /* Smaller font size for table */
-    padding: 5px; /* Reduced padding */
-  }
-
-  .order-section .payment-btn {
-    font-size: 0.75rem; /* Smaller font size */
-    padding: 6px; /* Reduced padding */
-  }
-
-  .order-section .total {
-    font-size: 0.85rem; /* Smaller font size */
-  }
-}
-
-@media (max-width: 480px) {
-  .order-container {
-    max-width: 85%; /* More compact on small screens */
-    padding: 6px; /* Reduced padding */
-  }
-
-  .order-section h3 {
-    font-size: 1.1rem; /* Adjusted for small screens */
-  }
-
-  .order-section table th,
-  .order-section table td {
-    font-size: 0.65rem; /* Smaller font size for table */
-    padding: 3px; /* Reduced padding */
-  }
-
-  .order-section .payment-btn {
-    font-size: 0.7rem; /* Smaller font size */
-    padding: 4px; /* Reduced padding */
-  }
-
-  .order-section .total {
-    font-size: 0.8rem; /* Smaller font size */
-  }
-}
-
-/* Additional Styling Adjustments */
-.order-section table td button:focus {
-  outline: none; /* Removes focus outline for better visual appeal */
-}
-
-.order-section .payment-btn:active {
-  transform: translateY(1px); /* Adds a click effect */
-}
-
-/* Scrollable order list without scrollbar */
-.order-container .order-list {
-  max-height: 600px; /* Set a height limit for scrolling */
-  overflow-y: scroll; /* Allow vertical scrolling */
-}
-
-.order-container .order-list::-webkit-scrollbar {
-  display: none; /* Hide the scrollbar */
-}
-
-/* For Firefox */
-.order-container .order-list {
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }

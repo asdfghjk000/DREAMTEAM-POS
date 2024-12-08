@@ -5,6 +5,7 @@
         <th>Order Number</th>
         <th>Order</th>
         <th>Amount</th>
+        <th>Change</th>
         <th>Payment</th>
         <th>Date</th>
         <th>Actions</th>
@@ -17,6 +18,7 @@
           <span *ngFor="let item of order.items" class="item">{{ item }}</span>
         </td>
         <td>{{ order.amount | currency: 'PHP':'symbol' }}</td>
+        <td>{{ order.changeAmount | currency: 'PHP':'symbol' }}</td>
         <td>{{ order.payment }}</td>
         <td>{{ order.date }}</td>
         <td>

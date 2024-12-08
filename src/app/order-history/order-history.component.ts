@@ -7,6 +7,7 @@ interface Order {
   orderNumber: number; // Change to number if orderNumber is an integer
   items: string[];
   amount: number;
+  changeAmount: number;
   payment: string;
   date: string;
 }
@@ -77,11 +78,13 @@ export class OrderHistoryComponent implements OnInit {
 
 
   fetchOrderHistory(): void {
-    // Fetch the order history
     this.http.get<{ success: boolean; data: Order[] }>(`${this.apiUrl}/getOrder.php`).subscribe(
       (response) => {
         if (response.success) {
-          this.orderHistory = response.data;
+          this.orderHistory = response.data.map(order => ({
+            ...order,
+            changeAmount: order.changeAmount || 0 // Default to 0 if not provided
+          }));
           this.totalPages = Math.ceil(this.orderHistory.length / this.itemsPerPage);
           this.updatePage();
         } else {
@@ -93,6 +96,7 @@ export class OrderHistoryComponent implements OnInit {
       }
     );
   }
+  
 
   updatePage(): void {
     // Update the orders for the current page
