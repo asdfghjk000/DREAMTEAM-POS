@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import * as XLSX from 'xlsx'; // Import xlsx library for Excel export
+import { Component, OnInit } from '@angular/core'; 
+import { HttpClient } from '@angular/common/http'; 
+import * as XLSX from 'xlsx'; // For exporting Excel files
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,72 +11,132 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
-  salesData: any[] = [];
+  
+  ordersData: any[] = []; // Initialize as an empty array
+  salesData: any[] = [];  // Initialize as an empty array
+  productsData: any[] = []; // Initialize products data array
+
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    this.fetchOrders();
     this.getSalesData();
+    this.getProductsData(); // Fetch product data on init
   }
 
-  // Function to fetch sales data from the PHP API
-  getSalesData(): void {
-    this.http.get<any>('http://localhost/backend-db/getSalesAnalytics.php').subscribe(
-      (response) => {
-        if (response.success && response.data) {
-          this.salesData = response.data;
-        } else {
-          console.error('Error fetching sales data', response.message);
+  // Fetch Orders Data from API
+  fetchOrders(): void {
+    this.isLoading = true;
+    this.http.get<any>('http://localhost/backend-db/getOrder.php')
+      .subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.ordersData = response.data;
+          } else {
+            this.errorMessage = response.message || 'Failed to load orders.';
+          }
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.errorMessage = 'An error occurred while fetching orders.';
+          console.error(error);
+          this.isLoading = false;
         }
-      },
-      (error) => {
-        console.error('Error fetching sales data', error);
-      }
-    );
+      });
   }
 
-  // Function to filter data for daily, weekly, and monthly reports
-  filterData(period: 'daily' | 'weekly' | 'monthly'): any[] {
-    const now = new Date();
-    let filteredData: any[] = [];
-
-    if (period === 'daily') {
-      filteredData = this.salesData.filter((item) => {
-        const orderDate = new Date(item.OrderDate);
-        return orderDate.toDateString() === now.toDateString(); // Filter for today
+  // Fetch Sales Data from API
+  getSalesData(): void {
+    this.http.get<any>('http://localhost/backend-db/getSalesAnalytics.php')
+      .subscribe({
+        next: (response) => {
+          if (response.success && response.data) {
+            this.salesData = response.data;
+          } else {
+            this.errorMessage = response.message || 'Failed to load sales data.';
+            this.salesData = [];
+          }
+        },
+        error: (error) => {
+          this.errorMessage = 'An error occurred while fetching sales data.';
+          console.error(error);
+          this.salesData = [];
+        }
       });
-    } else if (period === 'weekly') {
-      const startOfWeek = new Date(now);
-      startOfWeek.setDate(now.getDate() - now.getDay()); // Start of the current week
-      filteredData = this.salesData.filter((item) => {
-        const orderDate = new Date(item.OrderDate);
-        return orderDate >= startOfWeek; // Filter for current week
-      });
-    } else if (period === 'monthly') {
-      filteredData = this.salesData.filter((item) => {
-        const orderDate = new Date(item.OrderDate);
-        return orderDate.getMonth() === now.getMonth() && orderDate.getFullYear() === now.getFullYear(); // Filter for current month
-      });
-    }
-
-    return filteredData;
   }
 
-  // Function to export sales data to Excel
-  exportToExcel(period: 'daily' | 'weekly' | 'monthly'): void {
-    const filteredData = this.filterData(period);
+  // Fetch Products Data from API
+  getProductsData(): void {
+    this.http.get<any>('http://localhost/backend-db/read_Products.php')
+      .subscribe({
+        next: (response) => {
+          if (response.success && response.data) {
+            this.productsData = response.data;
+            console.log('Products Data:', this.productsData); // Debug here
+          } else {
+            this.errorMessage = response.message || 'Failed to load product data.';
+            this.productsData = [];
+          }
+        },
+        error: (error) => {
+          this.errorMessage = 'An error occurred while fetching product data.';
+          console.error(error);
+          this.productsData = [];
+        }
+      });
+  }
+  
+  
 
-    // Check if filteredData is not empty
-    if (filteredData.length === 0) {
-      alert('No sales data available for the selected period.');
-      return; // Stop execution if no data is found
-    }
-
-    const worksheet = XLSX.utils.json_to_sheet(filteredData);
+  // Export Orders Data to Excel
+  exportOrders(): void {
+    // Format orders data to flatten the `items` field
+    const formattedData = this.ordersData.map(order => ({
+      'Order Number': order.orderNumber,
+      'Items': order.items.join(', '), // Convert array to a comma-separated string
+      'Amount (PHP)': order.amount,
+      'Payment Method': order.payment,
+      'Date': order.date,
+    }));
+  
+    console.log('Formatted Orders Data:', formattedData); // Debugging
+  
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, `${period} Sales Report`);
-    
-    // Save the file
-    XLSX.writeFile(workbook, `${period}-sales-report.xlsx`);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Orders Report');
+    XLSX.writeFile(workbook, 'orders_report.xlsx');
   }
+  
+
+  // Export Sales Data to Excel
+  exportSales(): void {
+    const worksheet = XLSX.utils.json_to_sheet(this.salesData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sales Report');
+    XLSX.writeFile(workbook, 'sales_report.xlsx');
+  }
+
+  // Export Products Data to Excel
+  exportProducts(): void {
+    // Map the products data to match table headers
+    const formattedData = this.productsData.map(product => ({
+      'Product Name': product.productName,
+      'Category': product.categoryName,
+      'Price (PHP)': product.price,
+      'Status': product.status,
+    }));
+  
+    console.log('Formatted Products Data:', formattedData); // Debugging
+  
+    const worksheet = XLSX.utils.json_to_sheet(formattedData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Products Report');
+    XLSX.writeFile(workbook, 'products_report.xlsx');
+  }
+  
+  
+  
 }

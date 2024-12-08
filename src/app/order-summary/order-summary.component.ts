@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../services/dashboard.service';
+import { ModalComponent } from "../modal/modal.component";
 
 @Component({
   selector: 'app-order-summary',
@@ -25,6 +26,11 @@ export class OrderSummaryComponent implements OnInit {
   warningMessage: string = '';
   showConfirmDialog: boolean = false;
   cdr: any;
+  orderSummaryClosed: any;
+  successMessage: any;
+  isPaymentCompleted!: boolean;
+  isOrderVisible!: boolean;
+  showOrderSuccessModal: any;
 
   constructor(
     private http: HttpClient, 
@@ -66,28 +72,33 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   confirmOrder(): void {
-    this.warningMessage = '';  // Clear any previous warning message
+    this.warningMessage = ''; // Clear any previous warning messages
+    this.successMessage = ''; // Clear any previous success messages
   
-    // Check if payment method is selected
+    // Validate payment method selection
     if (!this.paymentMethod) {
       this.warningMessage = 'Please select a payment method.';
       return;
     }
   
-    // Calculate the total amount after discount and check if the paid amount is sufficient
-    const totalAfterDiscount = this.calculateTotalAfterDiscount();
+    // Calculate the total amount (after discount if applicable)
+    const totalAfterDiscount = this.calculateTotalAfterDiscount
+      ? this.calculateTotalAfterDiscount()
+      : this.calculateTotal();
+  
+    // Validate if paid amount is sufficient
     if (this.paidAmount < totalAfterDiscount) {
-      this.warningMessage = 'Paid amount is less than the total amount. Please adjust.';
+      this.warningMessage = 'Paid amount is less than the total. Please adjust.';
       return;
     }
   
     // Prepare the order data
     const orderData = {
-      totalAmount: totalAfterDiscount, // Use the discounted total
+      totalAmount: totalAfterDiscount,
       paymentMethod: this.paymentMethod,
       paidAmount: this.paidAmount,
       change: this.change,
-      items: this.newOrder.map(item => ({
+      items: this.newOrder.map((item) => ({
         productID: item.productID,
         productName: item.productName,
         price: item.price,
@@ -95,33 +106,67 @@ export class OrderSummaryComponent implements OnInit {
       })),
     };
   
-    // Send the order data to the backend for saving
-    this.http.post('http://localhost/backend-db/saveOrder.php', orderData)
-      .subscribe({
-        next: (response: any) => {
-          if (response.success) {
-            this.resetOrder(); // Reset the order after confirming
-            this.orderConfirmed.emit(); // Emit event to notify the parent component
-            this.showConfirmDialog = false;
-            this.cdr.detectChanges();
-          } else {
-            this.warningMessage = 'Error saving order: ' + response.message;
-          }
-        },
-        error: (err) => {
-          console.error('Error occurred:', err);
-          this.warningMessage = 'An error occurred while saving the order.';
-        },
-      });
+    // Send the order data to the backend
+    this.http.post('http://localhost/backend-db/saveOrder.php', orderData).subscribe({
+      next: (response: any) => {
+        if (response.success) {
+          // Store success message in local storage
+          localStorage.setItem('successMessage', 'Order Successful!');
+          
+          // Reset the order state
+          this.resetOrder();
+  
+          // Emit necessary events
+          this.orderConfirmed.emit();
+          this.orderSummaryClosed?.emit();
+  
+          // Trigger the modal on order success and navigate to staff dashboard
+          this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/staff-dashboard']); // Staff dashboard
+          });
+        } else {
+          this.warningMessage = 'Error saving order: ' + response.message;
+        }
+      },
+      error: (err) => {
+        console.error('Error occurred:', err);
+        this.warningMessage = 'An error occurred while saving the order.';
+      },
+    });
+  }
+  
+
+  showOrderSuccess() {
+    this.showOrderSuccessModal = true;
+  }
+  
+  closeOrderSuccessModal() {
+    this.showOrderSuccessModal = false;
   }
   
 
   cancelOrder(): void {
-    if (confirm('Are you sure you want to cancel the order?')) {
-      this.resetOrder();
-      console.log('Order canceled.');
-      this.cancel.emit();
-    }
+    this.cancel.emit();
+    this.isPaymentCompleted = false;
+    this.isOrderVisible = true;
+    console.log('Order canceled, returning to main order view with current products');
+  }
+
+
+resetToDefaultDisplay(): void {
+  // Modify to preserve current products
+  this.isPaymentCompleted = false;
+  this.isOrderVisible = true;
+  this.cdr.detectChanges();
+}
+
+handleCancelOrder(): void {
+    // Call the existing cancelOrder method which already handles most of the reset logic
+    this.cancelOrder();
+    
+    // Additional checks or custom logic if needed
+    this.isOrderVisible = true; // Ensure the order view is visible again
+    this.isPaymentCompleted = false; // Reset payment state
   }
 
   private resetOrder(): void {

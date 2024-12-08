@@ -14,11 +14,15 @@ import { AboutComponent } from "../about/about.component";
   imports: [
     CategoryComponent, ProductsComponent, OrderHistoryComponent, SalesComponent, CommonModule, ReportsComponent,
     AboutComponent
-],
+  ],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
+
 export class AdminDashboardComponent implements AfterViewInit {
+  // Floating success message
+  successMessage: string = '';
+
   // Category-related properties
   currentCategory: string = 'sales'; // Default category
 
@@ -65,7 +69,21 @@ export class AdminDashboardComponent implements AfterViewInit {
 
   constructor(private router: Router) {}
 
+  // Handle floating success message
   ngAfterViewInit() {
-    // Remove drag functionality if not needed
+    // Check for success message from previous navigation
+    const storedMessage = localStorage.getItem('successMessage');
+    if (storedMessage) {
+      this.successMessage = storedMessage;
+  
+      // Display the message and clear it after 3 seconds
+      setTimeout(() => {
+        this.successMessage = '';
+        localStorage.removeItem('successMessage'); // Clear the message from storage
+      }, 3000);
+    }
   }
+  
+
+  
 }

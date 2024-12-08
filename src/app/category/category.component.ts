@@ -24,6 +24,20 @@ interface ApiResponse {
   styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
+
+closeModal() {
+    this.showAddForm = false; // Close Add Category modal
+    this.editingCategory = null; // Close Edit Category modal
+  }
+
+  openEditForm(category: Category): void {
+    this.editingCategory = { ...category }; // Create a copy to avoid direct modification
+  }
+  
+  cancelEditForm(): void {
+    this.editingCategory = null; // Reset the editing category
+  }
+  
   categories: Category[] = [];
   filteredCategories: Category[] = [];
   categoryName: string = '';
@@ -36,6 +50,8 @@ export class CategoryComponent implements OnInit {
   categoryToDelete: number | undefined;
   showConfirmDialog!: boolean;
 category: any;
+editingCategory: Category | null = null;
+
 
   constructor(private http: HttpClient) {}
 
@@ -129,35 +145,34 @@ category: any;
   }
 
   updateCategory(category: Category): void {
-    if (!category.isEditing) return;
-    this.isLoading = true;
-    const postData = {
-      categoryID: category.categoryID,
-      categoryName: category.categoryName,
-      categoryMain: category.categoryMain,
-    };
+  if (!this.editingCategory) return;
 
-    this.http
-      .post<ApiResponse>(`${this.apiUrl}update_category.php`, postData)
-      .subscribe({
-        next: (response) => {
-          console.log('Category updated:', response);
-          if (response.success) {
-            this.readCategories();
-          } else {
-            this.errorMessage =
-              response.message || 'Failed to update category';
-          }
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Error updating category:', error);
-          this.errorMessage = 'Failed to update category';
-          this.isLoading = false;
-        },
-      });
-    category.isEditing = false;
-  }
+  this.isLoading = true;
+  const postData = {
+    categoryID: this.editingCategory.categoryID,
+    categoryName: this.editingCategory.categoryName,
+    categoryMain: this.editingCategory.categoryMain,
+  };
+
+  this.http.post<ApiResponse>(`${this.apiUrl}update_category.php`, postData).subscribe({
+    next: (response) => {
+      console.log('Category updated:', response);
+      if (response.success) {
+        this.readCategories();
+        this.editingCategory = null;
+      } else {
+        this.errorMessage = response.message || 'Failed to update category';
+      }
+      this.isLoading = false;
+    },
+    error: (error) => {
+      console.error('Error updating category:', error);
+      this.errorMessage = 'Failed to update category';
+      this.isLoading = false;
+    },
+  });
+}
+
 
   deleteCategory(categoryID: number): void {
     if (!categoryID) {

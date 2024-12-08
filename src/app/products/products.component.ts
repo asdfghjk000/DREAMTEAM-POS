@@ -43,15 +43,40 @@ export interface ApiResponse {
 })
 
 export class ProductsComponent implements OnInit {
+  saveChanges() {
+    this.updateProduct(this.editingProduct);  // Assuming you have an updateProduct function
+    this.closeForm();  // Close the form after saving
+  }
+
+  closeForm() {
+  this.editingProduct = null;  // Or set it to false if you're using a boolean flag to control the form visibility
+}
+
+  closeAddProductForm(): void {
+    this.showAddForm = false;
+    this.newProduct = {}; // Reset newProduct
+    this.errorMessage = ''; // Clear error message
+    this.closeForm();
+  }
+
+  
+
+cancelEditProduct(): void {
+    this.editingProduct.isEditing = false;
+    this.closeForm();
+
+  } 
+
   filteredProducts: Product[] = []; // Filtered list for displaying in the table
   searchQuery: string = ''; // Search query string
   productToDelete: number = 0;
   showConfirmDialog: boolean = false;
+  editingProduct: any;
 
-
-editProduct(_t82: Product) {
-throw new Error('Method not implemented.');
-}  
+ editProduct(product: Product): void {
+    this.editingProduct = { ...product }; // Create a copy of the product for editing
+    product.isEditing = true; // Set the product to editing mode
+  }  
   
   products: Product[] = [];
   categories: Category[] = [];
@@ -215,67 +240,69 @@ throw new Error('Method not implemented.');
   }
   
 
-  enableEdit(product: Product): void {
-    product.isEditing = true;
+  enableEdit(product: any): void {
+    this.editingProduct = { ...product };  // Create a copy of the product to edit
+    this.showAddForm = false;  // Hide the 'Add New Product' form if it's open
   }
+  
 
   cancelEdit(product: Product): void {
-    product.isEditing = false;
-    this.readProducts();  
+    product.isEditing = false; 
+    this.closeForm();
   }
 
   
   updateProduct(product: Product): void {
-    // Validate required fields
-    if (!product.productName || !product.categoryName || product.price === undefined || !product.status) {
-      this.errorMessage = 'All fields are required for updating a product';
-      return;
-    }
-  
-    // Validate price to be a positive number
-    if (product.price <= 0) {
-      this.errorMessage = 'Price must be a positive number.';
-      return;
-    }
-  
-    // Ensure the selected status is correctly updated
-    product.isEnabled = product.status === 'Available';
-  
-    this.isLoading = true;  // Set loading state to true
-  
-    // Prepare form data to send in the request
-    const formData = new FormData();
-    formData.append('productID', product.productID.toString());
-    formData.append('productName', product.productName);
-    formData.append('categoryName', product.categoryName);
-    formData.append('price', product.price.toString());
-    formData.append('status', product.status); // Send the updated status as "Enable" or "Disable"
-  
-    // Append the selected image if available
-    if (product.selectedImage) {
-      formData.append('image', product.selectedImage);
-    }
-  
-    // Make the HTTP POST request to update the product
-    this.http.post<ApiResponse>(`${this.apiUrl}update_product.php`, formData).subscribe({
-      next: (response) => {
-        if (response.success) {
-          product.isEditing = false; // Close the edit form
-          this.readProducts(); // Refresh the product list
-          this.resetForm(); // Reset the form and selected image
-          this.errorMessage = ''; // Clear any existing error messages
-        } else {
-          this.errorMessage = response.message || 'Failed to update product';
-        }
-        this.isLoading = false;  // Reset loading state
-      },
-      error: (error: HttpErrorResponse) => {
-        this.errorMessage = error.error?.message || 'Failed to update product';
-        this.isLoading = false;  // Reset loading state
-      }
-    });
+  // Validate required fields
+  if (!product.productName || !product.categoryName || product.price === undefined || !product.status) {
+    this.errorMessage = 'All fields are required for updating a product';
+    return;
   }
-  
+
+  // Validate price to be a positive number
+  if (product.price <= 0) {
+    this.errorMessage = 'Price must be a positive number.';
+    return;
+  }
+
+  // Ensure the selected status is correctly updated
+  product.isEnabled = product.status === 'Available';
+
+  this.isLoading = true;  // Set loading state to true
+
+  // Prepare form data to send in the request
+  const formData = new FormData();
+  formData.append('productID', product.productID.toString());
+  formData.append('productName', product.productName);
+  formData.append('categoryName', product.categoryName);
+  formData.append('price', product.price.toString());
+  formData.append('status', product.status); // Send the updated status as "Available" or "Unavailable"
+
+  // Append the selected image if available
+  if (product.selectedImage) {
+    formData.append('image', product.selectedImage);
+  }
+
+  // Make the HTTP POST request to update the product
+  this.http.post<ApiResponse>(`${this.apiUrl}update_product.php`, formData).subscribe({
+    next: (response) => {
+      if (response.success) {
+        product.isEditing = false; // Close the edit form
+        this.readProducts(); // Refresh the product list
+        this.resetForm(); // Reset the form and selected image
+        this.errorMessage = ''; // Clear any existing error messages
+      } else {
+        this.errorMessage = response.message || 'Failed to update product';
+      }
+      this.isLoading = false;  // Reset loading state
+    },
+    error: (error: HttpErrorResponse) => {
+      this.errorMessage = error.error?.message || 'Failed to update product';
+      this.isLoading = false;  // Reset loading state
+    }
+  });
+}
+
   
   // Reset the form and image after successful update
   private resetForm(): void {

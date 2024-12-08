@@ -18,6 +18,7 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unauthorized/unauthorized.component';
 import { AboutComponent } from './about/about.component';
+import { ModalComponent } from './modal/modal.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: 'all-items', component: AllItemsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'foods', component: FoodsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
+  { path: 'modal', component: ModalComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'drinks', component: DrinksComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'new-order', component: NewOrderComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'payment-process', component: PaymentProcessComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },

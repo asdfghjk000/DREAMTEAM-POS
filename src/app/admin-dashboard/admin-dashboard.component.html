@@ -76,4 +76,11 @@
       <button class="action-button cancel-button" (click)="closeLogout()">Cancel</button>
     </div>
   </div>
+  <div *ngIf="successMessage" class="floating-message">
+    {{ successMessage }}
+  </div>
 </div>
+
+
+
+

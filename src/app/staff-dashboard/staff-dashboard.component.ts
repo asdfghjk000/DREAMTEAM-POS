@@ -19,6 +19,25 @@ import { DashboardService } from '../services/dashboard.service';
   styleUrls: ['./staff-dashboard.component.css']
 })
 export class StaffDashboardComponent {
+  successMessage: string | null | undefined;
+
+  ngOnInit(): void {
+    // Check if there is a success message stored in localStorage
+    const successMessage = localStorage.getItem('successMessage');
+
+    if (successMessage) {
+      this.successMessage = successMessage;
+      
+      // Clear the success message from localStorage after displaying it
+      localStorage.removeItem('successMessage');
+
+      // Make the success message disappear after 5 seconds
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 5000); // 5000 ms = 5 seconds
+    }
+  }
+  
   currentCategory: string = 'allItems'; // Default to 'allItems'
   selectedProducts: any[] = [];  // Track selected products
   currentOrder: any[] = [];

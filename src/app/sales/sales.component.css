@@ -17,12 +17,14 @@
   text-align: center;
   margin-bottom: 30px;
   color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Overall totals section */
 .total-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   margin-top: 20px;
 }
@@ -36,6 +38,7 @@
   text-align: center;
   background-color: #fafafa;
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  overflow: hidden;
 }
 
 .total-item:hover {
@@ -58,12 +61,13 @@
 
 .total-item strong {
   font-weight: bold;
+  color: #5e3f2e; /* Matching your theme's color */
 }
 
 /* Charts container */
 .charts-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   margin-top: 20px;
 }
@@ -75,6 +79,12 @@
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   text-align: center;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.chart-item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fafafa;
 }
 
 .chart-item h3 {
@@ -82,21 +92,30 @@
   color: #333;
   margin-bottom: 20px;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* AOV Chart Item */
 .aov-chart-item {
   grid-column: span 2; /* This makes the AOV chart take up 2 columns */
-  background: #ffffff;
+  background: #fff;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   text-align: center;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.aov-chart-item:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fafafa;
 }
 
 /* Make the canvas for AOV take full width and height of the container */
 #aovLineChart {
   width: 100% !important;
-  height: 300px !important; /* You can adjust this height if needed */
+  height: 300px !important;
   border-radius: 8px;
   background: #fafafa;
 }
@@ -107,6 +126,7 @@ canvas {
   height: 300px !important;
   border-radius: 8px;
   background: #fafafa;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 /* Mobile responsiveness */

@@ -61,10 +61,15 @@
 
 <!-- Confirm and Cancel Buttons -->
 <div class="action-buttons">
-  <button (click)="confirmOrder()">CONFIRM</button>
+  <button (click)="confirmOrder()" class="confirm-button">CONFIRM</button>
+  <button (click)="handleCancelOrder()" class="cancel-button">CANCEL</button>
 </div>
+
+
+
 
 <!-- Warning Message -->
 <div *ngIf="warningMessage" class="warning-message">
   <p>{{ warningMessage }}</p>
 </div>
+

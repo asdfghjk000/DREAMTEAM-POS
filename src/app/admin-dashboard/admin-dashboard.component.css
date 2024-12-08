@@ -90,6 +90,47 @@ body {
   background-color: #0056b3;
 }
 
+.floating-message {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease-in, fadeOut 0.5s ease-out 2.5s;
+  display: inline-block;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+
+
 /* Logout Button */
 .logout-button {
   font-size: 36px;  /* Icon size */

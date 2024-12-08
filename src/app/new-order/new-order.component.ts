@@ -12,6 +12,10 @@ import { CommonModule } from '@angular/common';
 })
 export class NewOrderComponent {
   itemToDelete: Product | null = null;
+  newOrder: never[] = [];
+  paidAmount!: number;
+  change!: number;
+  paymentMethod!: null;
   
   showDeleteConfirmation(item: Product): void {
     this.itemToDelete = item; // Store the item to be deleted
@@ -90,8 +94,9 @@ export class NewOrderComponent {
 
   cancelOrder(): void {
     this.cancel.emit();
-    this.products = [];
     this.isPaymentCompleted = false;
+    this.isOrderVisible = true;
+    console.log('Order canceled, returning to main order view with current products');
   }
 
   confirmOrder(): void {
@@ -115,12 +120,27 @@ export class NewOrderComponent {
   
     console.log('Order closed, products cleared, and dashboard reset');
   }
-  resetToDefaultDisplay() {
-    throw new Error('Method not implemented.');
+  resetToDefaultDisplay(): void {
+    // Modify to preserve current products
+    this.isPaymentCompleted = false;
+    this.isOrderVisible = true;
+    this.cdr.detectChanges();
   }
 
   handleCancelOrder(): void {
-    this.products = []; // Reset products if order is canceled
+    // Call the existing cancelOrder method which already handles most of the reset logic
+    this.cancelOrder();
+    
+    // Additional checks or custom logic if needed
+    this.isOrderVisible = true; // Ensure the order view is visible again
+    this.isPaymentCompleted = false; // Reset payment state
+  }
+
+  private resetOrder(): void {
+    this.newOrder = [];
+    this.paidAmount = 0;
+    this.change = 0;
+    this.paymentMethod = null;
   }
 
   handleConfirmOrder(): void {

@@ -246,4 +246,43 @@ body {
     transform: scale(1);
     opacity: 1;
   }
+
+
+  
+
 }
+
+.success-message {
+  position: fixed;        /* Fix the position relative to the screen */
+  bottom: 20px;           /* Distance from the bottom */
+  right: 20px;            /* Distance from the right */
+  background: #4CAF50;
+  color: white;           /* White text color */
+  padding: 12px 24px;     /* Slightly more padding for better spacing */
+  border-radius: 8px;     /* More rounded corners for a smoother look */
+  font-size: 16px;        /* Font size */
+  font-family: 'Arial', sans-serif;  /* Modern font */
+  font-weight: 500;       /* Slightly bold text */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);  /* Softer, more spread-out shadow */
+  z-index: 1000;          /* Ensure it appears on top of other elements */
+  opacity: 1;             /* Fully visible by default */
+  transition: opacity 0.5s ease-out, transform 0.3s ease-in-out; /* Smooth opacity and slide-out transition */
+  display: flex;          /* Use flexbox to align icon and text */
+  align-items: center;    /* Center items vertically */
+  gap: 10px;              /* Space between icon and text */
+}
+
+.success-message i {
+  font-size: 20px;        /* Size of the icon */
+  color: white;           /* White color for the icon */
+}
+
+.success-message.ng-leave {
+  opacity: 0;             /* Fade out */
+  transform: translateY(10px); /* Slide out effect */
+}
+
+.success-message p {
+  margin: 0;              /* Remove default margin from paragraph */
+}
+
