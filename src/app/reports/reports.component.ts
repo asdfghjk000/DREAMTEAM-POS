@@ -11,6 +11,26 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
+  goToNextReport(): void {
+    if (this.activeTab === 'sales') {
+      this.activeTab = 'orders';
+    } else if (this.activeTab === 'orders') {
+      this.activeTab = 'products';
+    }
+  }
+
+  // Method to go to the previous report
+  goToPreviousReport(): void {
+    if (this.activeTab === 'products') {
+      this.activeTab = 'orders';
+    } else if (this.activeTab === 'orders') {
+      this.activeTab = 'sales';
+    }
+  }
+
+  selectTab(tab: string): void {
+    this.activeTab = tab;
+  }
   
   ordersData: any[] = []; // Initialize as an empty array
   salesData: any[] = [];  // Initialize as an empty array
@@ -18,6 +38,7 @@ export class ReportsComponent implements OnInit {
 
   isLoading: boolean = false;
   errorMessage: string = '';
+  activeTab: string = 'sales';
 
   constructor(private http: HttpClient) {}
 

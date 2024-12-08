@@ -54,6 +54,41 @@
   font-size: 20px;
 }
 
+/* Modern Navigation (Next/Previous) Buttons */
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.nav-buttons button {
+  width: 50px; /* Set fixed width for the buttons */
+  height: 50px; /* Set fixed height for a square button */
+  background-color: #d27f3b; /* Light brown background */
+  border: none;
+  border-radius: 50%; /* Circular buttons */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-buttons button:disabled {
+  background-color: #c7b4a9; /* Disabled button color */
+  cursor: not-allowed;
+}
+
+.nav-buttons button:hover:not(:disabled) {
+  background-color: #b46930; /* Darker color on hover */
+  transform: scale(1.1); /* Slight scale effect for hover */
+}
+
+.material-icons {
+  font-size: 24px; /* Slightly larger icon size */
+  color: white;
+}
 
 /* Table Styling */
 .table-container {

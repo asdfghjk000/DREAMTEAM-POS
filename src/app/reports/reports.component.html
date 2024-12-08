@@ -1,6 +1,5 @@
 <div class="reports-container">
 
-  <!-- Display buttons to download sales data -->
   <div class="report-buttons">
     <button (click)="exportSales()" title="Download Sales Report">
       <span class="material-icons">file_download</span> Sales Report
@@ -13,84 +12,100 @@
     </button>
   </div>
   
-  
+  <!-- Tab navigation with report title inside -->
+  <div class="nav-buttons">
+    <button (click)="goToPreviousReport()" [disabled]="activeTab === 'sales'" title="Previous Report">
+      <span class="material-icons">chevron_left</span> 
+    </button>
 
-  <!-- PRODUCT SALES REPORT -->
-  <p class="report-title">SALES REPORT</p>
-  <div class="table-container">
-    <table *ngIf="salesData.length > 0">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Total Sales</th>
-          <th>Total Quantity</th>
-          <th>Category</th>
-          <th>Order Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let sale of salesData">
-          <td>{{ sale.ProductName }}</td>
-          <td>{{ sale.totalSales | currency:'PHP' }}</td>
-          <td>{{ sale.totalQuantity }}</td>
-          <td>{{ sale.categoryName }}</td>
-          <td>{{ sale.OrderDate }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <span class="report-title">
+      <span *ngIf="activeTab === 'sales'">Sales Report</span>
+      <span *ngIf="activeTab === 'orders'">Orders Report</span>
+      <span *ngIf="activeTab === 'products'">Products Report</span>
+    </span>
+
+    <button (click)="goToNextReport()" [disabled]="activeTab === 'products'" title="Next Report">
+    <span class="material-icons">chevron_right</span>
+    </button>
   </div>
 
-  <!-- ORDERS REPORT -->
-  <p class="report-title">ORDERS REPORT</p>
-  <div class="table-container">
-    <table *ngIf="ordersData.length > 0 && !isLoading">
-      <thead>
-        <tr>
-          <th>Order Number</th>
-          <th>Items</th>
-          <th>Amount</th>
-          <th>Payment Method</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of ordersData">
-          <td>{{ order.orderNumber }}</td>
-          <td>
-            <span *ngIf="order.items.length > 0; else noItems">
-              {{ order.items.join(', ') }}
-            </span>
-            <ng-template #noItems>No items</ng-template>
-          </td>
-          <td>{{ order.amount | currency:'PHP' }}</td>
-          <td>{{ order.payment }}</td>
-          <td>{{ order.date | date:'yyyy-MM-dd' }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Display the current report content (Sales, Orders, Products) below -->
+  <div *ngIf="activeTab === 'sales'">
+    <div class="table-container">
+      <table *ngIf="salesData.length > 0">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Total Sales</th>
+            <th>Total Quantity</th>
+            <th>Category</th>
+            <th>Order Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sale of salesData">
+            <td>{{ sale.ProductName }}</td>
+            <td>{{ sale.totalSales | currency:'PHP' }}</td>
+            <td>{{ sale.totalQuantity }}</td>
+            <td>{{ sale.categoryName }}</td>
+            <td>{{ sale.OrderDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <!-- PRODUCTS REPORT -->
-  <p class="report-title">PRODUCTS REPORT</p>
-  <div class="table-container">
-    <table *ngIf="productsData.length > 0">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of productsData">
-          <td>{{ product.productName }}</td>
-          <td>{{ product.categoryName }}</td>
-          <td>{{ product.price | currency:'PHP' }}</td>
-          <td>{{ product.status }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div *ngIf="activeTab === 'orders'">
+    <div class="table-container">
+      <table *ngIf="ordersData.length > 0 && !isLoading">
+        <thead>
+          <tr>
+            <th>Order Number</th>
+            <th>Items</th>
+            <th>Amount</th>
+            <th>Payment Method</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of ordersData">
+            <td>{{ order.orderNumber }}</td>
+            <td>
+              <span *ngIf="order.items.length > 0; else noItems">
+                {{ order.items.join(', ') }}
+              </span>
+              <ng-template #noItems>No items</ng-template>
+            </td>
+            <td>{{ order.amount | currency:'PHP' }}</td>
+            <td>{{ order.payment }}</td>
+            <td>{{ order.date | date:'yyyy-MM-dd' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'products'">
+    <div class="table-container">
+      <table *ngIf="productsData.length > 0">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productsData">
+            <td>{{ product.productName }}</td>
+            <td>{{ product.categoryName }}</td>
+            <td>{{ product.price | currency:'PHP' }}</td>
+            <td>{{ product.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </div>
