@@ -22,7 +22,7 @@
   
 
    <!-- CATEGORY NAVIGATION -->
-   <div *ngIf="CategoryNameList().length > 0; else noCategories" class="category-navigation">
+   <div *ngIf="CategoryNameList().length" class="category-navigation">
     <ul>
       <li 
         *ngFor="let category of CategoryNameList()" 
@@ -66,9 +66,6 @@
   <p *ngIf="getProductsByCategory(selectedCategory).length === 0">No products available in this category.</p>
 </div>
 
-<ng-template #noCategories>
-  <p>No categories available.</p>
-</ng-template>
 
   <!-- Message when no products are available -->
   <div *ngIf="filteredProducts.length === 0" class="no-products">

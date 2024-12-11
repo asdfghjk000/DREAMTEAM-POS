@@ -8,6 +8,17 @@
   position: relative;
 }
 
+.success-message {
+  padding: 10px;
+  background-color: #052106;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
 table {
   width: 100%;
   border-collapse: collapse;

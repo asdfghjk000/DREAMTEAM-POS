@@ -1,7 +1,19 @@
 <div *ngIf="isOrderVisible" class="order-container">
   <div class="order-section">
     <!-- Close Button (X) -->
-    <button class="close-btn" (click)="closeOrder()">&#10005;</button>
+     
+  <!-- Close Button -->
+<button class="close-btn" (click)="closeOrder()">&#10005;</button>
+
+<!-- Confirmation Form -->
+<div *ngIf="showConfirmation" class="confirmation-overlay">
+  <div class="confirmation-box">
+    <h3 style="color: #32220c;">Are you sure you want to close the order?</h3>
+    <button (click)="confirmCloseOrder()">Yes</button>
+    <button (click)="cancelCloseOrder()">No</button>
+  </div>
+</div>
+
 
     <h3>{{ isPaymentCompleted ? 'ORDER SUMMARY' : 'NEW ORDER' }}</h3>
 

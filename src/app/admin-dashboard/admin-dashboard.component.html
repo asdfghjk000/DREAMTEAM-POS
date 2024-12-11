@@ -1,7 +1,10 @@
 <!-- Main content area -->
 <div class="main-content">
-  <!-- Sidebar with Logo and Navigation Links -->
-  <!-- Sidebar with Logo and Navigation Links -->
+<!-- Floating success message -->
+<div *ngIf="successMessage" class="floating-message">
+  {{ successMessage }}
+</div>
+
 <div class="sidebar">
   <div class="logo">
     <img src="eshercafelogo.png" alt="Esher Cafe Logo">
@@ -76,9 +79,9 @@
       <button class="action-button cancel-button" (click)="closeLogout()">Cancel</button>
     </div>
   </div>
-  <div *ngIf="successMessage" class="floating-message">
-    {{ successMessage }}
-  </div>
+
+
+
 </div>
 
 

@@ -18,7 +18,6 @@ import { AboutComponent } from "../about/about.component";
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
-
 export class AdminDashboardComponent implements AfterViewInit {
   // Floating success message
   successMessage: string = '';
@@ -28,6 +27,7 @@ export class AdminDashboardComponent implements AfterViewInit {
 
   // Product-related properties
   products: { imageUrl: string; productCode: string; productName: string; category: string; price: number }[] = [];
+  private messageShown: boolean = false;
 
   // Change content based on the selected category
   changeContent(category: string): void {
@@ -71,19 +71,63 @@ export class AdminDashboardComponent implements AfterViewInit {
 
   // Handle floating success message
   ngAfterViewInit() {
-    // Check for success message from previous navigation
-    const storedMessage = localStorage.getItem('successMessage');
+    const storedMessage = localStorage.getItem('successMessage');  // Get message from localStorage
     if (storedMessage) {
       this.successMessage = storedMessage;
-  
+
       // Display the message and clear it after 3 seconds
       setTimeout(() => {
         this.successMessage = '';
-        localStorage.removeItem('successMessage'); // Clear the message from storage
-      }, 3000);
+        localStorage.removeItem('successMessage');  // Clear the message from localStorage
+      }, 5000);
     }
   }
+
+  ngOnInit(): void {
+    // Check if a category message exists in localStorage
+    const storedMessage = localStorage.getItem('categoryMessage');
+  
+    if (storedMessage) {
+      // Display the message
+      this.successMessage = storedMessage;
+  
+      // Clear the message from localStorage to avoid repeated display
+      localStorage.removeItem('categoryMessage');
+
+      setTimeout(() => {
+        this.successMessage = '';
+        localStorage.removeItem('successMessage');  // Clear the message from localStorage
+      }, 5000);
+    }
+  }  
   
 
-  
+
+  // Example function for adding a product
+  addProduct(product: any): void {
+    // Logic to add product here
+    // After successful addition:
+    this.showSuccessMessage('Product added successfully!');
+  }
+
+  // Example function for deleting a product
+  deleteProduct(productId: string): void {
+    // Logic to delete product here
+    // After successful deletion:
+    this.showSuccessMessage('Product deleted successfully!');
+  }
+
+  // Function to show success message
+  showSuccessMessage(message: string): void {
+    this.successMessage = message;
+    
+    // Optionally, you can also store this message in local storage if you want to persist it across navigation
+    localStorage.setItem('successMessage', message);
+
+    // Hide message after 3 seconds
+    setTimeout(() => {
+      this.successMessage = '';
+      localStorage.removeItem('successMessage');
+    }, 3000);
+  }
 }

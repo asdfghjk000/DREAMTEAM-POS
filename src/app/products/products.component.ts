@@ -43,6 +43,7 @@ export interface ApiResponse {
 })
 
 export class ProductsComponent implements OnInit {
+  successMessage: string = '';
   saveChanges() {
     this.updateProduct(this.editingProduct);  // Assuming you have an updateProduct function
     this.closeForm();  // Close the form after saving
@@ -203,7 +204,7 @@ cancelEditProduct(): void {
       return;
     }
   
-    // Ensure that statusText is correctly set as "Enable" or "Disable" based on the selected value
+    // Ensure that isEnabled is correctly set based on the status
     this.newProduct.isEnabled = this.newProduct.status === 'Available';
   
     this.isLoading = true; // Set loading state to true
@@ -213,7 +214,7 @@ cancelEditProduct(): void {
     formData.append('productName', this.newProduct.productName!);
     formData.append('categoryName', this.newProduct.categoryName!);
     formData.append('price', this.newProduct.price.toString());
-    formData.append('status', this.newProduct.status); // Send statusText ("Enable" or "Disable")
+    formData.append('status', this.newProduct.status); // Send statusText ("Available" or "Unavailable")
   
     // If there's a selected image, append it to the form data
     if (this.selectedImage) {
@@ -223,21 +224,30 @@ cancelEditProduct(): void {
     // Make the HTTP POST request to create the product
     this.http.post<ApiResponse>(`${this.apiUrl}create_product.php`, formData).subscribe({
       next: (response) => {
-        // If the response indicates success, refresh the product list and hide the form
+        this.isLoading = false; // Reset loading state
+  
         if (response.success) {
+          // Store the success message in localStorage
+          localStorage.setItem('successMessage', 'Product created successfully!');
+  
+          // Refresh the product list and hide the form
           this.readProducts(); // Reload products
           this.toggleAddProductForm(); // Hide the form
+  
+          // Optionally redirect or reload to show the message
+          location.reload();
         } else {
+          // Display server-side error message if available
           this.errorMessage = response.message || 'Failed to create product.';
         }
-        this.isLoading = false; // Reset loading state
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || 'Error creating product.';
         this.isLoading = false; // Reset loading state
+        this.errorMessage = error.error?.message || 'Error creating product.';
       }
     });
   }
+  
   
 
   enableEdit(product: any): void {
@@ -251,58 +261,69 @@ cancelEditProduct(): void {
     this.closeForm();
   }
 
-  
   updateProduct(product: Product): void {
-  // Validate required fields
-  if (!product.productName || !product.categoryName || product.price === undefined || !product.status) {
-    this.errorMessage = 'All fields are required for updating a product';
-    return;
-  }
-
-  // Validate price to be a positive number
-  if (product.price <= 0) {
-    this.errorMessage = 'Price must be a positive number.';
-    return;
-  }
-
-  // Ensure the selected status is correctly updated
-  product.isEnabled = product.status === 'Available';
-
-  this.isLoading = true;  // Set loading state to true
-
-  // Prepare form data to send in the request
-  const formData = new FormData();
-  formData.append('productID', product.productID.toString());
-  formData.append('productName', product.productName);
-  formData.append('categoryName', product.categoryName);
-  formData.append('price', product.price.toString());
-  formData.append('status', product.status); // Send the updated status as "Available" or "Unavailable"
-
-  // Append the selected image if available
-  if (product.selectedImage) {
-    formData.append('image', product.selectedImage);
-  }
-
-  // Make the HTTP POST request to update the product
-  this.http.post<ApiResponse>(`${this.apiUrl}update_product.php`, formData).subscribe({
-    next: (response) => {
-      if (response.success) {
-        product.isEditing = false; // Close the edit form
-        this.readProducts(); // Refresh the product list
-        this.resetForm(); // Reset the form and selected image
-        this.errorMessage = ''; // Clear any existing error messages
-      } else {
-        this.errorMessage = response.message || 'Failed to update product';
-      }
-      this.isLoading = false;  // Reset loading state
-    },
-    error: (error: HttpErrorResponse) => {
-      this.errorMessage = error.error?.message || 'Failed to update product';
-      this.isLoading = false;  // Reset loading state
+    // Validate required fields
+    if (!product.productName || !product.categoryName || product.price === undefined || !product.status) {
+      this.errorMessage = 'All fields are required for updating a product';
+      return;
     }
-  });
-}
-
+  
+    // Validate price to be a positive number
+    if (product.price <= 0) {
+      this.errorMessage = 'Price must be a positive number.';
+      return;
+    }
+  
+    // Ensure the selected status is correctly updated
+    product.isEnabled = product.status === 'Available';
+  
+    this.isLoading = true;  // Set loading state to true
+  
+    // Prepare form data to send in the request
+    const formData = new FormData();
+    formData.append('productID', product.productID.toString());
+    formData.append('productName', product.productName);
+    formData.append('categoryName', product.categoryName);
+    formData.append('price', product.price.toString());
+    formData.append('status', product.status); // Send the updated status as "Available" or "Unavailable"
+  
+    // Append the selected image if available
+    if (product.selectedImage) {
+      formData.append('image', product.selectedImage);
+    }
+  
+    // Make the HTTP POST request to update the product
+    this.http.post<ApiResponse>(`${this.apiUrl}update_product.php`, formData).subscribe({
+      next: (response) => {
+        if (response.success) {
+          product.isEditing = false; // Close the edit form
+          this.readProducts(); // Refresh the product list
+          this.resetForm(); // Reset the form and selected image
+          this.errorMessage = ''; // Clear any existing error messages
+  
+          // Show success message in the admin dashboard
+          this.successMessage = 'Product updated successfully!'; // Set success message
+          
+          // Store success message in localStorage for the admin dashboard to read
+          localStorage.setItem('successMessage', this.successMessage);
+  
+          // Automatically clear the message after 5 seconds
+          setTimeout(() => {
+            this.successMessage = '';
+            localStorage.removeItem('successMessage'); // Clear message from localStorage
+          }, 5000);
+        } else {
+          this.errorMessage = response.message || 'Failed to update product';
+        }
+        this.isLoading = false;  // Reset loading state
+      },
+      error: (error: HttpErrorResponse) => {
+        this.errorMessage = error.error?.message || 'Failed to update product';
+        this.isLoading = false;  // Reset loading state
+      }
+    });
+  }
+  
   
   // Reset the form and image after successful update
   private resetForm(): void {
@@ -330,7 +351,20 @@ cancelEditProduct(): void {
     this.http.delete<ApiResponse>(`${this.apiUrl}delete_product.php?productID=${this.productToDelete}`).subscribe({
       next: (response) => {
         if (response.success) {
+          // Refresh the product list
           this.readProducts();
+  
+          // Show success message in the admin dashboard
+          this.successMessage = 'Product deleted successfully!'; // Set success message
+  
+          // Store success message in localStorage for the admin dashboard to read
+          localStorage.setItem('successMessage', this.successMessage);
+  
+          // Automatically clear the message after 5 seconds
+          setTimeout(() => {
+            this.successMessage = '';
+            localStorage.removeItem('successMessage'); // Clear message from localStorage
+          }, 5000);
         } else {
           this.errorMessage = response.message || 'Failed to delete product';
         }
@@ -344,6 +378,8 @@ cancelEditProduct(): void {
       }
     });
   }
+  
+
 
   cancelDelete(): void {
     this.productToDelete = 0;

@@ -55,14 +55,9 @@ export class ReportsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           if (response.success) {
-            // Process data to exclude time from the date field
-            this.ordersData = response.data.map((order: any) => ({
-              ...order,
-              date: order.date.split(' ')[0], // Keep only the date portion
-            }));
+            this.ordersData = response.data;
           } else {
             this.errorMessage = response.message || 'Failed to load orders.';
-            this.ordersData = [];
           }
           this.isLoading = false;
         },
@@ -70,11 +65,9 @@ export class ReportsComponent implements OnInit {
           this.errorMessage = 'An error occurred while fetching orders.';
           console.error(error);
           this.isLoading = false;
-          this.ordersData = [];
         }
       });
   }
-  
 
   // Fetch Sales Data from API
   getSalesData(): void {

@@ -30,6 +30,7 @@ export class OrderSummaryComponent implements OnInit {
   isPaymentCompleted!: boolean;
   isOrderVisible!: boolean;
   showOrderSuccessModal: any;
+deleteMessage: any;
 
   constructor(
     private http: HttpClient, 
@@ -133,6 +134,8 @@ export class OrderSummaryComponent implements OnInit {
       },
     });
   }
+
+  
   
 
   showOrderSuccess() {
