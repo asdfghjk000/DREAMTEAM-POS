@@ -98,7 +98,7 @@ h2 {
 /* Input Field: Line-Based Style */
 input {
   width: 100%;
-  padding: 8px 0;
+  padding: 12px 10px; /* Added vertical and horizontal padding */
   margin-top: 5px;
   border: none;
   border-bottom: 2px solid rgb(252, 252, 217); /* Bottom border only */
@@ -119,6 +119,7 @@ input::placeholder {
   font-size: 1em;
   font-style: italic;
 }
+
 
 /* Button Styles */
 button {

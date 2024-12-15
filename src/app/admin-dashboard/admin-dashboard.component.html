@@ -1,89 +1,43 @@
 <!-- Main content area -->
 <div class="main-content">
-<!-- Floating success message -->
-<div *ngIf="successMessage" class="floating-message">
-  {{ successMessage }}
-</div>
-
-<div class="sidebar">
-  <div class="logo">
-    <img src="eshercafelogo.png" alt="Esher Cafe Logo">
+  <!-- Floating success message -->
+  <div *ngIf="successMessage" class="floating-message">
+    {{ successMessage }}
   </div>
-  <ul>
-    <li (click)="changeContent('sales')" [class.active]="currentCategory === 'sales'">SALES</li>
-    <li (click)="changeContent('orders')" [class.active]="currentCategory === 'orders'">ORDERS</li>
-    <li (click)="changeContent('products')" [class.active]="currentCategory === 'products'">PRODUCT</li>
-    <li (click)="changeContent('category')" [class.active]="currentCategory === 'category'">CATEGORY</li>
-    <li (click)="changeContent('reports')" [class.active]="currentCategory === 'reports'">REPORT</li>
-    <li (click)="changeContent('about')" [class.active]="currentCategory === 'about'">ABOUT US</li> <!-- Add About Us Link -->
-  </ul>
-  <!-- Logout Icon -->
-  <div class="action-button logout-button" (click)="openLogoutConfirmation()">
-    <span class="material-icons">logout</span>
-  </div>
-</div>
 
-
-  <!-- Main Container for Displaying Content Based on Selection -->
-<div class="container">
-  <!-- Sales Category Content -->
-  <div *ngIf="currentCategory === 'sales'" class="category-content">
-    <div class="item-grid">
-      <app-sales></app-sales>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="eshercafelogo.png" alt="Esher Cafe Logo">
+    </div>
+    <ul>
+      <li routerLink="sales" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">SALES</li>
+      <li routerLink="orders" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">ORDERS</li>
+      <li routerLink="products" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">PRODUCT</li>
+      <li routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">CATEGORY</li>
+      <li routerLink="reports" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">REPORT</li>
+      <li routerLink="about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">ABOUT US</li>
+    </ul>
+    <!-- Logout Icon -->
+    <div class="action-button logout-button" (click)="openLogoutConfirmation()">
+      <span class="material-icons">logout</span>
     </div>
   </div>
 
-  <!-- Products Category Content -->
-  <div *ngIf="currentCategory === 'products'" class="category-content">
-    <div class="product-container">
-      <app-products></app-products>
-    </div>
+  <!-- Main Container for Displaying Content Based on Route -->
+  <div class="container">
+    <!-- The routed components will be displayed here -->
+    <router-outlet></router-outlet>
   </div>
 
-  <!-- Category Content -->
-  <div *ngIf="currentCategory === 'category'" class="category-content">
-    <div class="product-container">
-      <app-category></app-category>
-    </div>
-  </div>
-
-  <!-- Orders Category Content -->
-  <div *ngIf="currentCategory === 'orders'" class="category-content">
-    <div class="product-container">
-      <app-order-history></app-order-history>
-    </div>
-  </div>
-
-  <!-- Reports Category Content -->
-  <div *ngIf="currentCategory === 'reports'" class="category-content">
-    <div class="product-container">
-      <app-reports></app-reports>
-    </div>
-  </div>
-
-  <!-- About Category Content -->
-  <div *ngIf="currentCategory === 'about'" class="category-content">
-    <div class="product-container">
-      <app-about></app-about>
+  <!-- Logout Confirmation Modal -->
+  <div *ngIf="showLogoutModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Confirm Logout</h3>
+      <p>Are you sure you want to log out?</p>
+      <div class="modal-actions">
+        <button class="action-button confirm-button" (click)="confirmLogout()">Yes</button>
+        <button class="action-button cancel-button" (click)="closeLogout()">Cancel</button>
+      </div>
     </div>
   </div>
 </div>
-
-<!-- Logout Confirmation Modal -->
-<div *ngIf="showLogoutModal" class="modal-overlay">
-  <div class="modal-content">
-    <h3>Confirm Logout</h3>
-    <p>Are you sure you want to log out?</p>
-    <div class="modal-actions">
-      <button class="action-button confirm-button" (click)="confirmLogout()">Yes</button>
-      <button class="action-button cancel-button" (click)="closeLogout()">Cancel</button>
-    </div>
-  </div>
-
-
-
-</div>
-
-
-
-

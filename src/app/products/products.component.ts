@@ -229,13 +229,12 @@ cancelEditProduct(): void {
         if (response.success) {
           // Store the success message in localStorage
           localStorage.setItem('successMessage', 'Product created successfully!');
-  
-          // Refresh the product list and hide the form
+          location.reload();          // Refresh the product list and hide the form
           this.readProducts(); // Reload products
           this.toggleAddProductForm(); // Hide the form
   
           // Optionally redirect or reload to show the message
-          location.reload();
+          
         } else {
           // Display server-side error message if available
           this.errorMessage = response.message || 'Failed to create product.';
@@ -306,7 +305,7 @@ cancelEditProduct(): void {
           
           // Store success message in localStorage for the admin dashboard to read
           localStorage.setItem('successMessage', this.successMessage);
-  
+          location.reload();  
           // Automatically clear the message after 5 seconds
           setTimeout(() => {
             this.successMessage = '';
@@ -359,6 +358,7 @@ cancelEditProduct(): void {
   
           // Store success message in localStorage for the admin dashboard to read
           localStorage.setItem('successMessage', this.successMessage);
+          location.reload();  
   
           // Automatically clear the message after 5 seconds
           setTimeout(() => {

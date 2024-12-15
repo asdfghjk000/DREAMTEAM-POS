@@ -1,4 +1,3 @@
-// app.routes.ts
 import { Routes } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
@@ -22,22 +21,33 @@ export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainPageComponent },
   { path: 'staff-dashboard', component: StaffDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
-  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
+  
+  // Admin Dashboard with child routes
+    {
+      path: 'admin-dashboard',
+      component: AdminDashboardComponent,
+      canActivate: [AuthGuard, RoleGuard],
+      data: {role: 'admin'},
+      children: [
+        { path: 'sales', component: SalesComponent },
+        { path: 'orders', component: OrderHistoryComponent },
+        { path: 'products', component: ProductsComponent },
+        { path: 'category', component: CategoryComponent },
+        { path: 'reports', component: ReportsComponent },
+        { path: 'about', component: AboutComponent },
+        { path: '', redirectTo: 'sales', pathMatch: 'full' }, // Default route for admin-dashboard
+      ]
+    }
+    ,
+
   { path: 'all-items', component: AllItemsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'foods', component: FoodsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'drinks', component: DrinksComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'new-order', component: NewOrderComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
-  { path: 'sales', component: SalesComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
-  { path: 'product', component: ProductsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
-  { path: 'order-history', component: OrderHistoryComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: 'order-summary', component: OrderSummaryComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'unauthorized', component: UnauthorizedComponent },
-  { path: 'category', component: CategoryComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
-  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
-  { path: 'about', component: AboutComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: '**', redirectTo: '/main' } // Wildcard route should be last
 ];
-
 
 export class AppRoutingModule {}
 export { RoleGuard };

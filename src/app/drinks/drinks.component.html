@@ -20,9 +20,8 @@
     <p>{{ errorMessage }}</p>
   </div>
   
-
-   <!-- CATEGORY NAVIGATION -->
-   <div *ngIf="CategoryNameList().length" class="category-navigation">
+  <!-- CATEGORY NAVIGATION -->
+  <div *ngIf="CategoryNameList().length > 0; else noCategories" class="category-navigation">
     <ul>
       <li 
         *ngFor="let category of CategoryNameList()" 
@@ -32,42 +31,41 @@
       </li>
     </ul>
   </div>
-  
 
-<!-- Product cards for the selected category -->
-<div *ngIf="selectedCategory" class="category-content">
-  <div *ngIf="getProductsByCategory(selectedCategory).length > 0" class="product-grid">
-    <div
-      *ngFor="let product of getProductsByCategory(selectedCategory)"
-      class="product-card"
-      (click)="selectAndEmitProducts(product)"
-    >
-      <div class="product-image-container">
-        <img
-          *ngIf="product.image"
-          [src]="'data:image/jpeg;base64,' + product.image"
-          alt="{{ product.productName }}"
-        />
-        <img
-          *ngIf="product.imageUrl && !product.image"
-          [src]="product.imageUrl"
-          alt="{{ product.productName }}"
-        />
-      </div>
-      <div class="product-details">
-        <h3 class="product-name">{{ product.productName }}</h3>
-        <p class="price">₱{{ product.price }}</p>
-        <p class="status" *ngIf="product.status">
-          {{ product.status }}
-        </p>
+  <!-- Product cards -->
+  <div class="category-content">
+    <div *ngIf="filteredProducts.length > 0" class="product-grid">
+      <div
+        *ngFor="let product of filteredProducts"
+        class="product-card"
+        (click)="selectAndEmitProducts(product)"
+      >
+        <div class="product-image-container">
+          <img
+            *ngIf="product.image"
+            [src]="'data:image/jpeg;base64,' + product.image"
+            alt="{{ product.productName }}"
+          />
+          <img
+            *ngIf="product.imageUrl && !product.image"
+            [src]="product.imageUrl"
+            alt="{{ product.productName }}"
+          />
+        </div>
+        <div class="product-details">
+          <h3 class="product-name">{{ product.productName }}</h3>
+          <p class="price">₱{{ product.price }}</p>
+          <p class="status" *ngIf="product.status">
+            {{ product.status }}
+          </p>
+        </div>
       </div>
     </div>
+    <p *ngIf="filteredProducts.length === 0">No products available.</p>
   </div>
-  <p *ngIf="getProductsByCategory(selectedCategory).length === 0">No products available in this category.</p>
+
+  <ng-template #noCategories>
+    <p>No categories available.</p>
+  </ng-template>
 </div>
 
-  <!-- Message when no products are available -->
-  <div *ngIf="filteredProducts.length === 0" class="no-products">
-    <p>No products available.</p>
-  </div>
-</div>

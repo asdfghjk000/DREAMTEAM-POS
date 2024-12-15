@@ -3,25 +3,37 @@
 
   <div class="total-container">
     <div class="total-item">
-      <p><strong>TODAY</strong></p>
+      <p><strong>TOTAL SALES TODAY</strong></p>
       <h1>₱ {{ TotalSales | number:'1.2-2' }}</h1>
-      <p>TOTAL SALES</p>
     </div>
 
     <div class="total-item">
-      <p><strong>PRODUCT SOLD</strong></p>
+      <p><strong>PRODUCT SOLD TODAY</strong></p>
       <h1>{{ CategoryTotalQuantity }}</h1>
       <p><strong>{{ totalFoodQuantity }}</strong> FOODS & <strong>{{ totalDrinkQuantity }}</strong> DRINKS</p>
     </div>
   </div>
 
+  <div class="total-container">
+    <div class="total-item">
+      <p><strong>OVERALL SALES</strong></p>
+      <h1>₱ {{ OverallTotalSales | number:'1.2-2' }}</h1>
+    </div>
+
+    <div class="total-item">
+      <p><strong>OVERALL PRODUCTS SOLD</strong></p>
+      <h1>{{ OverallTotalQuantity }}</h1>
+      <p><strong>{{ overalltotalFoodQuantity }}</strong> FOODS & <strong>{{ overalltotalDrinkQuantity }}</strong> DRINKS</p>
+    </div>
+  </div>
+
   <div class="charts-container">
     <div class="chart-item">
-      <h3>Top Products</h3>
+      <h3>Top 5 Products</h3>
       <canvas id="topProductsPieChart"></canvas>
     </div>
     <div class="chart-item">
-      <h3>Top Categories</h3>
+      <h3>Top 5 Categories</h3>
       <canvas id="topCategoriesPieChart"></canvas>
     </div>
     <div class="chart-item">
@@ -39,18 +51,4 @@
     </div>
     
 </div>
-
-
-  <div class="total-container">
-    <div class="total-item">
-      <p><strong>OVERALL SALES</strong></p>
-      <h1>₱ {{ OverallTotalSales | number:'1.2-2' }}</h1>
-    </div>
-
-    <div class="total-item">
-      <p><strong>OVERALL PRODUCTS SOLD</strong></p>
-      <h1>{{ OverallTotalQuantity }}</h1>
-      <p><strong>{{ overalltotalFoodQuantity }}</strong> FOODS & <strong>{{ overalltotalDrinkQuantity }}</strong> DRINKS</p>
-    </div>
-  </div>
 </div>

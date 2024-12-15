@@ -22,7 +22,7 @@
   
 
    <!-- CATEGORY NAVIGATION -->
-   <div *ngIf="CategoryNameList().length" class="category-navigation">
+   <div *ngIf="CategoryNameList().length > 0; else noCategories" class="category-navigation">
     <ul>
       <li 
         *ngFor="let category of CategoryNameList()" 
@@ -35,10 +35,10 @@
   
 
 <!-- Product cards for the selected category -->
-<div *ngIf="selectedCategory" class="category-content">
-  <div *ngIf="getProductsByCategory(selectedCategory).length > 0" class="product-grid">
+<div class="category-content">
+  <div *ngIf="filteredProducts.length > 0" class="product-grid">
     <div
-      *ngFor="let product of getProductsByCategory(selectedCategory)"
+      *ngFor="let product of filteredProducts"
       class="product-card"
       (click)="selectAndEmitProducts(product)"
     >
@@ -63,12 +63,12 @@
       </div>
     </div>
   </div>
-  <p *ngIf="getProductsByCategory(selectedCategory).length === 0">No products available in this category.</p>
+  <p *ngIf="filteredProducts.length === 0">No products available.</p>
 </div>
 
+<ng-template #noCategories>
+  <p>No categories available.</p>
+</ng-template>
 
   <!-- Message when no products are available -->
-  <div *ngIf="filteredProducts.length === 0" class="no-products">
-    <p>No products available.</p>
-  </div>
 </div>

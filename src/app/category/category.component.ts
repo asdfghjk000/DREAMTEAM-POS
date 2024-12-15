@@ -196,6 +196,7 @@ editingCategory: Category | null = null;
   
           // Store success message in localStorage for the admin dashboard to read
           localStorage.setItem('successMessage', this.successMessage);
+          location.reload();  
   
           // Automatically clear the message after 5 seconds
           setTimeout(() => {
@@ -248,6 +249,7 @@ editingCategory: Category | null = null;
   
             // Store success message in localStorage for the admin dashboard to read
             localStorage.setItem('successMessage', this.successMessage);
+            location.reload();  
   
             // Automatically clear the message after 5 seconds
             setTimeout(() => {

@@ -10,11 +10,25 @@
     Loading...
   </div>
 
+  <div class="dot">
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="filterProducts()"
+        placeholder="Search products..."
+        class="search-input"
+      />
+    </div>
+
   <!-- Add New Product Section -->
   <div class="new-product-section">
     <button (click)="toggleAddProductForm()" class="new-product-button">
       New Product
     </button>
+  </div>
+  
 
     <!-- Floating Form for New Product -->
     <div *ngIf="showAddForm" class="floating-form">
@@ -142,17 +156,6 @@
 
 
     </form>
-  </div>
-
-  <!-- Search Bar -->
-  <div class="search-bar">
-    <input
-      type="text"
-      [(ngModel)]="searchQuery"
-      (input)="filterProducts()"
-      placeholder="Search products..."
-      class="search-input"
-    />
   </div>
 
   <!-- Products Table -->

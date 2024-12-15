@@ -46,35 +46,35 @@ export class OrderHistoryComponent implements OnInit {
   // Method to confirm the deletion 
 // Method to confirm the deletion 
 confirmDeleteOrder(): void {
-  if (this.orderToDelete) {
-    const orderId = this.orderToDelete.orderNumber;  // Get the order number to delete
+  if (!this.orderToDelete) return;
 
-    // Send a DELETE request to delete the order
-    this.http.request('DELETE', `${this.apiUrl}/deleteOrder.php`, {
-      body: { orderId: orderId },
-      headers: { 'Content-Type': 'application/json' }
-    }).subscribe(
-      (response: any) => {
-        if (response.success) {
-          // Remove the deleted order from the current page view
-          this.currentPageOrders = this.currentPageOrders.filter(order => order.orderNumber !== orderId);
-          // Optionally, refresh the order history
-          this.fetchOrderHistory();
+  const orderId = this.orderToDelete.orderNumber;
 
-          // Display the success message in the Admin Dashboard by saving it to localStorage
-          this.showSuccessMessage('Order deleted successfully!');
-        } else {
-          alert('Failed to delete order');
-        }
-        this.showConfirmDialog = false;  // Close the modal
-      },
-      (error) => {
-        console.error('Error deleting order:', error);
-        alert('An error occurred while deleting the order.');
-        this.showConfirmDialog = false;  // Close the modal on error
-      }
-    );
+  this.http.request('DELETE', `${this.apiUrl}/deleteOrder.php`, {
+    body: { orderId },
+    headers: { 'Content-Type': 'application/json' }
+  }).subscribe(
+    (response: any) => this.handleDeleteSuccess(response, orderId),
+    (error: any) => this.handleDeleteError(error)
+  );
+}
+
+handleDeleteSuccess(response: any, orderId: number): void {
+  if (response.success) {
+    this.currentPageOrders = this.currentPageOrders.filter(order => order.orderNumber !== orderId);
+    this.fetchOrderHistory();
+    this.showSuccessMessage('Order deleted successfully!');
+    location.reload();
+  } else {
+    alert('Failed to delete order');
   }
+  this.showConfirmDialog = false;
+}
+
+handleDeleteError(error: any): void {
+  console.error('Error deleting order:', error);
+  alert('An error occurred while deleting the order.');
+  this.showConfirmDialog = false;
 }
 
 // Function to show success message

@@ -1,20 +1,13 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CategoryComponent } from '../category/category.component';
-import { ProductsComponent } from "../products/products.component";
-import { OrderHistoryComponent } from "../order-history/order-history.component";
-import { SalesComponent } from "../sales/sales.component";
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ReportsComponent } from "../reports/reports.component";
-import { AboutComponent } from "../about/about.component";
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
   imports: [
-    CategoryComponent, ProductsComponent, OrderHistoryComponent, SalesComponent, CommonModule, ReportsComponent,
-    AboutComponent
-  ],
+    CommonModule, RouterModule
+],
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css']
 })
@@ -69,38 +62,31 @@ export class AdminDashboardComponent implements AfterViewInit {
 
   constructor(private router: Router) {}
 
-  // Handle floating success message
-  ngAfterViewInit() {
-    const storedMessage = localStorage.getItem('successMessage');  // Get message from localStorage
-    if (storedMessage) {
-      this.successMessage = storedMessage;
-
-      // Display the message and clear it after 3 seconds
-      setTimeout(() => {
-        this.successMessage = '';
-        localStorage.removeItem('successMessage');  // Clear the message from localStorage
-      }, 5000);
-    }
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
   }
 
   ngOnInit(): void {
-    // Check if a category message exists in localStorage
-    const storedMessage = localStorage.getItem('categoryMessage');
+  // Check for stored success message in localStorage
+  const successMessage = localStorage.getItem('successMessage');
+  const categoryMessage = localStorage.getItem('categoryMessage');
   
-    if (storedMessage) {
-      // Display the message
-      this.successMessage = storedMessage;
-  
-      // Clear the message from localStorage to avoid repeated display
-      localStorage.removeItem('categoryMessage');
+  // Display the success message if available, otherwise display the category message
+  if (successMessage) {
+    this.successMessage = successMessage;
+    localStorage.removeItem('successMessage'); // Remove after displaying
+  } else if (categoryMessage) {
+    this.successMessage = categoryMessage;
+    localStorage.removeItem('categoryMessage'); // Remove after displaying
+  }
 
-      setTimeout(() => {
-        this.successMessage = '';
-        localStorage.removeItem('successMessage');  // Clear the message from localStorage
-      }, 5000);
-    }
-  }  
-  
+  // Clear the message after 5 seconds
+  if (this.successMessage) {
+    setTimeout(() => {
+      this.successMessage = '';
+    }, 5000);
+  }
+}  
 
 
   // Example function for adding a product
