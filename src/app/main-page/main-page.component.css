@@ -142,6 +142,17 @@ button:disabled {
   background-color: black;
 }
 
+/* Adjust the position of the eye icon */
+.toggle-password-icon {
+  position: absolute;
+  right: 0px; /* Adjusted from 10px for better spacing */
+  top: 25%; /* Centers the icon vertically */
+  transform: translateY(-50%); /* Ensures perfect vertical alignment */
+  cursor: pointer;
+  color: #aaa; /* Default color */
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
 
 /* Error message styling */
 .error-message {
@@ -152,20 +163,7 @@ button:disabled {
   text-align: center;
 }
 
-/* Show password button */
-button[type="button"] {
-  background-color: transparent;
-  color: #444;
-  border: none;
-  font-size: 0.9em;
-  cursor: pointer;
-  margin-top: 5px;
-  text-decoration: underline;
-}
 
-button[type="button"]:hover {
-  color: #333;
-}
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {

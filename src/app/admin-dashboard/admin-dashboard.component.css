@@ -228,7 +228,7 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .cancel-button {
@@ -241,7 +241,7 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .confirm-button:hover {

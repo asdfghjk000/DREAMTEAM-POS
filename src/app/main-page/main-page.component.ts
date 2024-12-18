@@ -34,6 +34,9 @@ export class MainPageComponent {
           } else if (role === 'admin') {
             this.authService.setRole('admin');  // Set role in localStorage
             this.router.navigate(['/admin-dashboard']);
+          } else if (role == 'superadmin'){
+            this.authService.setRole('superadmin');  // Set role in localStorage
+            this.router.navigate(['/super-admin']);
           } else {
             window.alert('Unknown role. Please contact the administrator.');
           }

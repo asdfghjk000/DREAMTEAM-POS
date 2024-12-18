@@ -15,25 +15,42 @@ import { Product, ApiResponse } from '../products/products.component';
 export class FoodsComponent implements OnInit {
   selectedCategory: string | null = null;
 
-  // Filter products by selected category
   getProductsByCategory(category: string): Product[] {
-    return this.products.filter(product => product.categoryName === category);
+    return this.products.filter(product => 
+      product.categoryName.toLowerCase().trim() === category.toLowerCase().trim()
+    );
   }
 
   // Handle category click
   onCategoryClick(category: string): void {
     this.selectedCategory = category;
-    this.filteredProducts = this.getProductsByCategory(category); // Update filtered products based on the selected category
+    
+    // If there's a search query, filter within the selected category
+    if (this.searchQuery) {
+      this.filteredProducts = this.products.filter(product => 
+        product.categoryName.toLowerCase().trim() === category.toLowerCase().trim() &&
+        (product.productName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+         product.categoryName.toLowerCase().includes(this.searchQuery.toLowerCase()))
+      );
+    } else {
+      // If no search query, just show products in the selected category
+      this.filteredProducts = this.getProductsByCategory(category);
+    }
   }
 
   // Method to handle search input and filter products
   onSearchQueryChange(): void {
-    if (this.searchQuery) {
-      this.filteredProducts = this.products.filter(product => 
-        product.productName.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
+    if (!this.searchQuery) {
+      // If no search query, reset to selected category or all products
+      this.filteredProducts = this.selectedCategory 
+        ? this.getProductsByCategory(this.selectedCategory)
+        : [...this.products];
     } else {
-      this.filteredProducts = [...this.products];  // Reset to all products if search query is empty
+      // Search across all products, regardless of category
+      this.filteredProducts = this.products.filter(product => 
+        product.productName.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        product.categoryName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
     }
   }
 

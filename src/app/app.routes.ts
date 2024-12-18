@@ -3,6 +3,8 @@ import { Routes } from '@angular/router';
 import { MainPageComponent } from './main-page/main-page.component';
 import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
+import { UsersComponent } from './users/users.component';
 import { AllItemsComponent } from './all-items/all-items.component';
 import { FoodsComponent } from './foods/foods.component';
 import { DrinksComponent } from './drinks/drinks.component';
@@ -20,11 +22,14 @@ import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unau
 import { AboutComponent } from './about/about.component';
 import { ModalComponent } from './modal/modal.component';
 
+
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainPageComponent },
   { path: 'staff-dashboard', component: StaffDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
+  { path: 'super-admin', component: SuperAdminComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'superadmin'}},
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'superadmin'}},
   { path: 'all-items', component: AllItemsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'foods', component: FoodsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   { path: 'modal', component: ModalComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
@@ -38,7 +43,7 @@ export const routes: Routes = [
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'category', component: CategoryComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
-  { path: 'about', component: AboutComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'admin'} },
+  { path: 'about', component: AboutComponent },
   { path: '**', redirectTo: '/main' } // Wildcard route should be last
 ];
 

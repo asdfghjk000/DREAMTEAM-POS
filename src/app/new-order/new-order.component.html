@@ -1,51 +1,65 @@
 <div *ngIf="isOrderVisible" class="order-container">
   <div class="order-section">
     <!-- Close Button (X) -->
-    <button class="close-btn" (click)="closeOrder()">&#10005;</button>
+     
+  <!-- Close Button -->
+<button class="close-btn" (click)="closeOrder()">&#10005;</button>
+
+<!-- Confirmation Form -->
+<div *ngIf="showConfirmation" class="confirmation-overlay">
+  <div class="confirmation-box">
+    <h3 style="color: #32220c;">Are you sure you want to close the order?</h3>
+    <button (click)="confirmCloseOrder()">Yes</button>
+    <button (click)="cancelCloseOrder()">No</button>
+  </div>
+</div>
+
 
     <h3>{{ isPaymentCompleted ? 'ORDER SUMMARY' : 'NEW ORDER' }}</h3>
 
-    <!-- Improved Scrollable Order List -->
-    <div class="order-list-container">
-      <div *ngIf="!isPaymentCompleted" class="order-list">
-        <table>
-          <thead>
-            <tr>
-              <th>ITEM</th>
-              <th>QUANTITY</th>
-              <th>COST</th>
-              <th>ACTION</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of products">
-              <td>{{ item.productName }}</td>
-              <td>
-                <button (click)="decreaseQuantity(item)">-</button>
-                {{ item.quantity }}
-                <button (click)="increaseQuantity(item)">+</button>
-              </td>
-              <td>₱ {{ item.price * item.quantity | number: '1.2-2' }}</td>
-              <td>
-                <!-- Delete Button -->
-                <button (click)="showDeleteConfirmation(item)">🗑️</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <!-- Displaying Order List when Payment is Not Completed -->
+    <div *ngIf="!isPaymentCompleted" class="order-list">
+      <table>
+        <thead>
+          <tr>
+            <th>ITEM</th>
+            <th>QUANTITY</th>
+            <th>COST</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of products">
+            <td>{{ item.productName }}</td>
+            <td>
+              <button (click)="decreaseQuantity(item)">-</button>
+              {{ item.quantity }}
+              <button (click)="increaseQuantity(item)">+</button>
+            </td>
+            <td>₱ {{ item.price * item.quantity | number: '1.2-2' }}</td>
+            <td>
+              <!-- Delete Button -->
+<button (click)="showDeleteConfirmation(item)">🗑️</button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- Confirmation Modal for Item Deletion -->
-    <div *ngIf="showConfirmDialog" class="confirmation-modal">
-      <div class="modal-content">
-        <h3 style="font-size: 18px; font-weight: 600; color: #333; margin-bottom: 20px;">
-          Are you sure you want to delete this item?
-        </h3>
-        <button (click)="confirmRemoveItem()">Confirm</button>
-        <button (click)="cancelRemoveItem()">Cancel</button>
-      </div>
-    </div>
+<div *ngIf="showConfirmDialog" class="confirmation-modal">
+  <div class="modal-content">
+    <h3 style="font-size: 18px; font-weight: 600; color: #333; margin-bottom: 20px;">
+      Are you sure you want to delete this item?
+    </h3>
+    <button (click)="confirmRemoveItem()">Confirm</button>
+    <button (click)="cancelRemoveItem()">Cancel</button>
+  </div>
+</div>
+
+              
+
 
     <!-- Display Total when Payment is Not Completed -->
     <div *ngIf="!isPaymentCompleted" class="total">

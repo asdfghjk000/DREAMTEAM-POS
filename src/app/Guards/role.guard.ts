@@ -10,16 +10,16 @@ export class RoleGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const role = this.authService.getRole(); // Get role from localStorage
-    const expectedRole = route.data['role']; // Get the expected role for the route
-
-    // Check if user role matches the expected role for the route
+    const role = this.authService.getRole();
+    console.log('Retrieved role from localStorage:', role);  // Log the retrieved role
+    const expectedRole = route.data['role'];
+  
     if (role === expectedRole) {
-      return true; // Allow access if role matches
+      return true;
     } else {
       console.warn('Unauthorized access attempt detected. Redirecting...');
-      this.router.navigate(['/unauthorized'], { skipLocationChange: true }); // Avoid changing the URL in browser history
-      return false; // Prevent access
+      this.router.navigate(['/unauthorized'], { skipLocationChange: true });
+      return false;
     }
   }
 }

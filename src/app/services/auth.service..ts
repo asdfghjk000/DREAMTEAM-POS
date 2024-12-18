@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';  // Import for platform check
+import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,14 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
     return this.http.post('http://localhost/backend-db/login.php', { username, password }, {
       headers: { 'Content-Type': 'application/json' }
-    });
+    }).pipe(
+      tap((response: any) => {
+        console.log('Login response:', response);  // Log the response to check role
+        if (response && response.role) {
+          localStorage.setItem('role', response.role);  // Store role in localStorage
+        }
+      })
+    );
   }
 
   // Method to safely get the user role
@@ -53,6 +61,7 @@ export class AuthService {
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('role');  // Clear the role during logout
+      console.log('Role cleared on logout');
     }
   }
 }

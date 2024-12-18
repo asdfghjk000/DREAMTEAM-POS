@@ -16,6 +16,7 @@ export class NewOrderComponent {
   paidAmount!: number;
   change!: number;
   paymentMethod!: null;
+  confirmClose: any;
   
   showDeleteConfirmation(item: Product): void {
     this.itemToDelete = item; // Store the item to be deleted
@@ -105,21 +106,42 @@ export class NewOrderComponent {
   }
 
   closeOrder(): void {
-    // Clear all items and notify parent about the updated order
-    while (this.products.length > 0) {
-      const item = this.products.pop(); // Remove the last item
-      if (item) {
-        this.remove.emit(item); // Emit the removed item
+    if (this.confirmClose) {
+      // Clear all items and notify parent about the updated order
+      while (this.products.length > 0) {
+        const item = this.products.pop(); // Remove the last item
+        if (item) {
+          this.remove.emit(item); // Emit the removed item
+        }
       }
+  
+      this.updateOrder.emit([]); // Emit an empty product list
+      this.resetToDefaultDisplay(); // Reset the state to default
+      this.isOrderVisible = false; // Hide the current order view
+      this.orderClosed.emit(); // Notify the parent component
+  
+      console.log('Order closed, products cleared, and dashboard reset');
+    } else {
+      this.showConfirmation = true; // Show the confirmation message
     }
-  
-    this.updateOrder.emit([]); // Emit an empty product list
-    this.resetToDefaultDisplay(); // Reset the state to default
-    this.isOrderVisible = false; // Hide the current order view
-    this.orderClosed.emit(); // Notify the parent component
-  
-    console.log('Order closed, products cleared, and dashboard reset');
   }
+  
+  confirmCloseOrder(): void {
+    this.confirmClose = true;
+    this.showConfirmation = false; // Hide the confirmation form
+    this.closeOrder();
+  }
+  
+  cancelCloseOrder(): void {
+    this.confirmClose = false;
+    this.showConfirmation = false; // Hide the confirmation form
+    console.log('Order close action was cancelled.');
+  }
+  
+  // Add a flag to show/hide the confirmation form
+  showConfirmation: boolean = false;
+  
+  
   resetToDefaultDisplay(): void {
     // Modify to preserve current products
     this.isPaymentCompleted = false;

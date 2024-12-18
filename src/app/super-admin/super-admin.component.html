@@ -1,0 +1,45 @@
+<div class="main-content">
+    <!-- Sidebar with Logo and Navigation Links -->
+    <div class="sidebar">
+      <div class="logo">
+        <img src="eshercafelogo.png" alt="Super Admin Logo">
+      </div>
+      <ul>
+        <li (click)="changeContent('users')" [class.active]="currentCategory === 'users'">USERS</li>
+        <li (click)="changeContent('about')" [class.active]="currentCategory === 'about'">ABOUT US</li>
+      </ul>
+      <!-- Logout Icon -->
+      <div class="action-button logout-button" (click)="openLogoutConfirmation()">
+        <span class="material-icons">logout</span>
+      </div>
+    </div>
+  
+      <!-- Users Category Content -->
+       <div class="container">
+      <div *ngIf="currentCategory === 'users'" class="category-content">
+        <div class="content-grid">
+        <app-users></app-users>
+        </div>
+      </div>
+  
+      <!-- About  Category Content -->
+      <div *ngIf="currentCategory === 'about'" class="category-content">
+        <div class="content-grid">
+          <app-about></app-about>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Logout Confirmation Modal -->
+    <div *ngIf="showLogoutModal" class="modal-overlay">
+      <div class="modal-content">
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to log out?</p>
+        <div class="modal-actions">
+          <button class="action-button confirm-button" (click)="confirmLogout()">Yes</button>
+          <button class="action-button cancel-button" (click)="closeLogout()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  

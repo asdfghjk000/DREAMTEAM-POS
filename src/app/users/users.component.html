@@ -1,0 +1,91 @@
+<div class="user-container">
+    <!-- Error Message Display -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search users..."
+        (keyup)="onSearchChange()"
+      />
+    </div>
+  
+    <!-- Users Table -->
+    <table class="user-table" *ngIf="filteredUsers.length > 0; else noUsers">
+      <thead>
+        <tr>
+          <th>UserID</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <div class="action-buttons">
+              <button
+                class="edit-button"
+                (click)="openEditForm(user)"
+                [disabled]="isLoading"
+              >
+                Edit
+              </button>
+              <button
+                class="delete-button"
+                (click)="deleteUser(user.userId)"
+              >
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- No Users Message -->
+    <ng-template #noUsers>
+      <p class="no-users">No users available.</p>
+    </ng-template>
+  
+    <!-- Edit User Modal -->
+    <div *ngIf="editingUser" class="floating-form">
+      <form (ngSubmit)="updateUser(editingUser)" #editForm="ngForm">
+        <div class="input-group">
+          <input
+            type="text"
+            [(ngModel)]="editingUser.username"
+            name="username"
+            placeholder="Enter username"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <select
+            [(ngModel)]="editingUser.role"
+            name="role"
+            required
+          >
+            <option value="" disabled>Select Role</option>
+            <option value="Admin">Admin</option>
+            <option value="Staff">Staff</option>
+          </select>
+        </div>
+        <button type="submit" [disabled]="!editForm.form.valid">
+          Save Changes
+        </button>
+        <button type="button" (click)="cancelEditForm()"[disabled]="isLoading">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+  
