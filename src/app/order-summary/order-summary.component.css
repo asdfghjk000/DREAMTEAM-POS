@@ -1,9 +1,8 @@
 /* Main container for the order summary */
 .summary-container {
   background-color: #eddcc5; /* Background matches the design */
-  padding: 16px;
-  padding: 8px;  /* Reduced padding */
-  margin-bottom: 8px;  /* Reduced bottom margin */
+  padding: 4px;  /* Reduced padding */
+  margin-bottom: 4px;  /* Reduced bottom margin */
   border-radius: 14px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
   max-height: 300px; /* Set a maximum height for the container */
@@ -21,31 +20,31 @@
 .summary-item {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
+  font-size: 14px; /* Reduced font size */
   color: #393939; /* Dark color for contrast */
-   margin-bottom: 4px;  /* Reduced bottom margin */
+  margin-bottom: 2px;  /* Reduced bottom margin */
   padding: 2px 0;  /* Reduced padding */
 }
 
 .summary-total {
   display: flex;
   justify-content: space-between;
-  font-size: 16px;
+  font-size: 14px; /* Reduced font size */
   font-weight: bold;
   color: #fff;
-  margin-top: 8px;  /* Reduced margin-top */
-  padding-top: 8px;  /* Reduced padding-top */
+  margin-top: 4px;  /* Reduced margin-top */
+  padding-top: 4px;  /* Reduced padding-top */
   border-top: 1px solid rgba(255, 255, 255, 0.3); /* Subtle divider */
 }
 
 .original-total {
   text-decoration: line-through;
   color: #a4a0a0; /* Light gray color to show it's the canceled price */
-  margin-right: 10px; /* Optional spacing */
+  margin-right: 6px; /* Reduced optional spacing */
 }
 
 .discounted-total-container {
-  margin-top: 5px; /* Optional spacing between totals */
+  margin-top: 4px; /* Reduced margin */
 }
 
 .discounted-total {
@@ -54,46 +53,44 @@
 
 /* Discount section styling */
 .discount-section {
-  margin-top: 8px;
+  margin-top: 4px; /* Reduced margin-top */
 }
 
 .discount-section label {
-  font-size: 16px;
+  font-size: 14px; /* Reduced font size */
   color: #000; /* Dark text color */
 }
 
 .discount-section input {
-  width: 100px;
-  padding: 8px;
-  font-size: 16px;
+  width: 80px; /* Reduced width */
+  padding: 6px;
+  font-size: 14px; /* Reduced font size */
   text-align: right;
   border: none;
   background-color: #fff;
   border-radius: 4px;
-  margin-top: 8px;
+  margin-top: 4px; /* Reduced margin-top */
 }
-
 
 .cancel-button {
   background: none;            /* Removes background color */
   color: #fff;                 /* White text color */
-  font-size: 16px;             /* Text size */
+  font-size: 14px;             /* Reduced font size */
   text-align: center;          /* Centered text */
   text-decoration: underline;  /* Underlined text */
-  margin-top: 4px;           /* Spacing from other elements */
+  margin-top: 2px;           /* Reduced spacing from other elements */
   cursor: pointer;            /* Pointer cursor on hover */
   border: none;                /* Removes border */
 }
 
-
 .confirm-button {
   width: 100%;
-  height: 50px;
-  margin-top: 20px;
-  padding: 10px;  /* Adjust padding for a tighter button */
+  height: 40px; /* Reduced height */
+  margin-top: 12px; /* Reduced margin-top */
+  padding: 8px;  /* Adjust padding for a tighter button */
   border: none;   /* Removes default border */
   border-radius: 4px; /* Slight rounded corners */
-  font-size: 16px; /* Font size */
+  font-size: 14px; /* Reduced font size */
   font-weight: bold;  /* Bold text */
   color: #fff; /* White text */
   background-color: #333; /* Dark background */
@@ -110,20 +107,17 @@
   background-color: #c55b1a; /* Darker color when clicked */
 }
 
-
 .warning-message {
   text-align: center;  /* Align text to the center */
   color: rgba(225, 3, 3, 0.8);  /* Red color for the text */
-  font-size: 12px;     /* Optional: Adjust font size */
-  padding: 10px;       /* Optional: Add padding */
+  font-size: 10px;     /* Reduced font size */
+  padding: 6px;       /* Reduced padding */
 }
-
-
 
 /* Payment section styling */
 .payment-section {
-  margin-top: 8px;  /* Reduced margin-top */
-  padding: 8px;  /* Reduced padding */
+  margin-top: 4px;  /* Reduced margin-top */
+  padding: 6px;  /* Reduced padding */
   border-radius: 8px;
 }
 
@@ -131,11 +125,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 6px; /* Reduced bottom margin */
 }
 
 .payment-section label {
-  font-size: 16px;
+  font-size: 14px; /* Reduced font size */
   color: #000000; /* Brown for text to match theme */
 }
 
@@ -143,9 +137,9 @@
   -webkit-appearance: none;   /* Remove arrows in Webkit browsers (Chrome, Safari) */
   -moz-appearance: textfield; /* Remove arrows in Firefox */
   appearance: none;           /* Ensure it works across all browsers */
-  width: 120px;
-  padding: 8px;
-  font-size: 16px;
+  width: 100px; /* Reduced width */
+  padding: 6px;  /* Reduced padding */
+  font-size: 14px; /* Reduced font size */
   text-align: right;
   border: none;               /* Remove border */
   outline: none;              /* Remove focus outline */
@@ -164,15 +158,15 @@
 .order-type-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 16px;
+  margin-top: 12px;  /* Reduced margin-top */
 }
 
 .order-type-buttons button {
   width: 48%;
-  padding: 8px; /* Reduced padding for smaller height */
+  padding: 6px; /* Reduced padding for smaller height */
   border: none;
   border-radius: 6px; /* Slightly smaller corners */
-  font-size: 14px; /* Smaller font size */
+  font-size: 12px; /* Smaller font size */
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
@@ -198,15 +192,15 @@
 .payment-buttons {
   display: flex;
   justify-content: space-between;
-  margin-top: 12px;
+  margin-top: 10px; /* Reduced margin-top */
 }
 
 .payment-buttons button {
   width: 48%;
-  padding: 8px; /* Reduced padding for smaller height */
+  padding: 6px; /* Reduced padding for smaller height */
   border: none;
   border-radius: 6px;
-  font-size: 14px; /* Smaller font size */
+  font-size: 12px; /* Smaller font size */
   font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
@@ -228,18 +222,17 @@
   color: #fff;
 }
 
-
 /* Confirm and Cancel Buttons */
 .action-buttons {
-  margin-top: 6px; /* Smaller margin above the buttons */
+  margin-top: 4px; /* Reduced margin above the buttons */
 }
 
 .action-buttons button {
   width: 100%;
-  padding: 6px; /* Reduced padding for smaller height */
+  padding: 4px; /* Reduced padding for smaller height */
   border: none;
   border-radius: 4px; /* Slightly rounded corners */
-  font-size: 14px; /* Smaller font size */
+  font-size: 12px; /* Smaller font size */
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease; /* Smooth interaction */
@@ -260,22 +253,10 @@
 .action-buttons button.cancel {
   background: none;
   color: #555; /* Slightly lighter gray for Cancel button */
-  font-size: 13px; /* Smaller font size */
-  text-align: center;
-  text-decoration: underline;
-  margin-top: 6px; /* Smaller margin */
-  cursor: pointer;
-  transition: color 0.3s ease;
+  font-weight: normal;
 }
 
 .action-buttons button.cancel:hover {
-  color: #e74c3c; /* Subtle red highlight on hover */
-}
-
-/* Empty Order Message */
-.no-items {
-  color: #777; /* Light gray for empty message */
-  font-size: 12px; /* Smaller font size */
-  text-align: center;
-  margin-top: 12px; /* Smaller margin */
+  text-decoration: underline;
+  color: #333; /* Darker gray on hover */
 }

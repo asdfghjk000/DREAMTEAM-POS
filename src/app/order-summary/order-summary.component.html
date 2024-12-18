@@ -8,13 +8,13 @@
 
 <!-- Total Section -->
 <div class="summary-total">
-  <span>TOTAL:</span>
-  <span *ngIf="discount > 0" class="original-total">₱ {{ calculateTotal() | number: '1.2-2' }}</span>
-  <span class="discounted-total">₱ {{ calculateTotalAfterDiscount() | number: '1.2-2' }}</span>
+  <span>Subtotal:</span>
+  <span>₱ {{ calculateTotal() | number: '1.2-2' }}</span>
 </div>
 
 <!-- Payment Section -->
 <div class="payment-section">
+  <!-- Discount Input -->
   <div>
     <label for="discount">DISCOUNT (%)</label>
     <input
@@ -27,6 +27,14 @@
       placeholder="Enter discount"
     />
   </div>
+
+  <!-- Total After Discount -->
+  <div class="summary-total">
+    <span>Total:</span>
+    <span>₱ {{ calculateTotalAfterDiscount() | number: '1.2-2' }}</span>
+  </div>
+
+  <!-- Paid Amount and Change -->
   <div>
     <label for="paidAmount">PAID:</label>
     <input
@@ -59,8 +67,7 @@
   </button>
 </div>
 
-
-<!-- Payment Buttons -->
+<!-- Payment Methods Section -->
 <div class="payment-buttons">
   <button
     (click)="selectPaymentMethod('cash')"
@@ -82,7 +89,7 @@
   <button (click)="handleCancelOrder()" class="cancel-button">CANCEL</button>
 </div>
 
-<!-- Floating confirmation modal -->
+<!-- Floating Confirmation Modal -->
 <div *ngIf="showConfirmationModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 1000;">
   <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center; max-width: 300px; width: 100%;">
     <p style="font-size: 16px; margin-bottom: 20px; color: #333;">Are you sure you want to confirm the order?</p>

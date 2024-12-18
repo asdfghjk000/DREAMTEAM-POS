@@ -13,6 +13,11 @@ import { DashboardService } from '../services/dashboard.service';
   imports: [CommonModule, FormsModule],
 })
 export class OrderSummaryComponent implements OnInit {
+orderData: any;
+  discountPercentage: any;
+downloadReceipt() {
+throw new Error('Method not implemented.');
+}
 
   selectOrderType(type: string) {
     this.orderType = type;
@@ -50,9 +55,9 @@ export class OrderSummaryComponent implements OnInit {
   }
 
   calculateTotalAfterDiscount(): number {
-    const total = this.calculateTotal();
-    const discountAmount = (this.discount / 100) * total;
-    return total - discountAmount;
+    const totalBeforeDiscount = this.calculateTotal();
+    const discountAmount = (totalBeforeDiscount * this.discount) / 100;
+    return totalBeforeDiscount - discountAmount;
   }
 
   calculateChange(): void {
@@ -103,55 +108,198 @@ export class OrderSummaryComponent implements OnInit {
     this.showConfirmationModal = true;
   }
 
-  finalizeOrder(confirm: boolean): void {
+  calculateDiscountAmount(): number {
+    return (this.calculateTotal() * this.discount) / 100;
+  }
+
+  
+  totalBeforeDiscount: number = 0;
+
+finalizeOrder(confirm: boolean): void { 
     if (confirm) {
-      // Proceed with the order confirmation logic
-      const totalAfterDiscount = this.calculateTotalAfterDiscount
-        ? this.calculateTotalAfterDiscount()
-        : this.calculateTotal();
-  
-      // Prepare the order data
-      const orderData = {
-        totalAmount: totalAfterDiscount,
-        paymentMethod: this.paymentMethod,
-        paidAmount: this.paidAmount,
-        change: this.change,
-        orderType: this.orderType, // Added orderType
-        items: this.newOrder.map((item) => ({
-          productID: item.productID,
-          productName: item.productName,
-          price: item.price,
-          quantity: item.quantity,
-        })),
-      };
-  
-      // Send the order data to the backend
-      this.http.post('http://localhost/backend-db/saveOrder.php', orderData).subscribe({
-        next: (response: any) => {
-          if (response.success) {
-            localStorage.setItem('successMessage', 'Order Successful!');
-            this.resetOrder();
-            this.orderConfirmed.emit();
-            this.orderSummaryClosed?.emit();
-            this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-              this.router.navigate(['/staff-dashboard']);
-            });
-          } else {
-            this.warningMessage = 'Error saving order: ' + response.message;
-          }
-        },
-        error: (err) => {
-          console.error('Error occurred:', err);
-          this.warningMessage = 'An error occurred while saving the order.';
-        },
-      });
+        // Calculate total before discount (subtotal)
+        this.totalBeforeDiscount = this.calculateTotal();  // Subtotal (Total before discount)
+        
+        // Calculate total after discount
+        const totalAfterDiscount = this.calculateTotalAfterDiscount();  // Total after applying discount
+
+        // Create the order data object
+        const orderData = {
+            totalAmount: totalAfterDiscount,
+            paymentMethod: this.paymentMethod,
+            paidAmount: this.paidAmount,
+            change: this.change,
+            orderType: this.orderType,
+            items: this.newOrder.map((item) => ({
+                productID: item.productID,
+                productName: item.productName,
+                price: item.price,
+                quantity: item.quantity,
+            })),
+            discountPercentage: this.discount,  // Use the discount value (percentage)
+            totalBeforeDiscount: this.totalBeforeDiscount,  // Include the subtotal in order data
+        };
+
+        // Send order data to backend
+        this.http.post('http://localhost/backend-db/saveOrder.php', orderData).subscribe({
+            next: (response: any) => {
+                if (response.success) {
+                    // Save success message and reset order
+                    localStorage.setItem('successMessage', 'Order Successful!');
+                    this.resetOrder();
+                    this.orderConfirmed.emit();
+                    this.orderSummaryClosed?.emit();
+
+                    // Print the receipt
+                    this.printReceipt(orderData);
+
+                    // Redirect to dashboard
+                    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+                        this.router.navigate(['/staff-dashboard']);
+                    });
+                } else {
+                    this.warningMessage = 'Error saving order: ' + response.message;
+                }
+            },
+            error: (err) => {
+                console.error('Error occurred:', err);
+                this.warningMessage = 'An error occurred while saving the order.';
+            },
+        });
     }
-  
+
     // Close the confirmation modal
     this.showConfirmationModal = false;
+}
+  
+printReceipt(orderData: any): void {
+  const receiptWindow = window.open('', '_blank', 'width=400,height=600');
+  if (receiptWindow) {
+    const receiptContent = `
+      <html>
+        <head>
+          <title>Receipt</title>
+          <style>
+            @media print {
+              @page {
+                size: 58mm auto;
+                margin: 0;
+              }
+              body {
+                margin: 0;
+                padding: 0;
+                font-size: 12px;
+                line-height: 1.4;
+              }
+            }
+            body {
+              font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 10px;
+              width: 58mm;
+              line-height: 1.4;
+              text-align: left;
+            }
+            .header, .footer {
+              text-align: center;
+              font-weight: bold;
+              margin-bottom: 5px;
+            }
+            .header h2 {
+              margin: 5px 0;
+              font-size: 14px;
+            }
+            .line {
+              border-top: 1px dashed #000;
+              margin: 5px 0;
+            }
+            .item, .totals {
+              display: flex;
+              justify-content: space-between;
+              font-size: 12px;
+            }
+            .totals span {
+              font-weight: bold;
+            }
+            .center {
+              text-align: center;
+              margin-top: 5px;
+            }
+            .footer {
+              margin-top: 10px;
+              font-size: 12px;
+            }
+          </style>
+        </head>
+        <body>
+          <!-- Receipt Header -->
+          <div class="header">
+            <h2>ESHER CAFE</h2>
+            <p>${new Date().toLocaleString()}</p>
+          </div>
+          <div class="line"></div>
+
+          <!-- Items -->
+          <div>
+            ${orderData.items
+              .map(
+                (item: any) => `
+                <div class="item">
+                  <span>${item.productName} x ${item.quantity}</span>
+                  <span>₱${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+              `
+              )
+              .join('')}
+          </div>
+          <div class="line"></div>
+
+          <!-- Totals Section -->
+          <div class="totals">
+            <span>Subtotal:</span>
+            <span>₱${orderData.totalBeforeDiscount.toFixed(2)}</span> <!-- Change here -->
+          </div>
+          <div class="totals">
+            <span>Discount:</span>
+            <span> ${orderData.discountPercentage}%</span>
+          </div>
+          <div class="totals">
+            <span>Total:</span>
+            <span>₱${orderData.totalAmount.toFixed(2)}</span>
+          </div>
+          <div class="totals">
+            <span>Paid:</span>
+            <span>₱${orderData.paidAmount.toFixed(2)}</span>
+          </div>
+          <div class="totals">
+            <span>Change:</span>
+            <span>₱${orderData.change.toFixed(2)}</span>
+          </div>
+          <div class="line"></div>
+
+          <!-- Order Type and Payment Method -->
+          <div class="center">
+            <span><strong>${orderData.orderType}</strong></span>
+          </div>
+          <div class="center">
+            <span><strong>${orderData.paymentMethod}</strong></span>
+          </div>
+          <div class="line"></div>
+
+          <!-- Footer -->
+          <div class="footer">
+            <p>THANK YOU!</p>
+          </div>
+        </body>
+      </html>
+    `;  
+    // Write and trigger print
+    receiptWindow.document.open();
+    receiptWindow.document.write(receiptContent);
+    receiptWindow.document.close();
+    receiptWindow.print();
   }
-  
-  
+}
 
   showOrderSuccess() {
     this.showOrderSuccessModal = true;
@@ -198,4 +346,6 @@ handleCancelOrder(): void {
     this.paidAmount = totalAmount; // Set the paidAmount to the total initially
     this.calculateChange();
   }
+
+  
 }
