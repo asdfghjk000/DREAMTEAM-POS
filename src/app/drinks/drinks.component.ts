@@ -18,7 +18,6 @@ import { NewOrderComponent } from '../new-order/new-order.component';
 export class DrinksComponent implements OnInit {
   selectedCategory: string | null = null;
 
-  // Filter products by selected category
   getProductsByCategory(category: string): Product[] {
     return this.products.filter(product => 
       product.categoryName.toLowerCase().trim() === category.toLowerCase().trim()
@@ -41,7 +40,6 @@ export class DrinksComponent implements OnInit {
       this.filteredProducts = this.getProductsByCategory(category);
     }
   }
-
 
   // Method to handle search input and filter products
   onSearchQueryChange(): void {
@@ -150,6 +148,13 @@ export class DrinksComponent implements OnInit {
   
           // Initialize filteredProducts with sorted products
           this.filteredProducts = this.products;
+
+          // Automatically select the first available category
+          const categories = this.CategoryNameList();
+          if (categories.length > 0) {
+            this.selectedCategory = categories[0];  // Set the first category as selected
+            this.onCategoryClick(this.selectedCategory);  // Filter products by this category
+          }
         } else {
           this.errorMessage = response.message || 'No products found.';
           this.products = []; // Clear products if none are found

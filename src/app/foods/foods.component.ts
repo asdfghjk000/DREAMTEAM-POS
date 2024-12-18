@@ -120,8 +120,6 @@ export class FoodsComponent implements OnInit {
     this.fetchProducts(); // Fetch products on initialization
   }
 
-  
-
   // Method to get a list of all unique category names
   CategoryNameList(): string[] {
     // Use a Set to ensure uniqueness
@@ -147,6 +145,13 @@ export class FoodsComponent implements OnInit {
   
           // Initialize filteredProducts with sorted products
           this.filteredProducts = this.products;
+
+          // Automatically select the first available category
+          const categories = this.CategoryNameList();
+          if (categories.length > 0) {
+            this.selectedCategory = categories[0];  // Set the first category as selected
+            this.onCategoryClick(this.selectedCategory);  // Filter products by this category
+          }
         } else {
           this.errorMessage = response.message || 'No products found.';
           this.products = []; // Clear products if none are found
