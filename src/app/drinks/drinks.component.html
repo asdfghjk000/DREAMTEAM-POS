@@ -5,7 +5,7 @@
       type="text"
       [(ngModel)]="searchQuery"
       (input)="onSearchQueryChange()"
-      placeholder="Search for drink products..."
+      placeholder="Search for drinks..."
       class="search-input"
     />
   </div>
@@ -33,39 +33,45 @@
   </div>
 
   <!-- Product cards -->
-  <div class="category-content">
-    <div *ngIf="filteredProducts.length > 0" class="product-grid">
-      <div
-        *ngFor="let product of filteredProducts"
-        class="product-card"
-        (click)="selectAndEmitProducts(product)"
-      >
-        <div class="product-image-container">
-          <img
-            *ngIf="product.image"
-            [src]="'data:image/jpeg;base64,' + product.image"
-            alt="{{ product.productName }}"
-          />
-          <img
-            *ngIf="product.imageUrl && !product.image"
-            [src]="product.imageUrl"
-            alt="{{ product.productName }}"
-          />
-        </div>
-        <div class="product-details">
-          <h3 class="product-name">{{ product.productName }}</h3>
-          <p class="price">₱{{ product.price }}</p>
-          <p class="status" *ngIf="product.status">
-            {{ product.status }}
-          </p>
-        </div>
+  <!-- Product grid (displays filtered products) -->
+  <div *ngIf="filteredProducts.length > 0; else noCategories" class="product-grid">
+    <div
+      *ngFor="let product of filteredProducts"
+      class="product-card"
+      [ngClass]="{ 'unavailable': product.status === 'Unavailable' }"
+      (click)="product.status !== 'Unavailable' ? selectAndEmitProducts(product) : null"
+    >
+      <!-- Unavailable sign -->
+      <div *ngIf="product.status === 'Unavailable'" class="unavailable-sign">
+        Unavailable
+      </div>
+
+      <div class="product-image-container">
+        <img
+          *ngIf="product.image"
+          [src]="'data:image/jpeg;base64,' + product.image"
+          alt="{{ product.productName }}"
+        />
+        <img
+          *ngIf="product.imageUrl && !product.image"
+          [src]="product.imageUrl"
+          alt="{{ product.productName }}"
+        />
+      </div>
+      <div class="product-details">
+        <h3 class="product-name">{{ product.productName }}</h3>
+        <p class="price">₱{{ product.price }}</p>
+
+        <!-- Display product status -->
+        <p class="status" *ngIf="product.status">
+          {{ product.status }}
+        </p>
       </div>
     </div>
-    <p *ngIf="filteredProducts.length === 0">No products available.</p>
   </div>
 
+  <!-- Message when no products are available -->
   <ng-template #noCategories>
-    <p>No categories available.</p>
+    <p>No products available.</p>
   </ng-template>
 </div>
-

@@ -5,7 +5,7 @@
       type="text"
       [(ngModel)]="searchQuery"
       (input)="onSearchQueryChange()"
-      placeholder="Search for drink products..."
+      placeholder="Search for all items..."
       class="search-input"
     />
   </div>
@@ -21,12 +21,18 @@
   </div>
 
   <!-- Product grid (displays filtered products) -->
-  <div *ngIf="filteredProducts.length > 0" class="product-grid">
+  <div *ngIf="filteredProducts.length > 0; else noCategories" class="product-grid">
     <div
       *ngFor="let product of filteredProducts"
       class="product-card"
-      (click)="selectAndEmitProducts(product)"
+      [ngClass]="{ 'unavailable': product.status === 'Unavailable' }"
+      (click)="product.status !== 'Unavailable' ? selectAndEmitProducts(product) : null"
     >
+      <!-- Unavailable sign -->
+      <div *ngIf="product.status === 'Unavailable'" class="unavailable-sign">
+        Unavailable
+      </div>
+
       <div class="product-image-container">
         <img
           *ngIf="product.image"
@@ -52,7 +58,7 @@
   </div>
 
   <!-- Message when no products are available -->
-  <div *ngIf="filteredProducts.length === 0" class="no-products">
+  <ng-template #noCategories>
     <p>No products available.</p>
-  </div>
+  </ng-template>
 </div>

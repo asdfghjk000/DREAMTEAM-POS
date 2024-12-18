@@ -13,6 +13,11 @@ import { DashboardService } from '../services/dashboard.service';
   imports: [CommonModule, FormsModule],
 })
 export class OrderSummaryComponent implements OnInit {
+
+  selectOrderType(type: string) {
+    this.orderType = type;
+  }
+
   @Input() newOrder: any[] = []; // Receive newOrder from parent
   @Output() orderConfirmed = new EventEmitter<void>(); // Emit event when order is confirmed
   @Output() cancel = new EventEmitter<void>(); // Emit event when cancel is clicked
@@ -30,7 +35,9 @@ export class OrderSummaryComponent implements OnInit {
   isPaymentCompleted!: boolean;
   isOrderVisible!: boolean;
   showOrderSuccessModal: any;
-deleteMessage: any;
+  deleteMessage: any;
+  showConfirmationModal: boolean = false;
+  orderType: string = '';;
 
   constructor(
     private http: HttpClient, 
@@ -74,67 +81,75 @@ deleteMessage: any;
   confirmOrder(): void {
     this.warningMessage = ''; // Clear any previous warning messages
     this.successMessage = ''; // Clear any previous success messages
-  
+    
     // Validate payment method selection
     if (!this.paymentMethod) {
       this.warningMessage = 'Please select a payment method.';
       return;
     }
-  
+
     // Calculate the total amount (after discount if applicable)
     const totalAfterDiscount = this.calculateTotalAfterDiscount
       ? this.calculateTotalAfterDiscount()
       : this.calculateTotal();
-  
+
     // Validate if paid amount is sufficient
     if (this.paidAmount < totalAfterDiscount) {
       this.warningMessage = 'Paid amount is less than the total. Please adjust.';
       return;
     }
-  
-    // Prepare the order data
-    const orderData = {
-      totalAmount: totalAfterDiscount,
-      paymentMethod: this.paymentMethod,
-      paidAmount: this.paidAmount,
-      change: this.change,
-      items: this.newOrder.map((item) => ({
-        productID: item.productID,
-        productName: item.productName,
-        price: item.price,
-        quantity: item.quantity,
-      })),
-    };
-  
-    // Send the order data to the backend
-    this.http.post('http://localhost/backend-db/saveOrder.php', orderData).subscribe({
-      next: (response: any) => {
-        if (response.success) {
-          // Store success message in local storage
-          localStorage.setItem('successMessage', 'Order Successful!');
-          
-          // Reset the order state
-          this.resetOrder();
-  
-          // Emit necessary events
-          this.orderConfirmed.emit();
-          this.orderSummaryClosed?.emit();
-  
-          // Trigger the modal on order success and navigate to staff dashboard
-          this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/staff-dashboard']); // Staff dashboard
-          });
-        } else {
-          this.warningMessage = 'Error saving order: ' + response.message;
-        }
-      },
-      error: (err) => {
-        console.error('Error occurred:', err);
-        this.warningMessage = 'An error occurred while saving the order.';
-      },
-    });
+
+    // Show the confirmation modal instead of proceeding directly
+    this.showConfirmationModal = true;
   }
 
+  finalizeOrder(confirm: boolean): void {
+    if (confirm) {
+      // Proceed with the order confirmation logic
+      const totalAfterDiscount = this.calculateTotalAfterDiscount
+        ? this.calculateTotalAfterDiscount()
+        : this.calculateTotal();
+  
+      // Prepare the order data
+      const orderData = {
+        totalAmount: totalAfterDiscount,
+        paymentMethod: this.paymentMethod,
+        paidAmount: this.paidAmount,
+        change: this.change,
+        orderType: this.orderType, // Added orderType
+        items: this.newOrder.map((item) => ({
+          productID: item.productID,
+          productName: item.productName,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+      };
+  
+      // Send the order data to the backend
+      this.http.post('http://localhost/backend-db/saveOrder.php', orderData).subscribe({
+        next: (response: any) => {
+          if (response.success) {
+            localStorage.setItem('successMessage', 'Order Successful!');
+            this.resetOrder();
+            this.orderConfirmed.emit();
+            this.orderSummaryClosed?.emit();
+            this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/staff-dashboard']);
+            });
+          } else {
+            this.warningMessage = 'Error saving order: ' + response.message;
+          }
+        },
+        error: (err) => {
+          console.error('Error occurred:', err);
+          this.warningMessage = 'An error occurred while saving the order.';
+        },
+      });
+    }
+  
+    // Close the confirmation modal
+    this.showConfirmationModal = false;
+  }
   
   
 

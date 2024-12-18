@@ -19,6 +19,9 @@ declare module 'jspdf' {
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
+exportSales() {
+throw new Error('Method not implemented.');
+}
 
   isLoading: boolean = false;
   ordersData: any;
@@ -527,7 +530,7 @@ generateCategoryReport(): void {
   }
   
 
-  exportSales(): void {
+  exportSalesReport(): void {
     const doc = new jsPDF();
   
     const header = [['Order ID', 'Date', 'Product Name', 'Quantity', 'Total Amount']];

@@ -23,6 +23,7 @@ export const routes: Routes = [
   { path: 'staff-dashboard', component: StaffDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'staff'} },
   
   // Admin Dashboard with child routes
+
     {
       path: 'admin-dashboard',
       component: AdminDashboardComponent,

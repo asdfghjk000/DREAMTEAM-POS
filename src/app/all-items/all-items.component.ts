@@ -113,17 +113,24 @@ CategoryNameList(): string[] {
 
 
   // Fetch products from the API
-  // Fetch products from the API
 fetchProducts(): void {
   this.isLoading = true;
   this.http.get<ApiResponse>(`${this.apiUrl}read_products.php`).subscribe({
     next: (response) => {
       if (response.success && Array.isArray(response.data)) {
+        // Map the products and assign default category name
         this.products = response.data.map(product => ({
           ...product,
           categoryName: product.categoryName || 'Uncategorized', // Default value if missing
         }));
-        this.filteredProducts = this.products; // Initialize filteredProducts with all products
+
+        // Sort products alphabetically by 'productName'
+        this.products.sort((a, b) => 
+          a.productName.localeCompare(b.productName)
+        );
+
+        // Initialize filteredProducts with sorted products
+        this.filteredProducts = this.products;
       } else {
         this.errorMessage = response.message || 'No products found.';
         this.products = []; // Clear products if none are found

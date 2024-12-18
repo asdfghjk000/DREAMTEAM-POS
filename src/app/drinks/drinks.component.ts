@@ -138,19 +138,18 @@ export class DrinksComponent implements OnInit {
     this.http.get<ApiResponse>(`${this.apiUrl}read_products.php`).subscribe({
       next: (response) => {
         if (response.success && Array.isArray(response.data)) {
-          // Filter the products where categoryMain is "food"
+          // Map the products and assign default category name
           this.products = response.data.filter((product: Product) => 
             product.categoryMain && product.categoryMain.toLowerCase() === 'drink'
           );
-
-          this.filteredProducts = this.products; // Initialize filteredProducts with all products
-
-          // Set the first category as the selected category by default
-          const categories = this.CategoryNameList();
-          if (categories.length > 0) {
-            this.selectedCategory = categories[0]; // Set the first category as selected
-            this.filteredProducts = this.getProductsByCategory(this.selectedCategory); // Filter products by the first category
-          }
+  
+          // Sort products alphabetically by 'productName'
+          this.products.sort((a, b) => 
+            a.productName.localeCompare(b.productName)
+          );
+  
+          // Initialize filteredProducts with sorted products
+          this.filteredProducts = this.products;
         } else {
           this.errorMessage = response.message || 'No products found.';
           this.products = []; // Clear products if none are found

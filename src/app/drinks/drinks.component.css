@@ -68,7 +68,34 @@
   width: 100%; /* Full underline on hover or when active */
 }
 
+/* Style for unavailable products */
+.unavailable {
+  background-color: #d3d3d3; /* Light grey background */
+  cursor: not-allowed; /* Change cursor to indicate unclickable */
+  opacity: 0.7; /* Slightly transparent */
+  position: relative;
+}
 
+/* Style for the 'Unavailable' sign */
+.unavailable-sign {
+  position: absolute;
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center and tilt slightly */
+  background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+  color: white;
+  font-size: 24px; /* Larger font size */
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 10; /* Ensure the sign is above the product content */
+}
+
+/* Style the text and image inside the unavailable card */
+.unavailable .product-details h3,
+.unavailable .product-details p {
+  color: #888; /* Lighter text color */
+}
 
 
 /* Product Grid */

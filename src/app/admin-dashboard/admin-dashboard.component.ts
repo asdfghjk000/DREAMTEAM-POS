@@ -12,8 +12,25 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements AfterViewInit {
-  // Floating success message
-  successMessage: string = '';
+
+  successMessage: string | null | undefined;
+
+  ngOnInit(): void {
+    // Check if there is a success message stored in localStorage
+    const successMessage = localStorage.getItem('successMessage');
+
+    if (successMessage) {
+      this.successMessage = successMessage;
+      
+      // Clear the success message from localStorage after displaying it
+      localStorage.removeItem('successMessage');
+
+      // Make the success message disappear after 5 seconds
+      setTimeout(() => {
+        this.successMessage = null;
+      }, 5000); // 5000 ms = 5 seconds
+    }
+  }
 
   // Category-related properties
   currentCategory: string = 'sales'; // Default category
@@ -65,29 +82,6 @@ export class AdminDashboardComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     throw new Error('Method not implemented.');
   }
-
-  ngOnInit(): void {
-  // Check for stored success message in localStorage
-  const successMessage = localStorage.getItem('successMessage');
-  const categoryMessage = localStorage.getItem('categoryMessage');
-  
-  // Display the success message if available, otherwise display the category message
-  if (successMessage) {
-    this.successMessage = successMessage;
-    localStorage.removeItem('successMessage'); // Remove after displaying
-  } else if (categoryMessage) {
-    this.successMessage = categoryMessage;
-    localStorage.removeItem('categoryMessage'); // Remove after displaying
-  }
-
-  // Clear the message after 5 seconds
-  if (this.successMessage) {
-    setTimeout(() => {
-      this.successMessage = '';
-    }, 5000);
-  }
-}  
-
 
   // Example function for adding a product
   addProduct(product: any): void {
