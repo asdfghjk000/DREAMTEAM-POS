@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../services/auth.service.';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-main-page',
@@ -19,7 +19,7 @@ export class MainPageComponent {
   showPassword: boolean = false;
   errorMessage: string | null = null; // Define errorMessage property
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {} // Inject AuthService
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {}
 
   login(): void {
     const registrationData = { Username: this.username, Password: this.password };
@@ -27,12 +27,12 @@ export class MainPageComponent {
       (response) => {
         if (response.success) {
           const role = response.user?.Role; // Dynamically fetched role
-  
+
           if (role === 'staff') {
-            this.authService.setRole('staff');  // Set role in localStorage
+            this.authService.setRole('staff'); // Set role in localStorage
             this.router.navigate(['/staff-dashboard']);
           } else if (role === 'admin') {
-            this.authService.setRole('admin');  // Set role in localStorage
+            this.authService.setRole('admin'); // Set role in localStorage
             this.router.navigate(['/admin-dashboard']);
           } else {
             window.alert('Unknown role. Please contact the administrator.');
@@ -47,10 +47,15 @@ export class MainPageComponent {
       }
     );
   }
-  
 
   // Toggle password visibility
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
+
+  // Navigate to Forgot Password page
+  navigateToForgotPassword(): void {
+    this.router.navigate(['/forgot-password']);
+  }
 }
+

@@ -62,6 +62,11 @@
       <!-- Submit Button -->
       <button type="submit" [disabled]="loginForm.invalid">Login</button>
 
+      <!-- Forgot Password Link -->
+      <div class="forgot-password">
+        <a (click)="navigateToForgotPassword()">Forgot Password?</a>
+      </div>
+
       <!-- Error Message -->
       <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
