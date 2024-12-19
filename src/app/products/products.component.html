@@ -1,5 +1,13 @@
 <div class="product-container">
 
+    <!-- Add New Product Section -->
+    <div class="new-product-section">
+      <button (click)="toggleAddProductForm()" class="new-product-button">
+        New Product
+      </button>
+    </div>
+    
+
   <!-- Error Message Display -->
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
@@ -22,13 +30,7 @@
       />
     </div>
 
-  <!-- Add New Product Section -->
-  <div class="new-product-section">
-    <button (click)="toggleAddProductForm()" class="new-product-button">
-      New Product
-    </button>
-  </div>
-  
+
 
     <!-- Floating Form for New Product -->
     <div *ngIf="showAddForm" class="floating-form">

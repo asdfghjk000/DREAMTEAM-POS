@@ -17,13 +17,15 @@ import { ReportsComponent } from './reports/reports.component';
 import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unauthorized/unauthorized.component';
 import { AboutComponent } from './about/about.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component'; // Import the ResetPasswordComponent
 
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainPageComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent }, // Added Forgot Password route
+  { path: 'forgot-password', component: ForgotPasswordComponent }, // Forgot Password route
+  { path: 'reset-password', component: ResetPasswordComponent }, // New route for Reset Password
   { path: 'staff-dashboard', component: StaffDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
-  
+
   // Admin Dashboard with child routes
   {
     path: 'admin-dashboard',
