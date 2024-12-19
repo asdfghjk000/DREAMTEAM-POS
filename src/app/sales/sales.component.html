@@ -1,12 +1,12 @@
 <div class="sales-summary">
-  <p><strong>SALES ANALYTICS</strong></p>
+  <p class="header"><strong>SALES ANALYTICS</strong></p>
 
+  <!-- Summary Metrics -->
   <div class="total-container">
     <div class="total-item">
       <p><strong>TOTAL SALES TODAY</strong></p>
       <h1>₱ {{ TotalSales | number:'1.2-2' }}</h1>
     </div>
-
     <div class="total-item">
       <p><strong>PRODUCT SOLD TODAY</strong></p>
       <h1>{{ CategoryTotalQuantity }}</h1>
@@ -19,7 +19,6 @@
       <p><strong>OVERALL SALES</strong></p>
       <h1>₱ {{ OverallTotalSales | number:'1.2-2' }}</h1>
     </div>
-
     <div class="total-item">
       <p><strong>OVERALL PRODUCTS SOLD</strong></p>
       <h1>{{ OverallTotalQuantity }}</h1>
@@ -27,28 +26,58 @@
     </div>
   </div>
 
+  <!-- Charts Section -->
   <div class="charts-container">
     <div class="chart-item">
       <h3>Top 5 Products</h3>
-      <canvas id="topProductsPieChart"></canvas>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Total Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of top5Products">
+            <td>{{ product.ProductName }}</td>
+            <td>{{ product.totalQuantity }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
     <div class="chart-item">
       <h3>Top 5 Categories</h3>
-      <canvas id="topCategoriesPieChart"></canvas>
+      <table>
+        <thead>
+          <tr>
+            <th>Category Name</th>
+            <th>Total Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of top5Categories">
+            <td>{{ category.categoryName }}</td>
+            <td>{{ category.totalQuantity }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="chart-item">
+
+    <div class="chart-item large-chart">
       <h3>Weekly Sales</h3>
       <canvas id="weeklySalesBarChart"></canvas>
     </div>
-    <div class="chart-item">
+    
+    <div class="chart-item large-chart">
       <h3>Monthly Sales</h3>
       <canvas id="monthlySalesBarChart"></canvas>
     </div>
-    <!-- AOV Chart Item -->
+    
+
     <div class="chart-item aov-chart-item">
       <h3>Average Order Value (AOV)</h3>
       <canvas id="aovLineChart"></canvas>
     </div>
-    
-</div>
+  </div>
 </div>

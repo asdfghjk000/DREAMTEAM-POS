@@ -254,62 +254,11 @@ calculateCategoryTotals(todaySalesData: any[]): void {
 }
 
   renderCharts(): void {
-    this.renderTopProductsDoughnutChart();
-    this.renderTopCategoriesBarChart();
     this.renderWeeklySalesLineChart();
     this.renderMonthlySalesBarChart();
     this.renderAOVChart()
   }
 
-  renderTopProductsDoughnutChart(): void {
-    const ctx = document.getElementById('topProductsPieChart') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: this.top5Products.map((product) => product.ProductName),
-        datasets: [
-          {
-            data: this.top5Products.map((product) => product.totalQuantity),
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#FF9F40', '#4BC0C0'],
-            hoverOffset: 10,
-          },
-        ],
-      },
-      options: {
-        plugins: {
-          legend: { position: 'bottom' },
-        },
-      },
-    });
-  }
-
-  renderTopCategoriesBarChart(): void {
-    const ctx = document.getElementById('topCategoriesPieChart') as HTMLCanvasElement;
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: this.top5Categories.map((category) => category.categoryName),
-        datasets: [
-          {
-            label: 'Top Categories',
-            data: this.top5Categories.map((category) => category.totalQuantity),
-            backgroundColor: '#36A2EB',
-            borderColor: '#36A2EB',
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          x: { beginAtZero: true },
-          y: { beginAtZero: true },
-        },
-        plugins: {
-          legend: { display: false },
-        },
-      },
-    });
-  }
 
   renderWeeklySalesLineChart(): void {
     const ctx = document.getElementById('weeklySalesBarChart') as HTMLCanvasElement;

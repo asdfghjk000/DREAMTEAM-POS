@@ -14,6 +14,7 @@ import { NewOrderComponent } from "../new-order/new-order.component";
 })
 export class AllItemsComponent implements OnInit {
   selectedCategory: string | null = null;
+  top10Products: any;
 
 // Filter products by selected category
 getProductsByCategory(category: string): Product[] {
@@ -102,15 +103,35 @@ onCategoryClick(category: string): void {
 
   ngOnInit(): void {
     this.fetchProducts(); // Fetch products on initialization
+    this.getTop10Products();
   }
 
-// Method to get a list of all unique category names
-CategoryNameList(): string[] {
-  // Use a Set to ensure uniqueness
-  const uniqueCategories = new Set(this.products.map(product => product.categoryName));
-  return Array.from(uniqueCategories); // Convert the Set back to an array
-}
-
+  getTop10Products(): void {
+    const endpoint = 'getSalesAnalytics.php';  // Specific API endpoint
+    this.http.get<ApiResponse>(`${this.apiUrl}${endpoint}`).subscribe({
+      next: (response) => {
+        if (response.success && Array.isArray(response.data)) {
+          // Sort products by totalQuantity in descending order and take top 10
+          this.top10Products = response.data
+            .map((product) => ({
+              ...product,
+              totalQuantity: parseInt(product.totalQuantity, 10)
+            }))
+            .sort((a, b) => b.totalQuantity - a.totalQuantity)  // Sort in descending order
+            .slice(0, 10);  // Take the top 10 products
+        } else {
+          this.errorMessage = 'Failed to fetch products or no data available.';
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching sales data:', err);
+        this.errorMessage = 'Error fetching data from API';
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
 
   // Fetch products from the API
 fetchProducts(): void {
@@ -143,6 +164,14 @@ fetchProducts(): void {
       this.isLoading = false;
     },
   });
+}
+
+
+// Method to get a list of all unique category names
+CategoryNameList(): string[] {
+  // Use a Set to ensure uniqueness
+  const uniqueCategories = new Set(this.products.map(product => product.categoryName));
+  return Array.from(uniqueCategories); // Convert the Set back to an array
 }
 
   // Method to filter products based on search query

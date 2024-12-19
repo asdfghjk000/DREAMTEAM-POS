@@ -20,6 +20,28 @@
     <p>{{ errorMessage }}</p>
   </div>
 
+<!-- Loading Indicator -->
+<div *ngIf="isLoading">Loading...</div>
+
+<!-- Error Message -->
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+ <!-- Charts Section -->
+  <div class="chart-item">
+    <h3>Best Sellers</h3>
+    <div class="best-sellers-row">
+      <span *ngFor="let product of top10Products" class="best-seller-item">
+        {{ product.ProductName }}
+      </span>
+    </div>
+  </div>
+
+
+
+
+
   <!-- Product grid (displays filtered products) -->
   <div *ngIf="filteredProducts.length > 0; else noCategories" class="product-grid">
     <div

@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 export interface Product {
+  isBestSeller: any;
+  totalQuantity: string;
+  ProductName: any;
   id: any;
   status: string;  // Status can be "Enable" or "Disable"
   isEnabled: boolean;  // A boolean for the status that determines if the product is active or not

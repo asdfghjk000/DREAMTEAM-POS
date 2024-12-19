@@ -41,9 +41,7 @@ export class OrderHistoryComponent implements OnInit {
     this.showConfirmDialog = true;  // Show the confirmation modal
   }
 
-  // Method to confirm the deletion
-  // Method to confirm the deletion 
-  // Method to confirm the deletion 
+  
 // Method to confirm the deletion 
 confirmDeleteOrder(): void {
   if (!this.orderToDelete) return;

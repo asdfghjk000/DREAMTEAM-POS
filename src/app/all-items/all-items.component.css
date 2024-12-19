@@ -60,6 +60,56 @@
   color: #888; /* Lighter text color */
 }
 
+/* Full-width container with limited content width */
+.charts-container {
+  width: 100%; /* Makes the container take up full width */
+  max-width: 1120px; /* Ensures the content is smaller */
+  margin: 20px auto; /* Centers the container */
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.chart-item {
+  padding: 20px;
+  background-color: #dcb795;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 1.6rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.best-sellers-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+}
+
+.best-seller-item {
+  border-radius: 12px;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.best-seller-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+
+
 /* Product image container (to ensure "Unavailable" sign is not overlapping) */
 .product-image-container {
   position: relative;

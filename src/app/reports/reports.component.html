@@ -24,7 +24,6 @@
     </button>
   </div>
   
-  
   <!-- Navigation buttons for report switching -->
   <div class="report-navigation">
     <button (click)="goToPreviousReport()" [disabled]="activeTab === 'daily'" title="Previous Report">
@@ -44,156 +43,157 @@
     </button>
   </div>
 
- <!-- Tables based on the active tab -->
-<div class="table-container">
-  <div *ngIf="activeTab === 'daily'">
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Sales Amount</th>
-          <th>Number of Orders</th>
-          <th>Products Sold</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let report of dailyReport">
-          <td>{{ report.date }}</td>
-          <td>{{ report.salesAmount | currency }}</td>
-          <td>{{ report.numberOfOrders }}</td>
-          <td>{{ report.productsSold }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- Tables based on the active tab -->
+  <div class="table-container">
+    <div *ngIf="activeTab === 'daily'">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Sales Amount</th>
+            <th>Number of Orders</th>
+            <th>Products Sold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of dailyReport">
+            <td>{{ report.date }}</td>
+            <td>{{ report.salesAmount | currency:'PHP' }}</td>
+            <td>{{ report.numberOfOrders }}</td>
+            <td>{{ report.productsSold }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="activeTab === 'monthly'">
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>Month</th>
-          <th>Total Sales</th>
-          <th>Number of Orders</th>
-          <th>Average Daily Sales</th>
-          <th>Top Selling Product</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let report of monthlyReport">
-          <td>{{ report.month }}</td>
-          <td>{{ report.totalSales | currency }}</td>
-          <td>{{ report.numberOfOrders }}</td>
-          <td>{{ report.averageDailySales | currency }}</td>
-          <td>{{ report.topSellingProduct }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div *ngIf="activeTab === 'monthly'">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Total Sales</th>
+            <th>Number of Orders</th>
+            <th>Average Daily Sales</th>
+            <th>Top Selling Product</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of monthlyReport">
+            <td>{{ report.month }}</td>
+            <td>{{ report.totalSales | currency:'PHP' }}</td>
+            <td>{{ report.numberOfOrders }}</td>
+            <td>{{ report.averageDailySales | currency:'PHP' }}</td>
+            <td>{{ report.topSellingProduct }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="activeTab === 'annual'">
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>Year</th>
-          <th>Total Revenue</th>
-          <th>Number of Orders</th>
-          <th>Top Categories</th>
-          <th>Total Products Sold</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let report of annualReport">
-          <td>{{ report.year }}</td>
-          <td>{{ report.totalRevenue | currency }}</td>
-          <td>{{ report.numberOfOrders }}</td>
-          <td>{{ report.topCategories }}</td>
-          <td>{{ report.totalProductsSold }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div *ngIf="activeTab === 'annual'">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Total Revenue</th>
+            <th>Number of Orders</th>
+            <th>Top Categories</th>
+            <th>Total Products Sold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of annualReport">
+            <td>{{ report.year }}</td>
+            <td>{{ report.totalRevenue | currency:'PHP' }}</td>
+            <td>{{ report.numberOfOrders }}</td>
+            <td>{{ report.topCategories }}</td>
+            <td>{{ report.totalProductsSold }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="activeTab === 'sales'">
-    <table class="report-table" *ngIf="salesData.length">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Total Sales</th>
-          <th>Total Quantity</th>
-          <th>Category</th>
-          <th>Order Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let sale of salesData">
-          <td>{{ sale.ProductName }}</td>
-          <td>{{ sale.totalSales | currency:'PHP' }}</td>
-          <td>{{ sale.totalQuantity }}</td>
-          <td>{{ sale.categoryName }}</td>
-          <td>{{ sale.OrderDate }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div *ngIf="activeTab === 'sales'">
+      <table class="report-table" *ngIf="salesData.length">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Total Sales</th>
+            <th>Total Quantity</th>
+            <th>Category</th>
+            <th>Order Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sale of salesData">
+            <td>{{ sale.ProductName }}</td>
+            <td>{{ sale.totalSales | currency:'PHP' }}</td>
+            <td>{{ sale.totalQuantity }}</td>
+            <td>{{ sale.categoryName }}</td>
+            <td>{{ sale.OrderDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="activeTab === 'orders'">
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Product(s)</th>
-          <th>Order Date</th>
-          <th>Total Cost</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let report of ordersReport">
-          <td>{{ report.orderID }}</td>
-          <td>{{ report.products }}</td>
-          <td>{{ report.orderDate }}</td>
-          <td>{{ report.totalCost | currency }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div *ngIf="activeTab === 'orders'">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Product(s)</th>
+            <th>Order Date</th>
+            <th>Total Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of ordersReport">
+            <td>{{ report.orderID }}</td>
+            <td>{{ report.products }}</td>
+            <td>{{ report.orderDate }}</td>
+            <td>{{ report.totalCost | currency:'PHP' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="activeTab === 'products'">
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>Product ID</th>
-          <th>Product Name</th>
-          <th>Sales Volume</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let report of productsReport">
-          <td>{{ report.productID }}</td>
-          <td>{{ report.productName }}</td>
-          <td>{{ report.salesVolume }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div *ngIf="activeTab === 'products'">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Sales Volume</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of productsReport">
+            <td>{{ report.productID }}</td>
+            <td>{{ report.productName }}</td>
+            <td>{{ report.salesVolume }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <div *ngIf="activeTab === 'category'">
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>Category Name</th>
-          <th>Products Count</th>
-          <th>Total Sales</th>
-          <th>Average Sales per Product</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let report of categoryReport">
-          <td>{{ report.categoryName }}</td>
-          <td>{{ report.productsCount }}</td>
-          <td>{{ report.totalSales | currency }}</td>
-          <td>{{ report.averageSalesPerProduct | currency }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="activeTab === 'category'">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Category Name</th>
+            <th>Products Count</th>
+            <th>Total Sales</th>
+            <th>Average Sales per Product</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of categoryReport">
+            <td>{{ report.categoryName }}</td>
+            <td>{{ report.productsCount }}</td>
+            <td>{{ report.totalSales | currency:'PHP' }}</td>
+            <td>{{ report.averageSalesPerProduct | currency:'PHP' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
