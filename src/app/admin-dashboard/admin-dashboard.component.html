@@ -29,6 +29,11 @@
     <router-outlet></router-outlet>
   </div>
 
+  <!-- Conditional Navigation to Bin Component (Only Displayed in Orders Component) -->
+  <div class="bin-navigation" *ngIf="isOrdersRoute()">
+    <a routerLink="/admin-dashboard/bin" class="bin-link">View Deleted Orders</a>
+  </div>
+
   <!-- Logout Confirmation Modal -->
   <div *ngIf="showLogoutModal" class="modal-overlay">
     <div class="modal-content">

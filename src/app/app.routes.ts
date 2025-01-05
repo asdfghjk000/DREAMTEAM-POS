@@ -17,13 +17,12 @@ import { ReportsComponent } from './reports/reports.component';
 import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unauthorized/unauthorized.component';
 import { AboutComponent } from './about/about.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component'; // Import the ResetPasswordComponent
+import { BinComponent } from './bin/bin.component'; // Import BinComponent
 
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainPageComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent }, // Forgot Password route
-  { path: 'reset-password', component: ResetPasswordComponent }, // New route for Reset Password
   { path: 'staff-dashboard', component: StaffDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
 
   // Admin Dashboard with child routes
@@ -39,9 +38,11 @@ export const routes: Routes = [
       { path: 'category', component: CategoryComponent },
       { path: 'reports', component: ReportsComponent },
       { path: 'about', component: AboutComponent },
-      { path: '', redirectTo: 'sales', pathMatch: 'full' }, // Default route for admin-dashboard
+      { path: 'bin', component: BinComponent }, // Correct bin path
+      { path: '', redirectTo: 'sales', pathMatch: 'full' }
     ]
-  },
+  }
+  ,
 
   { path: 'all-items', component: AllItemsComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
   { path: 'foods', component: FoodsComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },

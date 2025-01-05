@@ -13,6 +13,11 @@ import { CommonModule } from '@angular/common';
 })
 export class AdminDashboardComponent implements AfterViewInit {
 
+isOrdersRoute(): boolean {
+    const currentRoute = this.router.url.split('/')[2]; // This will get the second part of the URL, like 'orders' or 'sales'
+    return currentRoute === 'orders';
+  }
+
   successMessage: string | null | undefined;
 
   ngOnInit(): void {
