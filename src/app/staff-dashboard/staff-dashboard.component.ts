@@ -19,6 +19,7 @@ import { DashboardService } from '../services/dashboard.service';
   styleUrls: ['./staff-dashboard.component.css']
 })
 export class StaffDashboardComponent {
+  
   successMessage: string | null | undefined;
 
   ngOnInit(): void {

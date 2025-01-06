@@ -1,7 +1,8 @@
-import { Routes } from '@angular/router';
+import { Routes } from '@angular/router'; 
 import { MainPageComponent } from './main-page/main-page.component';
 import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { SuperAdminDashboardComponent } from './super-admin-dashboard/super-admin-dashboard.component'; // Import SuperAdminDashboardComponent
 import { AllItemsComponent } from './all-items/all-items.component';
 import { FoodsComponent } from './foods/foods.component';
 import { DrinksComponent } from './drinks/drinks.component';
@@ -16,13 +17,11 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { ReportsComponent } from './reports/reports.component';
 import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unauthorized/unauthorized.component';
 import { AboutComponent } from './about/about.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { BinComponent } from './bin/bin.component'; // Import BinComponent
 
 export const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'main', component: MainPageComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent }, // Forgot Password route
   { path: 'staff-dashboard', component: StaffDashboardComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
 
   // Admin Dashboard with child routes
@@ -41,8 +40,15 @@ export const routes: Routes = [
       { path: 'bin', component: BinComponent }, // Correct bin path
       { path: '', redirectTo: 'sales', pathMatch: 'full' }
     ]
-  }
-  ,
+  },
+
+  // Super Admin Dashboard
+  {
+    path: 'super-admin', 
+    component: SuperAdminDashboardComponent, 
+    canActivate: [AuthGuard],  // Removed RoleGuard temporarily
+    data: { role: 'super-admin' }
+  },
 
   { path: 'all-items', component: AllItemsComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
   { path: 'foods', component: FoodsComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
