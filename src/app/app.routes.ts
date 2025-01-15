@@ -15,7 +15,6 @@ import { RoleGuard } from './Guards/role.guard';
 import { AuthGuard } from './Guards/auth.guard';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { ReportsComponent } from './reports/reports.component';
-import { UnauthorizedComponent } from './Unauthorized/dreamteam-pos/src/app/unauthorized/unauthorized.component';
 import { AboutComponent } from './about/about.component';
 import { BinComponent } from './bin/bin.component'; // Import BinComponent
 
@@ -55,7 +54,6 @@ export const routes: Routes = [
   { path: 'drinks', component: DrinksComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
   { path: 'new-order', component: NewOrderComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
   { path: 'order-summary', component: OrderSummaryComponent, canActivate: [AuthGuard, RoleGuard], data: { role: 'staff' } },
-  { path: 'unauthorized', component: UnauthorizedComponent },
   { path: '**', redirectTo: '/main' } // Wildcard route should be last
 ];
 

@@ -1,4 +1,5 @@
-// src/app/main-page/main-page.component.ts
+//THIS
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -20,31 +21,36 @@ export class MainPageComponent {
   showPassword: boolean = false;
   errorMessage: string | null = null;
 
-  constructor(
-    private router: Router,
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   login(): void {
-    const loginData = { Username: this.username, Password: this.password };
-
-    this.http.post<any>('http://localhost/backend-db/login.php', loginData).subscribe(
+    // Call the login method from AuthService
+    this.authService.login(this.username, this.password).subscribe(
       (response) => {
         if (response.success) {
-          const role = response.user?.Role;
-
-          if (role === 'staff') {
-            this.authService.setRole('staff');
-            this.router.navigate(['/staff-dashboard']);
-          } else if (role === 'admin') {
-            this.authService.setRole('admin');
-            this.router.navigate(['/admin-dashboard']);
-          } else {
-            window.alert('Unknown role. Please contact the administrator.');
-          }
+          // Process the encrypted response data
+          this.authService.decryptRole(response.data).then((role) => {
+            if (role) {
+              // Set role and navigate based on role
+              this.authService.setRole(role);
+              if (role === 'staff') {
+                this.router.navigate(['/staff-dashboard']);
+              } else if (role === 'admin') {
+                this.router.navigate(['/admin-dashboard']);
+              } else {
+                window.alert('Unknown role. Please contact the administrator.');
+              }
+            } else {
+              window.alert('Error: Unable to decrypt role.');
+            }
+          }).catch((error) => {
+            console.error('Decryption error:', error);
+            this.errorMessage = 'Error while processing role. Please try again.';
+          });
         } else {
-          this.errorMessage = response.message || 'Login failed. Please try again.';
+          this.errorMessage = response.data 
+            ? 'Invalid credentials. Please try again.' 
+            : response.message || 'Login failed. Please try again.';
         }
       },
       (error) => {

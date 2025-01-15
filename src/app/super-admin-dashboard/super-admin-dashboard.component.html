@@ -15,7 +15,7 @@
     <tbody>
       <tr *ngFor="let user of users">
         <td>{{ user.Username }}</td>
-        <td>{{ user.Password }}</td>
+        <td>**********</td> <!-- Don't display password (just a placeholder) -->
         <td>{{ user.Role }}</td>
         <td>
           <!-- Edit Button -->
@@ -38,7 +38,13 @@
       </label>
       <label>
         Password:
-        <input type="text" [(ngModel)]="selectedUser.Password" name="password" required />
+        <input 
+          type="password" 
+          [(ngModel)]="selectedUser.Password" 
+          name="password" 
+          [ngModel]="selectedUser.Password ? '' : ''" 
+          placeholder="New Password" 
+        />
       </label>
       <label>
         Role:
@@ -65,7 +71,4 @@
     <i class="fas fa-check-circle"></i> <!-- Font Awesome Checkmark Icon -->
     <p>{{ successMessage }}</p>
   </div>
-  
-
 </div>
-
