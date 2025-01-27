@@ -10,25 +10,34 @@
 
 /* Search Container */
 .search-container {
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 20px; /* Spacing below the search box */
-  text-align: left; /* Ensure the text box stays left-aligned */
+  position: relative;
+  margin-bottom: 2rem;
+  text-align: left;
 }
 
 /* Adjust search input styles */
-.search-container input {
-  padding: 10px;
-  font-size: 16px;
-  width: 100%;
+.search-input {
+  padding: 10px 10px 10px 40px;  /* Added left padding for the icon */
+  width: 300px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  box-sizing: border-box;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-.search-container input:focus {
+.search-input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #4d90fe;
+  box-shadow: 0 0 5px rgba(77, 144, 254, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 20px;
 }
 
 /* Style for unavailable products */
@@ -231,6 +240,3 @@ h3 {
     height: 150px;
   }
 }
-
-
-

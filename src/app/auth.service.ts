@@ -1,9 +1,6 @@
-//THIS
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +10,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-// Method to handle login
+   // Method to handle login
 login(username: string, password: string): Observable<any> {
   // Send the password along with the username (no hashing)
   return this.http.post(
@@ -24,7 +21,6 @@ login(username: string, password: string): Observable<any> {
     }
   );
 }
-
 
   // Method to decrypt role from the backend response (assuming AES-CBC encryption)
   async decryptRole(encryptedData: any): Promise<string | null> {

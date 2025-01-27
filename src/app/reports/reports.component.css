@@ -1,7 +1,7 @@
 /* General container styles */
 .reports-container {
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f6f9;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -17,7 +17,7 @@
 }
 
 .report-buttons button {
-  background-color: #007bff;
+  background-color: #DAA06D;
   color: white;
   font-weight: 500;
   padding: 12px 25px;
@@ -29,13 +29,13 @@
 }
 
 .report-buttons button:hover {
-  background-color: #0056b3;
+  background-color: #E5AA70;
   transform: translateY(-2px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .report-buttons button.active {
-  background-color: #28a745;
+  background-color: #C19A6B;
 }
 
 .material-icons {
@@ -57,7 +57,7 @@
   border: none;
   cursor: pointer;
   font-size: 24px;
-  color: #007bff;
+  color: black;
   transition: color 0.3s ease;
 }
 

@@ -119,16 +119,33 @@ button[disabled] {
 
 
 .search-bar {
+  position: relative;
   margin-bottom: 2rem;
   text-align: left;
 }
 
 .search-bar input {
-  padding: 10px;
+  padding: 10px 10px 10px 40px;
   width: 300px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #4d90fe;
+  box-shadow: 0 0 5px rgba(77, 144, 254, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 20px;
 }
 
 .category-container {
@@ -182,8 +199,36 @@ button[disabled] {
   background-color: #f1f1f1;
 }
 
-.edit-button,
-.save-button,
+.edit-button {
+  color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 10px;
+  background-color: #0BDA51;
+}
+
+.edit-button:hover {
+  opacity: 0.8;
+  background-color: #008000;
+}
+
+.delete-button:hover {
+  opacity: 0.8;
+  background-color: #D22B2B;
+}
+
+.save-button {
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 10px;
+  background-color: #2a9d8f;
+  color: white;
+}
+
 .cancel-button,
 .delete-button {
   padding: 6px 12px;
@@ -191,26 +236,12 @@ button[disabled] {
   font-size: 0.9rem;
   cursor: pointer;
   margin-right: 10px;
+  background-color: #e76f51;
   color: white;
 }
 
-.edit-button {
-  background-color: #f4a261;
-}
-
-.save-button {
-  background-color: #2a9d8f;
-}
-
-.cancel-button,
-.delete-button {
-  background-color: #e76f51;
-}
-
-.edit-button:hover,
 .save-button:hover,
-.cancel-button:hover,
-.delete-button:hover {
+.cancel-button:hover{
   opacity: 0.8;
 }
 

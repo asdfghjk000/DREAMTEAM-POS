@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AboutComponent } from "../about/about.component";
 
 // Define the response structure for fetching users
 interface User {
@@ -13,7 +15,7 @@ interface User {
 @Component({
   selector: 'app-super-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AboutComponent],
   templateUrl: './super-admin-dashboard.component.html',
   styleUrls: ['./super-admin-dashboard.component.css']
 })
@@ -24,8 +26,13 @@ export class SuperAdminDashboardComponent implements OnInit {
   showConfirmDialog: boolean = false;
   userToDelete: string | null = null; // Store the username to delete
   successMessage: string | null = null; // Success message to be displayed
+  currentCategory: string = 'users';
+  showLogoutModal: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
   
   ngOnInit(): void {
     // Fetch users
@@ -135,5 +142,26 @@ export class SuperAdminDashboardComponent implements OnInit {
   cancelDeleteUsers(): void {
     this.showConfirmDialog = false; // Hide the modal
     this.userToDelete = null; // Clear the user to delete
+  }
+
+  changeContent(category: string): void {
+    this.currentCategory = category;
+  }
+
+  openLogoutConfirmation(): void {
+    this.showLogoutModal = true;
+  }
+
+  closeLogout(): void {
+    this.showLogoutModal = false;
+  }
+
+  confirmLogout(): void {
+    // Clear any stored data if needed
+    localStorage.removeItem('successMessage');
+    // Add any other cleanup needed
+    
+    // Navigate to login page
+    this.router.navigate(['/login']);
   }
 }

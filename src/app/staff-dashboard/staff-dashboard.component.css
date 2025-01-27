@@ -23,15 +23,19 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px 0; /* Reduced padding */
+  padding: 20px 0; /* Reduced padding */
   height: 100vh; /* Set to exactly match viewport height */
+  border-right: 2px solid rgba(0, 0, 0, 0.1); /* Subtle border for separation */
+  border-radius: 20px;
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
 }
 
 .sidebar .logo img {
-  width: 130px; /* Reduced logo size */
+  width: 130px;
   height: auto;
-  margin-bottom: 15px; /* Reduced margin */
+  margin-bottom: 15px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
 }
 
 .sidebar ul {
@@ -42,15 +46,31 @@ body {
 }
 
 .sidebar ul li {
-  padding: 20px 15px; /* Reduced padding */
+  padding: 15px 20px; /* Reduced padding */
   cursor: pointer;
   text-align: center;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  margin: 5px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
 }
 
-.sidebar ul li.active,
+.sidebar .material-icons {
+  font-size: 24px;  /* Adjust icon size as needed */
+}
+
+.sidebar ul li.active{
+  background: rgba(255, 255, 255, 0.3);
+  font-weight: bold;
+}
+
 .sidebar ul li:hover {
-  background-color: #e0ae8c;
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.02); /* Slight zoom */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
 }
 
 /* Main Container */
@@ -74,15 +94,14 @@ body {
   margin-bottom: 20px; /* Add some space between content */
 }
 
-/* New Order Container (Expanded Space) */
+/* New Order Container (Visually Enhanced) */
 .new-order-container {
-  padding-top: 20px;
-  padding-right: 20px;
-  padding-bottom: 40px;
+  padding: 20px; /* Consistent padding all around */
   flex-shrink: 0; /* Prevent shrinking */
   width: 100%;
   max-width: 30%; /* Set maximum width */
-
+  border-radius: 20px; /* Rounded corners for a modern look */
+  transition: transform 0.2s ease, box-shadow 0.3s ease; /* Smooth hover effect */
 }
 
 /* Hide scrollbar in WebKit browsers */
@@ -131,7 +150,9 @@ body {
 }
 
 .logout-button:hover {
-  background-color: #CD7F32; /* Change background on hover */
+  background: linear-gradient(145deg, #444, #666);
+  transform: scale(1.1); /* Slight zoom */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover shadow */
 }
 
 /* Modal overlay */

@@ -1,34 +1,59 @@
-<!-- User Management Section -->
-<div class="user-management">
-  <h1>User Management</h1>
+<!-- Main content area -->
+<div class="main-content">
+  <!-- Sidebar navigation -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="eshercafelogo.png" alt="Esher Cafe Logo">
+    </div>
+    <ul>
+      <li (click)="changeContent('users')" [class.active]="currentCategory === 'users'">
+        <span class="material-icons">people</span>
+        USERS
+      </li>
+      <li (click)="changeContent('about')" [class.active]="currentCategory === 'about'">
+        <span class="material-icons">info</span>
+        ABOUT US
+      </li>
+    </ul>
+    <!-- Logout Icon -->
+    <div class="action-button logout-button" (click)="openLogoutConfirmation()">
+      <span class="material-icons">logout</span>
+    </div>
+  </div>
 
-  <!-- Table to Display Users -->
-  <table>
-    <thead>
-      <tr>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Role</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.Username }}</td>
-        <td>**********</td> <!-- Don't display password (just a placeholder) -->
-        <td>{{ user.Role }}</td>
-        <td>
-          <!-- Edit Button -->
-          <button (click)="editUser(user)">Edit</button>
-          
-          <!-- Delete Button -->
-          <button (click)="prepareDeleteUser(user.Username)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Main Container for Displaying Content Based on Route -->
+  <div class="container">
+    <!-- Conditionally Display User Management Section -->
+    <div class="user-management" *ngIf="currentCategory === 'users'">
+      <h1>User Management</h1>
 
-  <!-- Edit Form -->
+      <!-- Table to Display Users -->
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.Username }}</td>
+            <td>**********</td> <!-- Placeholder for password -->
+            <td>{{ user.Role }}</td>
+            <td>
+              <!-- Edit Button -->
+              <button (click)="editUser(user)">Edit</button>
+
+              <!-- Delete Button -->
+              <button (click)="prepareDeleteUser(user.Username)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+       <!-- Edit Form -->
   <div *ngIf="selectedUser" class="edit-form">
     <h2>Edit User</h2>
     <form (ngSubmit)="updateUser()">
@@ -58,17 +83,36 @@
     </form>
   </div>
 
-  <!-- Confirmation Modal for User Deletion -->
-  <div *ngIf="showConfirmDialog" class="confirmation-modal">
-    <div class="modal-content">
-      <h3>Are you sure you want to delete this user?</h3>
-      <button (click)="confirmDeleteUsers()">Confirm</button>
-      <button (click)="cancelDeleteUsers()">Cancel</button>
+      <!-- Confirmation Modal for User Deletion -->
+      <div *ngIf="showConfirmDialog" class="confirmation-modal">
+        <div class="modal-content">
+          <h3>Are you sure you want to delete this user?</h3>
+          <button (click)="confirmDeleteUsers()">Confirm</button>
+          <button (click)="cancelDeleteUsers()">Cancel</button>
+        </div>
+      </div>
+
+      <div *ngIf="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i> <!-- Font Awesome Checkmark Icon -->
+        <p>{{ successMessage }}</p>
+      </div>
+    </div>
+
+    <!-- Conditionally Display About Us Section -->
+    <div *ngIf="currentCategory === 'about'">
+      <app-about></app-about>
     </div>
   </div>
 
-  <div *ngIf="successMessage" class="success-message">
-    <i class="fas fa-check-circle"></i> <!-- Font Awesome Checkmark Icon -->
-    <p>{{ successMessage }}</p>
+  <!-- Logout Confirmation Modal -->
+  <div *ngIf="showLogoutModal" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Confirm Logout</h3>
+      <p>Are you sure you want to log out?</p>
+      <div class="modal-actions">
+        <button class="action-button confirm-button" (click)="confirmLogout()">Yes</button>
+        <button class="action-button cancel-button" (click)="closeLogout()">Cancel</button>
+      </div>
+    </div>
   </div>
 </div>

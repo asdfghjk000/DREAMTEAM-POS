@@ -1,46 +1,47 @@
 <div class="deleted-order">
-  <h1>Deleted Orders</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Order Number</th>
-        <th>Order Items</th>
-        <th>Amount</th>
-        <th>Payment Method</th>
-        <th>Order Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of currentPageOrders">
-        <td>{{ order.orderNumber }}</td>
-        <td>
-          <span *ngFor="let item of order.items" class="item">{{ item }}</span>
-        </td>
-        <td>{{ order.amount | currency: 'PHP':'symbol' }}</td>
-        <td>{{ order.payment }}</td>
-        <td>{{ order.date }}</td>
-        <td>
-          <button class="restore-btn" (click)="restoreOrder(order)">Restore</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="pagination-controls">
-    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
-    <span>Page {{ currentPage }} of {{ totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-  </div>
-
-  <!-- Confirmation Modal -->
-  <div *ngIf="showConfirmDialog" class="confirmation-modal">
-    <div class="modal-content">
-      <h3>Are you sure you want to restore this order?</h3>
-      <div class="modal-actions">
-        <button class="confirm-btn" (click)="confirmRestoreOrder()">Confirm</button>
-        <button class="cancel-btn" (click)="cancelRestoreOrder()">Cancel</button>
+    <h1>Deleted Orders</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Order Number</th>
+          <th>Order Items</th>
+          <th>Amount</th>
+          <th>Payment Method</th>
+          <th>Order Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of currentPageOrders">
+          <td>{{ order.orderNumber }}</td>
+          <td>
+            <span *ngFor="let item of order.items" class="item">{{ item }}</span>
+          </td>
+          <td>{{ order.amount | currency: 'PHP':'symbol' }}</td>
+          <td>{{ order.payment }}</td>
+          <td>{{ order.date }}</td>
+          <td>
+            <button class="restore-btn" (click)="restoreOrder(order)">Restore</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  
+    <!-- Confirmation Modal -->
+    <div class="confirmation-modal" *ngIf="showConfirmationModal">
+      <div class="modal-content">
+        <h2>Confirm Restore</h2>
+        <p>Are you sure you want to restore this product?</p>
+        <div class="modal-actions">
+          <button class="confirm-btn" (click)="confirmRestore()">Yes</button>
+          <button class="cancel-btn" (click)="cancelRestore()">No</button>
+        </div>
       </div>
     </div>
   </div>
-</div>

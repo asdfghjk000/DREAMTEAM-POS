@@ -23,7 +23,7 @@ export class BinComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
   itemsPerPage: number = 5;
-  showConfirmDialog: boolean = false;
+  showConfirmationModal: boolean = false;
   orderToRestore: DeletedOrder | null = null;
   successMessage: string = '';
 
@@ -76,10 +76,10 @@ export class BinComponent implements OnInit {
 
   restoreOrder(order: DeletedOrder): void {
     this.orderToRestore = order;
-    this.showConfirmDialog = true;
+    this.showConfirmationModal = true;
   }
 
-  confirmRestoreOrder(): void {
+  confirmRestore(): void {
     if (!this.orderToRestore) return;
 
     const orderId = this.orderToRestore.orderNumber;
@@ -98,13 +98,13 @@ export class BinComponent implements OnInit {
     } else {
       alert('Failed to restore order.');
     }
-    this.showConfirmDialog = false;
+    this.showConfirmationModal = false;
   }
 
   handleRestoreError(err: any): void {
     console.error('Error restoring order:', err);
     alert('An error occurred while restoring the order.');
-    this.showConfirmDialog = false;
+    this.showConfirmationModal = false;
   }
 
   showSuccessMessage(message: string): void {
@@ -112,7 +112,7 @@ export class BinComponent implements OnInit {
     location.reload();
   }
 
-  cancelRestoreOrder(): void {
-    this.showConfirmDialog = false;
+  cancelRestore(): void {
+    this.showConfirmationModal = false;
   }
 }

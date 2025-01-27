@@ -1,3 +1,18 @@
+<!-- Background Boxes Container -->
+<div class="background-boxes">
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+</div>
+
+<!-- Login Container -->
 <div class="login-container">
   <!-- Logo outside the card, centered -->
   <div class="logo">
@@ -34,7 +49,6 @@
       <!-- Password Field -->
       <div class="input-group">
         <div class="input-wrapper">
-          <i class="fas fa-lock"></i> <!-- FontAwesome Icon -->
           <input
             [type]="showPassword ? 'text' : 'password'"
             id="password"
@@ -44,6 +58,10 @@
             placeholder="Password"
             #passwordInput="ngModel"
           />
+          <!-- Eye Icon for toggling password visibility -->
+          <span class="toggle-password-icon" (click)="togglePasswordVisibility()">
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+          </span>
         </div>
         <!-- Error message in red for Password -->
         <div
@@ -53,11 +71,6 @@
           Password is required.
         </div>
       </div>
-
-      <!-- Toggle Password Visibility -->
-      <button type="button" (click)="togglePasswordVisibility()">
-        {{ showPassword ? 'Hide Password' : 'Show Password' }}
-      </button>
 
       <!-- Submit Button -->
       <button type="submit" [disabled]="loginForm.invalid">Login</button>

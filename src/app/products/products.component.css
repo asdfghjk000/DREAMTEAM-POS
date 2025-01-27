@@ -7,16 +7,33 @@ body {
 }
 
 .search-bar {
-  margin-bottom: 2 rem;
+  position: relative;
+  margin-bottom: 2rem;
   text-align: left;
 }
 
 .search-bar input {
-  padding: 10px;
+  padding: 10px 10px 10px 40px;
   width: 300px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #4d90fe;
+  box-shadow: 0 0 5px rgba(77, 144, 254, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 20px;
 }
 
 /* Container for the product list */
@@ -64,6 +81,7 @@ body {
   border: none;
   border-radius: 5px;
   font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -145,7 +163,7 @@ body {
 
 /* Cancel Button Hover Effects */
 .cancel-button:hover {
-  background-color: #e0e0e0;
+  background-color: #e76f51;
 }
 
 /* Select Dropdown */
@@ -232,10 +250,20 @@ body {
 }
 
 /* Buttons in Table */
-.edit-button,
-.save-button,
-.cancel-button,
-.delete-button {
+.edit-button {
+  background-color: #0BDA51;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.save-button {
+  background-color: #2a9d8f;
+  color: white;
   padding: 6px 12px;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -243,30 +271,39 @@ body {
   margin-right: 10px;
 }
 
-.edit-button {
-  background-color: #f4a261;
-  color: white;
-}
-
-.save-button {
-  background-color: #2a9d8f;
-  color: white;
-}
-
 .cancel-button {
   background-color: #e76f51;
   color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
 .delete-button {
   background-color: #e76f51;
   color: white;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 10px;
 }
 
-.edit-button:hover,
-.save-button:hover,
-.cancel-button:hover,
+.edit-button:hover {
+  opacity: 0.8;
+  background-color: #008000;
+}
+
 .delete-button:hover {
+  opacity: 0.8;
+  background-color: #D22B2B;
+}
+
+.save-button:hover,
+.cancel-button:hover {
   opacity: 0.8;
 }
 
@@ -319,4 +356,41 @@ button:hover {
 
 button:focus {
   outline: none;
+}
+
+/* Modal Buttons */
+.confirm-btn {
+  background-color: #2ecc71;  /* Green color */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 700;
+}
+
+.confirm-btn:hover {
+  background-color: #45d485;  /* Lighter green on hover */
+}
+
+.cancel-btn {
+  background-color: #e74c3c;  /* Red color */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 700;
+}
+
+.cancel-btn:hover {
+  background-color: #ff6b5d;  /* Lighter red on hover */
+}
+
+/* Edit Product Modal Cancel Button */
+.cancel-button:hover {
+  background-color: #ff6b5d;  /* Changed from previous color to red */
+  color: white;
 }

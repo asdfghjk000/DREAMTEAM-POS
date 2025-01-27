@@ -1,5 +1,3 @@
-//THIS
-
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -37,6 +35,8 @@ export class MainPageComponent {
                 this.router.navigate(['/staff-dashboard']);
               } else if (role === 'admin') {
                 this.router.navigate(['/admin-dashboard']);
+              }else if (role == 'superadmin') {
+                this.router.navigate(['/super-admin-dashboard']);
               } else {
                 window.alert('Unknown role. Please contact the administrator.');
               }
@@ -68,3 +68,4 @@ export class MainPageComponent {
     this.router.navigate(['/forgot-password']);
   }
 }
+

@@ -10,12 +10,30 @@
       <img src="eshercafelogo.png" alt="Esher Cafe Logo">
     </div>
     <ul>
-      <li routerLink="sales" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">SALES</li>
-      <li routerLink="orders" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">ORDERS</li>
-      <li routerLink="products" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">PRODUCT</li>
-      <li routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">CATEGORY</li>
-      <li routerLink="reports" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">REPORT</li>
-      <li routerLink="about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">ABOUT US</li>
+      <li routerLink="sales" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-icons">point_of_sale</span>
+        SALES
+      </li>
+      <li routerLink="orders" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-icons">shopping_cart</span>
+        ORDERS
+      </li>
+      <li routerLink="products" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-icons">inventory_2</span>
+        PRODUCT
+      </li>
+      <li routerLink="category" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-icons">category</span>
+        CATEGORY
+      </li>
+      <li routerLink="reports" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-icons">assessment</span>
+        REPORT
+      </li>
+      <li routerLink="about" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="material-icons">info</span>
+        ABOUT US
+      </li>
     </ul>
     <!-- Logout Icon -->
     <div class="action-button logout-button" (click)="openLogoutConfirmation()">
@@ -29,9 +47,12 @@
     <router-outlet></router-outlet>
   </div>
 
-  <!-- Conditional Navigation to Bin Component (Only Displayed in Orders Component) -->
-  <div class="bin-navigation" *ngIf="isOrdersRoute()">
-    <a routerLink="/admin-dashboard/bin" class="bin-link">View Deleted Orders</a>
+   <!-- Conditional Navigation to Bin Component (Only Displayed in Orders Component) -->
+   <div class="bin-navigation" *ngIf="isOrdersRoute()">
+    <a routerLink="/admin-dashboard/bin" class="bin-link">
+      <span class="material-icons">delete</span>
+      View Deleted Orders
+    </a>
   </div>
 
   <!-- Logout Confirmation Modal -->

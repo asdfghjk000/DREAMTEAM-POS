@@ -1,58 +1,163 @@
 /* General Body Styling */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fc;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 300px;
+    background-color: #ca9572;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    position: relative;
-  }
-  
-  /* Container for User Management */
-  .user-management {
+    padding: 20px 0;
+    height: 100vh;
+    border-right: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 3px 0 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.sidebar .logo img {
+    width: 130px;
+    height: auto;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+}
+
+.sidebar ul {
+    font-size: 1.2rem;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.sidebar ul li {
+    padding: 15px 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    margin: 5px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+}
+
+.sidebar ul li.active {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: bold;
+}
+
+.sidebar ul li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar ul li .material-icons {
+    font-size: 20px;
+    /* Adjust color if needed to match your theme */
+}
+
+/* Main Container */
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 100%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+/* User Management Section (existing styles modified) */
+.user-management {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 80%;
+    width: 160vh;
+    height: 100vh;
     max-width: 1200px;
-  }
-  
-  /* Title */
-  h1 {
+    margin: 0 auto;
+}
+
+/* Title */
+h1 {
     text-align: center;
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  /* Table Styling */
-  table {
+    font-size: 2.2em;
+    color: #2c3e50;
+    margin: 30px 0;
+    font-weight: 800;
+    letter-spacing: 3px;
+    position: relative;
+    padding-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Decorative underline */
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #ca9572, #e0ae8c);
+    border-radius: 2px;
+}
+
+/* Optional: Add hover effect */
+h1:hover::after {
+    width: 150px;
+    transition: width 0.3s ease;
+}
+
+/* Table Styling */
+table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-  }
-  
-  th, td {
+}
+
+th, td {
     padding: 12px 15px;
     text-align: left;
     font-size: 1em;
-  }
-  
-  th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  td {
+}
+
+th {
+    background-color: #ddd;
+    color: black;
+}
+
+td {
     border-bottom: 1px solid #ddd;
-  }
-  
-  /* Button Styling */
-  button {
+}
+
+/* Button Styling */
+button {
     background-color: #007bff;
     color: white;
     padding: 8px 15px;
@@ -61,14 +166,14 @@ body {
     cursor: pointer;
     margin: 5px;
     transition: background-color 0.3s;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3;
-  }
-  
-  /* Edit Form Styling (Floating in the Center) */
-  .edit-form {
+}
+
+/* Edit Form Styling (Floating in the Center) */
+.edit-form {
     position: fixed; /* Fixed position to float on screen */
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
@@ -79,37 +184,38 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 400px;
     z-index: 1000; /* Ensure it's above other content */
-  }
-  
-  /* Header of Edit Form */
-  .edit-form h2 {
+}
+
+/* Header of Edit Form */
+.edit-form h2 {
     text-align: center;
     color: #333;
     font-size: 1.8em;
     margin-bottom: 20px;
-  }
-  
-  /* Form Layout */
-  .edit-form form {
+}
+
+/* Form Layout */
+.edit-form form {
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-  
-  .edit-form label {
+    width: 52vh;
+}
+
+.edit-form label {
     font-size: 1em;
     color: #555;
-  }
-  
-  .edit-form input, .edit-form select {
+}
+
+.edit-form input, .edit-form select {
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ddd;
     border-radius: 4px;
     width: 100%;
-  }
-  
-  .edit-form button[type="submit"] {
+}
+
+.edit-form button[type="submit"] {
     background-color: #28a745;
     color: white;
     padding: 10px;
@@ -117,13 +223,13 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .edit-form button[type="submit"]:hover {
+}
+
+.edit-form button[type="submit"]:hover {
     background-color: #218838;
-  }
-  
-  .edit-form button[type="button"] {
+}
+
+.edit-form button[type="button"] {
     background-color: #dc3545;
     color: white;
     padding: 10px;
@@ -131,13 +237,13 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .edit-form button[type="button"]:hover {
-    background-color: #c82333;
-  }
+}
 
-  /* Modal styles */
+.edit-form button[type="button"]:hover {
+    background-color: #c82333;
+}
+
+/* Modal styles */
 .confirmation-modal {
     position: fixed;
     top: 0;
@@ -149,20 +255,20 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
-  .modal-content {
+}
+
+.modal-content {
     background: white;
     padding: 20px;
     border-radius: 5px;
     text-align: center;
-  }
-  
-  .modal-content button {
+}
+
+.modal-content button {
     margin: 10px;
-  }
-  
-  .success-message {
+}
+
+.success-message {
     background-color: #d4edda;
     color: #155724;
     padding: 10px;
@@ -171,10 +277,120 @@ body {
     display: flex;
     align-items: center;
     font-size: 16px;
-  }
-  
-  .success-message i {
+}
+
+.success-message i {
     margin-right: 10px;
-  }
+}
+
+/* Logout Button */
+.logout-button {
+    font-size: 36px;
+    color: #fff;
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: 10vh;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30%;
+    background-color: #333;
+}
+
+.logout-button:hover {
+    background: linear-gradient(145deg, #444, #666);
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
+    padding: 20px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    animation: scaleUp 0.4s ease-in-out;
+    position: relative;
+}
+
+/* Button styles */
+.confirm-button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cancel-button {
+    background: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Animations */
+@keyframes scaleUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .sidebar .logo img {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+
+    .sidebar ul li {
+        padding: 15px 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
   
   

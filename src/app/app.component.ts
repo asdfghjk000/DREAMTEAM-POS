@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { PageReloadService } from './page-reload.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ import { PageReloadService } from './page-reload.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private pageReloadService: PageReloadService) {}
+  constructor(private pageReloadService: PageReloadService, private authService: AuthService) {}
+  
 
   ngOnInit(): void {
     // Subscribe to the reload event

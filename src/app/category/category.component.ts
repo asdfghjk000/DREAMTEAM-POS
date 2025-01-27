@@ -23,10 +23,12 @@ interface ApiResponse {
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
 })
+
 export class CategoryComponent implements OnInit {
   successMessage: string = '';
 
 closeModal() {
+
     this.showAddForm = false; // Close Add Category modal
     this.editingCategory = null; // Close Edit Category modal
   }
@@ -38,6 +40,7 @@ closeModal() {
   cancelEditForm(): void {
     this.editingCategory = null; // Reset the editing category
   }
+
   
   categories: Category[] = [];
   filteredCategories: Category[] = [];
